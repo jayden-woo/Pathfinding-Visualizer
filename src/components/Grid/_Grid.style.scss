@@ -1,0 +1,17 @@
+@import "../Node/Node.style";
+
+$min-size: 10;
+
+.grid {
+  margin: 5px 5px;
+  height: 100%;
+  min-width: $node-size * $min-size;
+  min-height: $node-size * $min-size;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+}

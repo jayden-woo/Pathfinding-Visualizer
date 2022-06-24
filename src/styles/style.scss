@@ -1,0 +1,27 @@
+@import "../components/App/App.style";
+@import "../components/Grid/Grid.style";
+@import "../components//Node/Node.style";
+
+$font-stack: "Open Sans", sans-serif;
+$code-font-stack: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+
+// Make sure the canvas takes up the whole screen height
+html, body, #root, .App {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: $font-stack;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: $code-font-stack;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+}
