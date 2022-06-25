@@ -30,8 +30,9 @@ module.exports = {
       "error",
       {
         props: true,
-        ignorePropertyModificationsForRegex: ["^state"],
+        ignorePropertyModificationsForRegex: ["^state", "^action"],
       },
     ],
+    "jsx-a11y/no-static-element-interactions": ["off"],
   },
 };

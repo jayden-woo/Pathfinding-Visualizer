@@ -40,7 +40,8 @@ const useWindowSize = () => {
     return () => {
       window.removeEventListener("resize", debouncedHandleResize);
     };
-  }, []); // Empty array ensures that effect is only run on mount
+    // Empty array ensures that effect is only run on mount
+  }, []);
 
   return windowSize;
 };

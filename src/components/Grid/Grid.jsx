@@ -1,4 +1,3 @@
-/* eslint-disable array-callback-return */
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateDimension } from "../../features/Grid/gridSlice";
@@ -10,26 +9,22 @@ const Grid = () => {
   const ref = useRef(null);
   const windowSize = useWindowSize();
   const dispatch = useDispatch();
-  // eslint-disable-next-line no-unused-vars
-  const { dimension, grid } = useSelector((store) => store.grid);
-
-  // console.log(grid, start, target);
+  const { grid } = useSelector((store) => store.grid);
 
   useEffect(() => {
     if (ref.current) {
       const rows = Math.trunc(ref.current.clientHeight / NODE_SIZE);
       const cols = Math.trunc(ref.current.clientWidth / NODE_SIZE);
       dispatch(updateDimension({ rows, cols }));
-      console.log(dimension);
     }
   }, [windowSize]);
 
   return (
-    <div ref={ref} className="grid">
+    <div ref={ref} className="grid" onContextMenu={(e) => e.preventDefault()}>
       {grid.map(({ rowID, row }, y) => (
         <div key={rowID} className="row">
           {row.map(({ nodeID, state }, x) => (
-            <Node x={x} y={y} nodeID={nodeID} state={state} />
+            <Node x={x} y={y} key={nodeID} state={state} />
           ))}
         </div>
       ))}

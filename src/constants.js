@@ -1,11 +1,19 @@
 // Node size
-export const NODE_SIZE = 30;
+export const NODE_SIZE = 34;
 
 // Node states
-export const NODE_START = "NODE_START";
-export const NODE_TARGET = "NODE_TARGET";
-export const NODE_EMPTY = "NODE_EMPTY";
-export const NODE_WALL = "NODE_WALL";
-export const NODE_EXPLORED = "NODE_EXPLORED";
-export const NODE_QUEUED = "NODE_QUEUED";
-export const NODE_PATH = "NODE_PATH";
+export const NODE_STATE = Object.freeze({
+  START: "start",
+  TARGET: "target",
+  EMPTY: "empty",
+  WALL: "wall",
+  QUEUED: "queued",
+  EXPLORED: "explored",
+  PATH: "path",
+});
+
+// Mouse buttons
+export const MOUSE_BUTTON = Object.freeze({
+  LEFT: 1,
+  RIGHT: 2,
+});
