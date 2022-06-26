@@ -9,7 +9,7 @@ const Grid = () => {
   const ref = useRef(null);
   const windowSize = useWindowSize();
   const dispatch = useDispatch();
-  const { grid } = useSelector((store) => store.grid);
+  const { grid, gridID } = useSelector((store) => store.grid);
 
   useEffect(() => {
     if (ref.current) {
@@ -21,10 +21,10 @@ const Grid = () => {
 
   return (
     <div ref={ref} className="grid" onContextMenu={(e) => e.preventDefault()}>
-      {grid.map(({ rowID, row }, y) => (
-        <div key={rowID} className="row">
-          {row.map(({ nodeID, state }, x) => (
-            <Node x={x} y={y} key={nodeID} state={state} />
+      {grid.map((row, y) => (
+        <div key={gridID[y][0]} className="row">
+          {row.map((state, x) => (
+            <Node x={x} y={y} key={gridID[y][x]} state={state} />
           ))}
         </div>
       ))}

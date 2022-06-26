@@ -8,6 +8,7 @@ const initialState = {
     cols: 0,
   },
   grid: [],
+  gridID: [],
   start: {
     x: 0,
     y: 0,
@@ -32,26 +33,22 @@ const gridSlice = createSlice({
   reducers: {
     initGrid: (state) => {
       state.grid = [];
+      state.gridID = [];
       for (let y = 0; y < state.dimension.rows; y++) {
-        const rowID = uuidv4();
         const row = [];
+        const rowID = [];
         for (let x = 0; x < state.dimension.cols; x++) {
-          const nodeID = uuidv4();
-          const node = {
-            nodeID,
-            state: NODE_STATE.EMPTY,
-          };
+          rowID.push(uuidv4());
           if (x === state.start.x && y === state.start.y) {
-            node.state = NODE_STATE.START;
+            row.push(NODE_STATE.START);
           } else if (x === state.target.x && y === state.target.y) {
-            node.state = NODE_STATE.TARGET;
+            row.push(NODE_STATE.TARGET);
+          } else {
+            row.push(NODE_STATE.EMPTY);
           }
-          row.push(node);
         }
-        state.grid.push({
-          rowID,
-          row,
-        });
+        state.grid.push(row);
+        state.gridID.push(rowID);
       }
     },
     updateDimension: (state, action) => {
@@ -70,7 +67,7 @@ const gridSlice = createSlice({
       };
       gridSlice.caseReducers.initGrid(state);
     },
-    setMouseClick: (state, action) => {
+    handleMouseClick: (state, action) => {
       const { x, y, nextState } = action.payload;
       state.mouse.clicking = true;
       state.mouse.actionState = nextState;
@@ -85,25 +82,25 @@ const gridSlice = createSlice({
         gridSlice.caseReducers.updateNodeState(state, action);
       }
     },
-    setMouseLift: (state) => {
+    handleMouseLift: (state) => {
       state.mouse = initialState.mouse;
     },
     updateNodeState: (state, action) => {
       const { x, y } = action.payload;
-      const prev = state.grid[y].row[x].state;
+      const prev = state.grid[y][x];
       if (prev === NODE_STATE.START || prev === NODE_STATE.TARGET) return;
 
       const next = state.mouse.actionState;
       if (next === NODE_STATE.START) {
         const { x: x0, y: y0 } = state.start;
-        state.grid[y0].row[x0].state = NODE_STATE.EMPTY;
+        state.grid[y0][x0] = NODE_STATE.EMPTY;
         state.start = { x, y };
       } else if (next === NODE_STATE.TARGET) {
         const { x: x0, y: y0 } = state.target;
-        state.grid[y0].row[x0].state = NODE_STATE.EMPTY;
+        state.grid[y0][x0] = NODE_STATE.EMPTY;
         state.target = { x, y };
       }
-      state.grid[y].row[x].state = next;
+      state.grid[y][x] = next;
     },
   },
 });
@@ -111,9 +108,9 @@ const gridSlice = createSlice({
 export const {
   initGrid,
   updateDimension,
-  setMouseClick,
+  handleMouseClick,
   handleMouseMove,
-  setMouseLift,
+  handleMouseLift,
   updateNodeState,
 } = gridSlice.actions;
 

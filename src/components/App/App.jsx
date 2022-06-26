@@ -5,6 +5,7 @@ const App = () => (
   <div className="App">
     <h1>Pathfinding Visualizer</h1>
     <p>Algorithms</p>
+    {/* <p>Algorithms</p>
     <ul>
       <li>Breadth First Search</li>
       <li>Depth First Search</li>
@@ -15,7 +16,7 @@ const App = () => (
     <ul>
       <li>Add stats tracking. (i.e. time taken, path length, number of nodes explored)</li>
     </ul>
-    <h1>Grid</h1>
+    <h1>Grid</h1> */}
     <Grid />
   </div>
 );
