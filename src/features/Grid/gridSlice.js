@@ -17,6 +17,7 @@ const initialState = {
     x: 0,
     y: 0,
   },
+  pathVisualized: false,
   mouse: {
     clicking: false,
     actionState: null,
@@ -32,6 +33,7 @@ const gridSlice = createSlice({
   initialState,
   reducers: {
     initGrid: (state) => {
+      state.pathVisualized = false;
       state.grid = [];
       state.gridID = [];
       for (let y = 0; y < state.dimension.rows; y++) {
@@ -72,22 +74,24 @@ const gridSlice = createSlice({
       state.mouse.clicking = true;
       state.mouse.actionState = nextState;
       state.mouse.prev = { x, y };
-      gridSlice.caseReducers.updateNodeState(state, action);
+      gridSlice.caseReducers.updateUserNodeState(state, action);
     },
     handleMouseMove: (state, action) => {
       const node = action.payload;
       if (!state.mouse.clicking) return;
       if (node !== state.mouse.prev) {
         state.mouse.prev = node;
-        gridSlice.caseReducers.updateNodeState(state, action);
+        gridSlice.caseReducers.updateUserNodeState(state, action);
       }
     },
     handleMouseLift: (state) => {
       state.mouse = initialState.mouse;
     },
-    updateNodeState: (state, action) => {
+    // Update node state according to user actions
+    updateUserNodeState: (state, action) => {
       const { x, y } = action.payload;
       const prev = state.grid[y][x];
+      // Skip accidental override of start and target node
       if (prev === NODE_STATE.START || prev === NODE_STATE.TARGET) return;
 
       const next = state.mouse.actionState;
@@ -102,16 +106,27 @@ const gridSlice = createSlice({
       }
       state.grid[y][x] = next;
     },
+    // Update node state according to visualization of algorithms
+    updateNodeState: (state, action) => {
+      const { x, y } = action.payload;
+      const prev = state.grid[y][x];
+      // Skip visualizing the start and target node
+      if (prev === NODE_STATE.START || prev === NODE_STATE.TARGET) return;
+      state.grid[y][x] = state.pathVisualized ? NODE_STATE.PATH : NODE_STATE.EXPLORED;
+    },
+    updatePathVisualized: (state, action) => {
+      state.pathVisualized = action.payload;
+    },
   },
 });
 
 export const {
-  initGrid,
   updateDimension,
   handleMouseClick,
   handleMouseMove,
   handleMouseLift,
   updateNodeState,
+  updatePathVisualized,
 } = gridSlice.actions;
 
 export default gridSlice.reducer;
