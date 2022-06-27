@@ -34,5 +34,6 @@ module.exports = {
       },
     ],
     "jsx-a11y/no-static-element-interactions": ["off"],
+    "no-continue": "off",
   },
 };
