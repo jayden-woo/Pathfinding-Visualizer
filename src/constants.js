@@ -27,3 +27,12 @@ export const PATH_ALGORITHMS = Object.freeze({
 // Node neighbours index difference array
 export const DX = Object.freeze([1, 0, -1, 0]);
 export const DY = Object.freeze([0, 1, 0, -1]);
+
+// Visualization delay time
+export const DELAY = Object.freeze({
+  SLOWEST: 400,
+  SLOW: 300,
+  MEDIUM: 200,
+  FAST: 100,
+  FASTEST: 20,
+});
