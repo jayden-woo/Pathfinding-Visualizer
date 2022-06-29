@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DELAY, PATH_ALGORITHMS } from "../../constants";
-import { updateNodeState, updatePathVisualized } from "../../features/Grid/gridSlice";
-import { runPathFinder, setPathAlgorithm } from "../../features/Pathfinding/pathfindingSlice";
+import { DELAY, PATH_ALGORITHMS } from "../constants";
+import { updateNodeState, updatePathVisualized } from "../features/Grid/gridSlice";
+import { runPathFinder, setPathAlgorithm } from "../features/Pathfinding/pathfindingSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -49,6 +49,7 @@ const Header = () => {
   return (
     <div className="header">
       <div>
+        <h1>Pathfinding Visualizer</h1>
         <button
           type="button"
           onClick={() => dispatch(setPathAlgorithm(PATH_ALGORITHMS.DEPTH_FIRST_SEARCH))}

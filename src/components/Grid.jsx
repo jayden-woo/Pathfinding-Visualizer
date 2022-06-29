@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateDimension } from "../../features/Grid/gridSlice";
-import { NODE_SIZE } from "../../constants";
-import useWindowSize from "../../hooks/useWindowSize";
-import Node from "../Node/Node";
+import { updateDimension } from "../features/Grid/gridSlice";
+import { NODE_SIZE } from "../constants";
+import useWindowSize from "../hooks/useWindowSize";
+import Node from "./Node";
 
 const Grid = () => {
   const ref = useRef(null);

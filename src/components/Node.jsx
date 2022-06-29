@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
-import { MOUSE_BUTTON, NODE_STATE } from "../../constants";
-import { handleMouseMove, handleMouseClick, handleMouseLift } from "../../features/Grid/gridSlice";
+import { MOUSE_BUTTON, NODE_STATE } from "../constants";
+import { handleMouseMove, handleMouseClick, handleMouseLift } from "../features/Grid/gridSlice";
 
 const Node = ({ x, y, state }) => {
   const dispatch = useDispatch();
