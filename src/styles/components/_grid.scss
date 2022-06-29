@@ -1,12 +1,10 @@
-@import "../Node/Node.style";
-
-$min-size: 10;
+@use "../abstracts" as *;
 
 .grid {
   margin: 1vh 2vw 2vh;
   height: 100%;
-  min-width: $node-size * $min-size;
-  min-height: $node-size * $min-size;
+  min-width: $min-grid-size;
+  min-height: $min-grid-size;
 }
 
 .row {

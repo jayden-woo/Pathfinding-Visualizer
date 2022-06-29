@@ -25,11 +25,13 @@ const Node = ({ x, y, state }) => {
   return (
     <div
       id={`node-${x}-${y}`}
-      className={`node ${state}`}
+      className="node-container"
       onMouseDown={handleMouseDown}
       onMouseEnter={() => dispatch(handleMouseMove({ x, y }))}
       onMouseUp={() => dispatch(handleMouseLift())}
-    />
+    >
+      <div className={`node ${state}`} />
+    </div>
   );
 };
 

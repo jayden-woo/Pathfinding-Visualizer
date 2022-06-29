@@ -1,19 +1,17 @@
-$node-size: 30px;
-
-$node-background-colour: #717f90;
-$node-start-colour: #4834d4;
-$node-target-colour: #eb4d4b;
-$node-wall-colour: #000000;
-$node-queued-colour: #f9ca24;
-$node-explored-colour: #dff9fb;
-$node-path-colour: #6ab04c;
+@use "../abstracts" as *;
 
 .node {
-  width: $node-size;
-  height: $node-size;
-  border: 2px solid #ffffff;
-  border-radius: 5px;
+  width: $node-small-size;
+  height: $node-small-size;
+  border-radius: $node-border-radius;
+  margin: $node-small-margin;
   background-color: $node-background-colour;
+
+  @media screen and (min-width: $screen-breakpoint) {
+    margin: $node-large-margin;
+    width: $node-large-size;
+    height: $node-large-size;
+  }
 
   &.start {
     background-color: $node-start-colour;

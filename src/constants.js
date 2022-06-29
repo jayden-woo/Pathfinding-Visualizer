@@ -1,5 +1,11 @@
+import Styles from "./styles/abstracts/_variables.scss";
+
+// Screen breakpoint
+export const SCREEN_BREAKPOINT = Number(Styles.screenBreakpoint.replace("px", ""));
+
 // Node size
-export const NODE_SIZE = 34;
+export const NODE_SMALL = Number(Styles.nodeSmallSize.replace("px", ""));
+export const NODE_LARGE = Number(Styles.nodeLargeSize.replace("px", ""));
 
 // Node states
 export const NODE_STATE = Object.freeze({

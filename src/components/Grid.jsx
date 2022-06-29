@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateDimension } from "../features/Grid/gridSlice";
-import { NODE_SIZE } from "../constants";
+import { NODE_LARGE, NODE_SMALL, SCREEN_BREAKPOINT } from "../constants";
 import useWindowSize from "../hooks/useWindowSize";
 import Node from "./Node";
 
@@ -13,8 +13,9 @@ const Grid = () => {
 
   useEffect(() => {
     if (ref.current) {
-      const rows = Math.trunc(ref.current.clientHeight / NODE_SIZE);
-      const cols = Math.trunc(ref.current.clientWidth / NODE_SIZE);
+      const nodeSize = windowSize.width > SCREEN_BREAKPOINT ? NODE_LARGE : NODE_SMALL;
+      const rows = Math.trunc(ref.current.clientHeight / nodeSize);
+      const cols = Math.trunc(ref.current.clientWidth / nodeSize);
       dispatch(updateDimension({ rows, cols }));
     }
   }, [windowSize]);

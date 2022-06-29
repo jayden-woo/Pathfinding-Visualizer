@@ -1,0 +1,30 @@
+// Page width font and background colours
+$font-stack: "Open Sans", sans-serif;
+$code-font-stack: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+$text-colour: rgb(255, 255, 255);
+$backgroud-colour: rgb(25, 25, 25);
+
+// Page and element sizes
+$screen-breakpoint: 1000px;
+$min-grid-size: 375px;
+$node-small-margin: 3px;
+$node-small-size: 30px;
+$node-large-margin: 4px;
+$node-large-size: 40px;
+
+// Node background colours and styles
+$node-border-radius: 4px;
+$node-background-colour: #ffffff;
+$node-start-colour: #396495;
+$node-target-colour: #eb4d4b;
+$node-wall-colour: #323232;
+$node-queued-colour: #f9ca24;
+$node-explored-colour: #f9ca24;
+$node-path-colour: #6ab04c;
+
+// Export variables for other use in other files
+:export {
+  screenBreakpoint: $screen-breakpoint;
+  nodeSmallSize: $node-small-size + 2 * $node-small-margin;
+  nodeLargeSize: $node-large-size + 2 * $node-large-margin;
+}
