@@ -1,10 +1,70 @@
-# Getting Started with Create React App and Redux
+# Pathfinding Visualizer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+- This project is inspired by [@clementmihailescu](https://github.com/clementmihailescu) and [@DevonCrawford](https://github.com/DevonCrawford).
+- The idea of visually seeing the algorithms execute makes it easier for me to understand and learn how each one of them works in details and it's always amazing and satisfying to see them work in action.
+- This is my version and attempt at creating a pathfinding visualization tool myself to revise on the pathfinding algorithms which were introduced in my university during my bachelor course and a chance to study some new maze generation algorithms as well.
+- This project isn't perfect and is still a work-in-progress so feel free to give any feedback on how it can be improved on and I'll continue to put in more work during my free time.
+- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
-## Available Scripts
+## Demo
+
+## Features
+
+- [x] 2D Square Grid
+
+  - [x] Draw own wall nodes with mouse
+  - [x] Drag the source and target nodes around
+  - [x] Responsive Grid
+  - [x] Traverse 4-directionally
+  - [ ] Traverse diagonally
+  - [ ] Clear path & board after visualization or while pausing
+
+- [x] Search Algorithms
+
+  - [x] Depth-First Search
+  - [ ] Breadth-First Search
+  - [ ] Greedy Best-First Search
+  - [ ] A\* Algorithm - [Heuristics](http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html)
+    - [ ] Manhattan Distance
+    - [ ] Euclidean Distance
+    - [ ] Chebyshev Distance
+    - [ ] Octile Distance
+  - [ ] Dijkstra\'s Algorithm
+  - [ ] Jump Point Search
+
+- [ ] Maze Generation Algorithms
+
+  - [ ] Basic Random Method
+  - [ ] Recursive Division Method
+  - [ ] Prim\'s Algorithm
+
+- [x] Other Features
+
+  - [x] Pause and resume the visualization
+  - [ ] Algorithm stats tracking (i.e. time taken, path length, number of nodes visited)
+  - [ ] Description and introduction for each algorithm
+
+- [ ] Hosting the site using GitHub Pages
+
+## Technology Stacks
+
+- React for front end
+- ReduxJS Toolkit for managing the application state
+- NodeJS for backend functionality
+- SASS for styling the grid and node elements together with the animations
+- Material UI (Core) for styling the rest of the user interface elements
+- ESLint for linting and detecting early bugs
+- Prettier for enforcing a consistent style in the code base
+
+## Installation & Available Scripts
+
+Download or clone the repository to your local machine.
 
 In the project directory, you can run:
+
+### `npm install`
+
+Installs the dependencies for the project to run the other scrips locally.
 
 ### `npm start`
 
