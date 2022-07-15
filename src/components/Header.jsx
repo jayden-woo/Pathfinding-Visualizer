@@ -1,10 +1,13 @@
+import MenuIcon from "@mui/icons-material/Menu";
+import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DELAY, PATH_ALGORITHMS } from "../constants";
+import { DELAY } from "../constants";
 import { updateNodeState, updatePathVisualized } from "../features/Grid/gridSlice";
-import { runPathFinder, setPathAlgorithm } from "../features/Pathfinding/pathfindingSlice";
+import { toggleDrawer } from "../features/menuSlice";
+import { runPathFinder } from "../features/Pathfinding/pathfindingSlice";
 
-const Header = () => {
+const TempHeader = () => {
   const dispatch = useDispatch();
   const { grid, start, target, pathVisualized } = useSelector((store) => store.grid);
   const { visited, path } = useSelector((store) => store.pathfinding);
@@ -27,7 +30,7 @@ const Header = () => {
     dispatch(runPathFinder({ start, target, grid }));
   };
 
-  const handleStopClick = () => {
+  const handlePauseClick = () => {
     clearTimeout(visualID);
     visualID = null;
   };
@@ -47,27 +50,44 @@ const Header = () => {
   }, [visualQueue]);
 
   return (
-    <div className="header">
-      <div>
-        <h1>Pathfinding Visualizer</h1>
-        <button
-          type="button"
-          onClick={() => dispatch(setPathAlgorithm(PATH_ALGORITHMS.DEPTH_FIRST_SEARCH))}
+    <AppBar
+      position="fixed"
+      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor: "background.paper" }}
+    >
+      <Toolbar>
+        <IconButton
+          edge="start"
+          onClick={() => dispatch(toggleDrawer())}
+          sx={{ mr: 2, display: { md: "none" } }}
         >
-          Depth First Search
-        </button>
-        <button type="button" onClick={handleVisualizeClick}>
+          <MenuIcon />
+        </IconButton>
+        <Typography
+          variant="h6"
+          noWrap
+          component="div"
+          sx={{ pl: 1, pr: 4, display: { xs: "none", sm: "block" } }}
+        >
+          Pathfinding Visualizer
+        </Typography>
+        <Button variant="text" disableElevation onClick={handleVisualizeClick}>
           Visualize
-        </button>
-        <button type="button" onClick={handleStopClick}>
-          Stop
-        </button>
-        <button type="button" onClick={visualize}>
+        </Button>
+        <Button variant="text" disableElevation>
+          Clear All
+        </Button>
+        <Button variant="text" disableElevation>
+          Clear Path
+        </Button>
+        <Button variant="text" disableElevation onClick={handlePauseClick}>
+          Pause
+        </Button>
+        <Button variant="text" disableElevation onClick={visualize}>
           Continue
-        </button>
-      </div>
-    </div>
+        </Button>
+      </Toolbar>
+    </AppBar>
   );
 };
 
-export default Header;
+export default TempHeader;

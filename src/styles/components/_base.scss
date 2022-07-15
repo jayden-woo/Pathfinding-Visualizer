@@ -1,16 +1,18 @@
 @use "../abstracts" as *;
 
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
 // Make sure the canvas takes up the whole screen height
 html, body, #root, .App {
   height: 100%;
 }
 
 body {
-  background-image: url("https://source.unsplash.com/fX-qWsXl5x8");
   margin: 0;
   font-family: $font-stack;
-  color: $text-colour;
-  background-color: $backgroud-colour;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
