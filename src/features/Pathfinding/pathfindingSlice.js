@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { tracePathFound } from "../../algorithms/pathfinding/helper";
 import PathFinder from "../../algorithms/pathfinding/pathFinder";
+import { PATH_ALGORITHMS } from "../../constants";
 
 const initialState = {
-  algorithm: null,
+  algorithm: PATH_ALGORITHMS.DEPTH_FIRST_SEARCH,
   visited: [],
   path: [],
 };
@@ -14,9 +15,11 @@ const pathfindingSlice = createSlice({
   reducers: {
     setPathAlgorithm: (state, action) => {
       state.algorithm = action.payload;
+      // TO-DELETE:
       console.log(`Chosen "${state.algorithm}" for the Pathfinding Algorithm!`);
     },
     runPathFinder: (state, action) => {
+      // TO-DELETE:
       console.log(`Running "${state.algorithm}" Pathfinding Algorithm...`);
       if (!state.algorithm) return;
       const { start, target, grid } = action.payload;

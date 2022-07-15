@@ -22,5 +22,5 @@ export const tracePathFound = (start, target, visited) => {
   return path[0].x === start.x && path[0].y === start.y ? path : [];
 };
 
-// TO-DELETE
+// TO-DELETE:
 export const temp = () => {};

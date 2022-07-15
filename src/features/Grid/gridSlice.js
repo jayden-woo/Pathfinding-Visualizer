@@ -59,6 +59,8 @@ const gridSlice = createSlice({
         rows,
         cols,
       };
+      // TO-DELETE:
+      console.log("Grid Dimension:", state.dimension);
       state.start = {
         x: 2,
         y: 2,
