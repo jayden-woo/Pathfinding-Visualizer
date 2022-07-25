@@ -3,9 +3,9 @@ import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DELAY } from "../constants";
-import { updateNodeState, updatePathVisualized } from "../features/Grid/gridSlice";
+import { resetGrid, updateNodeState, updatePathVisualized } from "../features/Grid/gridSlice";
 import { toggleDrawer } from "../features/menuSlice";
-import { runPathFinder } from "../features/Pathfinding/pathfindingSlice";
+import { resetPathFinder, runPathFinder } from "../features/Pathfinding/pathfindingSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -35,6 +35,11 @@ const Header = () => {
     visualID = null;
   };
 
+  const handleClearClick = (pathOnly) => {
+    dispatch(resetGrid(pathOnly));
+    dispatch(resetPathFinder());
+  };
+
   useEffect(() => {
     setVisualQueue(visited);
   }, [visited]);
@@ -42,7 +47,7 @@ const Header = () => {
   useEffect(() => {
     if (visualQueue.length) {
       visualize();
-    } else if (!pathVisualized) {
+    } else if (path.length && !pathVisualized) {
       setVisualQueue(path);
       dispatch(updatePathVisualized(true));
     }
@@ -73,10 +78,10 @@ const Header = () => {
         <Button variant="text" disableElevation onClick={handleVisualizeClick}>
           Visualize
         </Button>
-        <Button variant="text" disableElevation>
+        <Button variant="text" disableElevation onClick={() => handleClearClick(false)}>
           Clear All
         </Button>
-        <Button variant="text" disableElevation>
+        <Button variant="text" disableElevation onClick={() => handleClearClick(true)}>
           Clear Path
         </Button>
         <Button variant="text" disableElevation onClick={handlePauseClick}>

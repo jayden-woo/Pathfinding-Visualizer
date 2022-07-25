@@ -18,6 +18,10 @@ const pathfindingSlice = createSlice({
       // TO-DELETE:
       console.log(`Chosen "${state.algorithm}" for the Pathfinding Algorithm!`);
     },
+    resetPathFinder: (state) => {
+      state.visited = [];
+      state.path = [];
+    },
     runPathFinder: (state, action) => {
       // TO-DELETE:
       console.log(`Running "${state.algorithm}" Pathfinding Algorithm...`);
@@ -29,6 +33,6 @@ const pathfindingSlice = createSlice({
   },
 });
 
-export const { setPathAlgorithm, runPathFinder } = pathfindingSlice.actions;
+export const { setPathAlgorithm, resetPathFinder, runPathFinder } = pathfindingSlice.actions;
 
 export default pathfindingSlice.reducer;

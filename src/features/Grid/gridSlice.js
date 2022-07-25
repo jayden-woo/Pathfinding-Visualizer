@@ -53,6 +53,23 @@ const gridSlice = createSlice({
         state.gridID.push(rowID);
       }
     },
+    resetGrid: (state, action) => {
+      const pathOnly = action.payload;
+      for (let y = 0; y < state.dimension.rows; y++) {
+        for (let x = 0; x < state.dimension.cols; x++) {
+          const node = state.grid[y][x];
+          // Skip if the node is the start or target node
+          if (node === NODE_STATE.START || node === NODE_STATE.TARGET) continue;
+          // Skip if only resetting path nodes and if the node is a wall node
+          if (pathOnly && node === NODE_STATE.WALL) continue;
+          // Reset the node to an empty node
+          state.grid[y][x] = NODE_STATE.EMPTY;
+        }
+      }
+      state.pathVisualized = false;
+      // TO-DELETE:
+      console.log("ResetGrid", state.pathVisualized);
+    },
     updateDimension: (state, action) => {
       const { rows, cols } = action.payload;
       state.dimension = {
@@ -110,6 +127,8 @@ const gridSlice = createSlice({
     },
     // Update node state according to visualization of algorithms
     updateNodeState: (state, action) => {
+      // TO-DELETE:
+      console.log("UpdateNodeState", state.pathVisualized);
       const { x, y } = action.payload;
       const prev = state.grid[y][x];
       // Skip visualizing the start and target node
@@ -123,6 +142,7 @@ const gridSlice = createSlice({
 });
 
 export const {
+  resetGrid,
   updateDimension,
   handleMouseClick,
   handleMouseMove,
