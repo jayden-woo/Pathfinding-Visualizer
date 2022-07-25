@@ -8,9 +8,9 @@
   background-color: $node-background-colour;
 
   @media screen and (min-width: $screen-breakpoint) {
-    margin: $node-large-margin;
     width: $node-large-size;
     height: $node-large-size;
+    margin: $node-large-margin;
   }
 
   &.start {

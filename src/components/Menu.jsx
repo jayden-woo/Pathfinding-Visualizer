@@ -72,7 +72,7 @@ const Menu = () => {
           timeout="auto"
           unmountOnExit
         >
-          <FormControl>
+          <FormControl sx={{ pt: 1, pl: 3 }}>
             <FormLabel>Heuristic</FormLabel>
             <RadioGroup
               defaultValue={HEURISTIC.MANHATTAN}

@@ -6,7 +6,7 @@ import Menu from "./Menu";
 import Header from "./Header";
 import { DRAWER_WIDTH } from "../constants";
 
-const TempDrawer = () => {
+const NavBar = () => {
   const dispatch = useDispatch();
   const { mobileDrawerOpen } = useSelector((store) => store.menu);
 
@@ -21,6 +21,7 @@ const TempDrawer = () => {
           onOpen={() => dispatch(toggleDrawer(true))}
           onClose={() => dispatch(toggleDrawer(false))}
           ModalProps={{ keepMounted: true }}
+          elevation={0}
           sx={{
             display: { xs: "block", md: "none" },
             "& .MuiDrawer": { boxSizing: "border-box", width: DRAWER_WIDTH },
@@ -31,7 +32,6 @@ const TempDrawer = () => {
         <Drawer
           variant="permanent"
           sx={{
-            backgroundColor: "#ffffff",
             display: { xs: "none", md: "block" },
             "& .MuiDrawer": { boxSizing: "border-box", width: DRAWER_WIDTH },
           }}
@@ -44,4 +44,4 @@ const TempDrawer = () => {
   );
 };
 
-export default TempDrawer;
+export default NavBar;

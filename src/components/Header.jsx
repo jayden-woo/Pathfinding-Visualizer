@@ -7,7 +7,7 @@ import { updateNodeState, updatePathVisualized } from "../features/Grid/gridSlic
 import { toggleDrawer } from "../features/menuSlice";
 import { runPathFinder } from "../features/Pathfinding/pathfindingSlice";
 
-const TempHeader = () => {
+const Header = () => {
   const dispatch = useDispatch();
   const { grid, start, target, pathVisualized } = useSelector((store) => store.grid);
   const { visited, path } = useSelector((store) => store.pathfinding);
@@ -90,4 +90,4 @@ const TempHeader = () => {
   );
 };
 
-export default TempHeader;
+export default Header;
