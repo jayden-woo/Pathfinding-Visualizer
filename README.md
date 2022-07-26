@@ -17,7 +17,7 @@
   - [x] Responsive Grid
   - [x] Traverse 4-directionally
   - [ ] Traverse diagonally
-  - [ ] Clear path & board after visualization or while pausing
+  - [x] Clear path & board after visualization or while pausing
 
 - [x] Search Algorithms
 
@@ -41,8 +41,8 @@
 - [x] Other Features
 
   - [x] Pause and resume the visualization
-  - [ ] Algorithm stats tracking (i.e. time taken, path length, number of nodes visited)
-  - [ ] Description and introduction for each algorithm
+  - [x] Algorithm stats tracking (i.e. time taken, path length, number of nodes visited)
+  - [x] Description and introduction for each algorithm
 
 - [ ] Hosting the site using GitHub Pages
 
