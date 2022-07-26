@@ -41,6 +41,7 @@
 - [x] Other Features
 
   - [x] Pause and resume the visualization
+  - [x] Custom visualization animation delay slider
   - [x] Algorithm stats tracking (i.e. time taken, path length, number of nodes visited)
   - [x] Description and introduction for each algorithm
 

@@ -6,6 +6,7 @@ export const SCREEN_BREAKPOINT = Number(Styles.screenBreakpoint.replace("px", ""
 // Component sizes
 export const NAV_HEIGHT = 64;
 export const DRAWER_WIDTH = 240;
+export const SLIDER_WIDTH = 185;
 
 // Node size
 export const NODE_SMALL = Number(Styles.nodeSmallSize.replace("px", ""));
@@ -58,11 +59,10 @@ export const HEURISTIC = Object.freeze({
 export const DX = Object.freeze([1, 0, -1, 0]);
 export const DY = Object.freeze([0, 1, 0, -1]);
 
-// Visualization delay time
+// Visualization delay specifications
 export const DELAY = Object.freeze({
-  SLOWEST: 400,
-  SLOW: 300,
-  MEDIUM: 200,
-  FAST: 100,
-  FASTEST: 20,
+  DEFAULT: 120,
+  STEP: 20,
+  MIN: 20,
+  MAX: 300,
 });

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { PATH_ALGORITHMS } from "../constants";
 
 const initialState = {
+  animationDelay: 180,
   selectedAlgo: PATH_ALGORITHMS.DEPTH_FIRST_SEARCH,
   mobileDrawerOpen: false,
 };
@@ -10,6 +11,11 @@ const menuSlice = createSlice({
   name: "menu",
   initialState,
   reducers: {
+    updateAnimationDelay: (state, action) => {
+      // TO-DELETE:
+      console.log("Animation Delay updated to", action.payload);
+      state.animationDelay = action.payload;
+    },
     switchAlgo: (state, action) => {
       // TO-DELETE:
       console.log("Menu Selected Algo State changed to", action.payload);
@@ -23,6 +29,6 @@ const menuSlice = createSlice({
   },
 });
 
-export const { switchAlgo, toggleDrawer } = menuSlice.actions;
+export const { updateAnimationDelay, switchAlgo, toggleDrawer } = menuSlice.actions;
 
 export default menuSlice.reducer;

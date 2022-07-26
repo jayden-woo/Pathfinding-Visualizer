@@ -66,7 +66,7 @@ const gridSlice = createSlice({
           state.grid[y][x] = NODE_STATE.EMPTY;
         }
       }
-      state.pathVisualized = false;
+      state.pathVisualized = initialState.pathVisualized;
     },
     updateDimension: (state, action) => {
       const { rows, cols } = action.payload;

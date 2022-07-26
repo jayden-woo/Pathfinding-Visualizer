@@ -2,13 +2,13 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DELAY } from "../constants";
 import { resetGrid, updateNodeState, updatePathVisualized } from "../features/Grid/gridSlice";
 import { toggleDrawer } from "../features/menuSlice";
 import { resetPathFinder, runPathFinder } from "../features/Pathfinding/pathfindingSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
+  const { animationDelay } = useSelector((store) => store.menu);
   const { grid, start, target, pathVisualized } = useSelector((store) => store.grid);
   const { visited, path } = useSelector((store) => store.pathfinding);
   const [visualQueue, setVisualQueue] = useState([]);
@@ -23,7 +23,7 @@ const Header = () => {
           return rest;
         });
         if (!visualQueue.length) clearTimeout(visualID);
-      }, DELAY.FAST);
+      }, animationDelay);
   };
 
   const handleVisualizeClick = () => {

@@ -11,12 +11,13 @@ import {
   ListSubheader,
   Radio,
   RadioGroup,
+  Slider,
   Toolbar,
 } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { HEURISTIC, MAZE_ALGORITHMS, PATH_ALGORITHMS } from "../constants";
-import { switchAlgo } from "../features/menuSlice";
+import { DELAY, HEURISTIC, MAZE_ALGORITHMS, PATH_ALGORITHMS, SLIDER_WIDTH } from "../constants";
+import { switchAlgo, updateAnimationDelay } from "../features/menuSlice";
 import { setPathAlgorithm } from "../features/Pathfinding/pathfindingSlice";
 
 const Menu = () => {
@@ -36,7 +37,7 @@ const Menu = () => {
         break;
       default:
         // TO-DELETE:
-        console.log("Selected Path Algorithm is changed to", algo);
+        console.log("Selected Maze Algorithm is changed to", algo);
         break;
     }
   };
@@ -45,6 +46,21 @@ const Menu = () => {
     <div>
       <CssBaseline />
       <Toolbar />
+      <List
+        component="nav"
+        subheader={<ListSubheader component="div">Animation Delay</ListSubheader>}
+      >
+        <Slider
+          sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, width: SLIDER_WIDTH, ml: 2 }}
+          defaultValue={DELAY.DEFAULT}
+          step={DELAY.STEP}
+          min={DELAY.MIN}
+          max={DELAY.MAX}
+          valueLabelDisplay="auto"
+          onChangeCommitted={(_, value) => dispatch(updateAnimationDelay(value))}
+        />
+      </List>
+      <Divider />
       <List
         component="nav"
         subheader={<ListSubheader component="div">Search Algorithms</ListSubheader>}
