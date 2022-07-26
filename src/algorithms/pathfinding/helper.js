@@ -1,8 +1,8 @@
 // Helper function to trace the path found from the start to target node if it exist
 // or return an empty array if no path is found
 export const tracePathFound = (start, target, visited) => {
-  // Start tracing from the target node and push it to the return array first
-  const path = [target];
+  // Start tracing from the target node
+  const path = [];
   let node = target;
 
   // Loop through the visited order array from the back and find the previous nodes

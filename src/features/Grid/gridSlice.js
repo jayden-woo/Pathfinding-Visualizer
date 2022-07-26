@@ -67,8 +67,6 @@ const gridSlice = createSlice({
         }
       }
       state.pathVisualized = false;
-      // TO-DELETE:
-      console.log("ResetGrid", state.pathVisualized);
     },
     updateDimension: (state, action) => {
       const { rows, cols } = action.payload;
@@ -127,8 +125,6 @@ const gridSlice = createSlice({
     },
     // Update node state according to visualization of algorithms
     updateNodeState: (state, action) => {
-      // TO-DELETE:
-      console.log("UpdateNodeState", state.pathVisualized);
       const { x, y } = action.payload;
       const prev = state.grid[y][x];
       // Skip visualizing the start and target node
