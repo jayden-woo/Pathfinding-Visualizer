@@ -18,8 +18,8 @@ export const tracePathFound = (start, target, visited) => {
       }
     });
 
-  // Return the full path if the first node is the start node and empty array otherwise
-  return path[0].x === start.x && path[0].y === start.y ? path : [];
+  // Return the full path found which will be an empty array if the target node was never reached
+  return path;
 };
 
 // TO-DELETE:
