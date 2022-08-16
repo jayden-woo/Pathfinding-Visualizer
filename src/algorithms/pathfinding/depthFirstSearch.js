@@ -1,9 +1,11 @@
-import { DX as dx, DY as dy, NODE_STATE } from "../../constants";
+import { DX, DY, NODE_STATE } from "../../constants";
 
-const depthFirstSearch = (start, target, grid) => {
+const depthFirstSearch = (start, target, grid, diagonal) => {
   // Initialize variables and 2d array with visited state of each node
   const rows = grid.length;
   const cols = grid[0].length;
+  const dx = diagonal ? DX.EIGHT_DIRECTIONS : DX.FOUR_DIRECTIONS;
+  const dy = diagonal ? DY.EIGHT_DIRECTIONS : DY.FOUR_DIRECTIONS;
   const visited = Array.from({ length: rows }, () => Array.from({ length: cols }, () => false));
   const stack = [];
   const order = [];

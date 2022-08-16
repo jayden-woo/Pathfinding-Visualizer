@@ -6,7 +6,7 @@ export const SCREEN_BREAKPOINT = Number(Styles.screenBreakpoint.replace("px", ""
 // Component sizes
 export const NAV_HEIGHT = 64;
 export const DRAWER_WIDTH = 240;
-export const SLIDER_WIDTH = 185;
+export const SLIDER_WIDTH = 205;
 
 // Node size
 export const NODE_SMALL = Number(Styles.nodeSmallSize.replace("px", ""));
@@ -56,8 +56,14 @@ export const HEURISTIC = Object.freeze({
 });
 
 // Node neighbours index difference array
-export const DX = Object.freeze([1, 0, -1, 0]);
-export const DY = Object.freeze([0, 1, 0, -1]);
+export const DX = Object.freeze({
+  FOUR_DIRECTIONS: Object.freeze([1, 0, -1, 0]),
+  EIGHT_DIRECTIONS: Object.freeze([1, 1, 0, -1, -1, -1, 0, 1]),
+});
+export const DY = Object.freeze({
+  FOUR_DIRECTIONS: Object.freeze([0, 1, 0, -1]),
+  EIGHT_DIRECTIONS: Object.freeze([0, 1, 1, 1, 0, -1, -1, -1]),
+});
 
 // Visualization delay specifications
 export const DELAY = Object.freeze({

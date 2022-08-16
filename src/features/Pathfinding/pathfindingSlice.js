@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { tracePathFound } from "../../algorithms/pathfinding/helper";
 import PathFinder from "../../algorithms/pathfinding/pathFinder";
-import { PATH_ALGORITHMS } from "../../constants";
+import { HEURISTIC, PATH_ALGORITHMS } from "../../constants";
 
 const initialState = {
   algorithm: PATH_ALGORITHMS.DEPTH_FIRST_SEARCH,
+  heuristic: HEURISTIC.MANHATTAN,
+  diagonal: false,
   visited: [],
   path: [],
   time: 0,
@@ -19,6 +21,16 @@ const pathfindingSlice = createSlice({
       // TO-DELETE:
       console.log(`Chosen "${state.algorithm}" for the Pathfinding Algorithm!`);
     },
+    setHeuristic: (state, action) => {
+      state.heuristic = action.payload;
+      // TO-DELETE:
+      console.log(`Chosen "${state.heuristic}" for the Pathfinding Heuristic!`);
+    },
+    setDiagonalTraversal: (state, action) => {
+      state.diagonal = action.payload;
+      // TO-DELETE:
+      console.log(`${state.diagonal ? "Allowed" : "Disabled"} diagonal path traversal!`);
+    },
     resetPathFinder: (state) => {
       state.visited = [];
       state.path = [];
@@ -30,13 +42,25 @@ const pathfindingSlice = createSlice({
       if (!state.algorithm) return;
       const { start, target, grid } = action.payload;
       const startTime = performance.now();
-      state.visited = PathFinder[state.algorithm](start, target, grid);
+      state.visited = PathFinder[state.algorithm](
+        start,
+        target,
+        grid,
+        state.diagonal,
+        state.heuristic
+      );
       state.path = tracePathFound(start, target, state.visited);
       state.time = performance.now() - startTime;
     },
   },
 });
 
-export const { setPathAlgorithm, resetPathFinder, runPathFinder } = pathfindingSlice.actions;
+export const {
+  setPathAlgorithm,
+  setHeuristic,
+  setDiagonalTraversal,
+  resetPathFinder,
+  runPathFinder,
+} = pathfindingSlice.actions;
 
 export default pathfindingSlice.reducer;

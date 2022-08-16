@@ -1,9 +1,11 @@
 import {
+  Box,
   Collapse,
   CssBaseline,
   Divider,
   FormControl,
   FormControlLabel,
+  FormGroup,
   FormLabel,
   List,
   ListItemButton,
@@ -12,13 +14,25 @@ import {
   Radio,
   RadioGroup,
   Slider,
+  Switch,
   Toolbar,
 } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DELAY, HEURISTIC, MAZE_ALGORITHMS, PATH_ALGORITHMS, SLIDER_WIDTH } from "../constants";
+import {
+  DELAY,
+  DRAWER_WIDTH,
+  HEURISTIC,
+  MAZE_ALGORITHMS,
+  PATH_ALGORITHMS,
+  SLIDER_WIDTH,
+} from "../constants";
 import { switchAlgo, updateAnimationDelay } from "../features/menuSlice";
-import { setPathAlgorithm } from "../features/Pathfinding/pathfindingSlice";
+import {
+  setDiagonalTraversal,
+  setHeuristic,
+  setPathAlgorithm,
+} from "../features/Pathfinding/pathfindingSlice";
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -43,7 +57,7 @@ const Menu = () => {
   };
 
   return (
-    <div>
+    <Box sx={{ width: DRAWER_WIDTH }}>
       <CssBaseline />
       <Toolbar />
       <List
@@ -63,6 +77,18 @@ const Menu = () => {
       <Divider />
       <List
         component="nav"
+        subheader={<ListSubheader component="div">Path Traversal</ListSubheader>}
+      >
+        <FormGroup sx={{ pl: 2 }}>
+          <FormControlLabel
+            control={<Switch onChange={(e) => dispatch(setDiagonalTraversal(e.target.checked))} />}
+            label="Allow Diagonals"
+          />
+        </FormGroup>
+      </List>
+      <Divider />
+      <List
+        component="nav"
         subheader={<ListSubheader component="div">Search Algorithms</ListSubheader>}
       >
         <ListItemButton
@@ -78,47 +104,47 @@ const Menu = () => {
           <ListItemText primary="Breadth-First Search" />
         </ListItemButton>
         <ListItemButton
+          sx={{ diplay: "flex", flexDirection: "column", alignItems: "flex-start" }}
           selected={selectedAlgo === PATH_ALGORITHMS.A_STAR_ALGORITHM}
           onClick={() => handleAlgoClick(PATH_ALGORITHMS.A_STAR_ALGORITHM)}
         >
           <ListItemText primary="A* Algorithm" />
+          <Collapse
+            in={selectedAlgo === PATH_ALGORITHMS.A_STAR_ALGORITHM}
+            timeout="auto"
+            unmountOnExit
+          >
+            <FormControl sx={{ pl: 1 }}>
+              <FormLabel sx={{ py: 1, fontSize: "0.875rem" }}>Heuristics</FormLabel>
+              <RadioGroup
+                defaultValue={HEURISTIC.MANHATTAN}
+                name="heuristics-buttons-group"
+                onChange={(e) => dispatch(setHeuristic(e.target.value))}
+              >
+                <FormControlLabel
+                  value={HEURISTIC.MANHATTAN}
+                  control={<Radio />}
+                  label={HEURISTIC.MANHATTAN}
+                />
+                <FormControlLabel
+                  value={HEURISTIC.EUCLIDEAN}
+                  control={<Radio />}
+                  label={HEURISTIC.EUCLIDEAN}
+                />
+                <FormControlLabel
+                  value={HEURISTIC.CHEBYSHEV}
+                  control={<Radio />}
+                  label={HEURISTIC.CHEBYSHEV}
+                />
+                <FormControlLabel
+                  value={HEURISTIC.OCTILE}
+                  control={<Radio />}
+                  label={HEURISTIC.OCTILE}
+                />
+              </RadioGroup>
+            </FormControl>
+          </Collapse>
         </ListItemButton>
-        <Collapse
-          in={selectedAlgo === PATH_ALGORITHMS.A_STAR_ALGORITHM}
-          timeout="auto"
-          unmountOnExit
-        >
-          <FormControl sx={{ pt: 1, pl: 3 }}>
-            <FormLabel>Heuristic</FormLabel>
-            <RadioGroup
-              defaultValue={HEURISTIC.MANHATTAN}
-              name="heuristics-buttons-group"
-              // TO-DELETE:
-              onChange={(e) => console.log(e.target.value)}
-            >
-              <FormControlLabel
-                value={HEURISTIC.MANHATTAN}
-                control={<Radio />}
-                label={HEURISTIC.MANHATTAN}
-              />
-              <FormControlLabel
-                value={HEURISTIC.EUCLIDEAN}
-                control={<Radio />}
-                label={HEURISTIC.EUCLIDEAN}
-              />
-              <FormControlLabel
-                value={HEURISTIC.CHEBYSHEV}
-                control={<Radio />}
-                label={HEURISTIC.CHEBYSHEV}
-              />
-              <FormControlLabel
-                value={HEURISTIC.OCTILE}
-                control={<Radio />}
-                label={HEURISTIC.OCTILE}
-              />
-            </RadioGroup>
-          </FormControl>
-        </Collapse>
         <ListItemButton
           selected={selectedAlgo === PATH_ALGORITHMS.DIJKSTRA_ALGORITHM}
           onClick={() => handleAlgoClick(PATH_ALGORITHMS.DIJKSTRA_ALGORITHM)}
@@ -144,7 +170,7 @@ const Menu = () => {
           <ListItemText primary="Recursive Division" />
         </ListItemButton>
       </List>
-    </div>
+    </Box>
   );
 };
 
