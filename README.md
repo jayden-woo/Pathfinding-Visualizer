@@ -16,13 +16,13 @@
   - [x] Drag the source and target nodes around
   - [x] Responsive Grid
   - [x] Traverse 4-directionally
-  - [ ] Traverse diagonally
+  - [x] Traverse diagonally
   - [x] Clear path & board after visualization or while pausing
 
 - [x] Search Algorithms
 
   - [x] Depth-First Search
-  - [ ] Breadth-First Search
+  - [x] Breadth-First Search
   - [ ] Greedy Best-First Search
   - [ ] A\* Algorithm - [Heuristics](http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html)
     - [ ] Manhattan Distance
@@ -44,6 +44,7 @@
   - [x] Custom visualization animation delay slider
   - [x] Algorithm stats tracking (i.e. time taken, path length, number of nodes visited)
   - [x] Description and introduction for each algorithm
+  - [ ] Responsive interface
 
 - [ ] Hosting the site using GitHub Pages
 
