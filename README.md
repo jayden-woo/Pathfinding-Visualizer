@@ -18,14 +18,15 @@
   - [x] Traverse 4-directionally
   - [x] Traverse diagonally
   - [x] Clear path & board after visualization or while pausing
+  - [ ] Add lines to clearly indicate path taken
 
 - [x] Search Algorithms
 
   - [x] Depth-First Search
   - [x] Breadth-First Search
   - [ ] Greedy Best-First Search
-  - [ ] A\* Algorithm - [Heuristics](http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html)
-    - [ ] Manhattan Distance
+  - [x] A\* Algorithm - [Heuristics](http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html)
+    - [x] Manhattan Distance
     - [ ] Euclidean Distance
     - [ ] Chebyshev Distance
     - [ ] Octile Distance
@@ -42,7 +43,7 @@
 
   - [x] Pause and resume the visualization
   - [x] Custom visualization animation delay slider
-  - [x] Algorithm stats tracking (i.e. time taken, path length, number of nodes visited)
+  - [x] Algorithm stats tracking (i.e. path length, number of nodes visited)
   - [x] Description and introduction for each algorithm
   - [ ] Responsive interface
 

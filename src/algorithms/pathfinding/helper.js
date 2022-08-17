@@ -1,3 +1,5 @@
+import { HEURISTIC } from "../../constants";
+
 // Helper function to trace the path found from the start to target node if it exist
 // or return an empty array if no path is found
 export const reconstructPath = (target, visited) => {
@@ -19,5 +21,22 @@ export const reconstructPath = (target, visited) => {
   return path;
 };
 
-// TO-DELETE:
-export const temp = () => {};
+// Helper heuristic function to estimate the cost of reaching the target node from the current node
+export const calculateHeuristic = (x, y, target, heuristic) => {
+  let distance;
+
+  // Check which heuristic function was selected
+  switch (heuristic) {
+    // Calculate the Manhattan distance of target node from given node
+    case HEURISTIC.MANHATTAN:
+      distance = Math.abs(target.x - x) + Math.abs(target.y - y);
+      break;
+    // Set a default distance of 0 to avoid overestimating the heuristic
+    default:
+      distance = 0;
+      break;
+  }
+
+  // Multiply the distance by 10 and round it to the nearest integer for easier calculation
+  return Math.round(distance * 10);
+};

@@ -65,6 +65,12 @@ export const DY = Object.freeze({
   EIGHT_DIRECTIONS: Object.freeze([0, 1, 1, 1, 0, -1, -1, -1]),
 });
 
+// Cost of traversing to neighbouring nodes
+export const COST = Object.freeze({
+  ADJACENT: 10,
+  DIAGONAL: 14,
+});
+
 // Visualization delay specifications
 export const DELAY = Object.freeze({
   DEFAULT: 120,
