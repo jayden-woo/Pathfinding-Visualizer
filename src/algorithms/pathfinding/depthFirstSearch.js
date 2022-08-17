@@ -39,7 +39,7 @@ const depthFirstSearch = (start, target, grid, diagonal) => {
       if (visited[nextY][nextX] || grid[nextY][nextX] === NODE_STATE.WALL) continue;
 
       // Push the neighbour to the stack otherwise
-      stack.push({ x: nextX, y: nextY, prev: { x, y } });
+      stack.push({ x: nextX, y: nextY, prev: { x, y, prev } });
     }
   }
 

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { tracePathFound } from "../../algorithms/pathfinding/helper";
+import { reconstructPath } from "../../algorithms/pathfinding/helper";
 import PathFinder from "../../algorithms/pathfinding/pathFinder";
 import { HEURISTIC, PATH_ALGORITHMS } from "../../constants";
 
@@ -49,7 +49,7 @@ const pathfindingSlice = createSlice({
         state.diagonal,
         state.heuristic
       );
-      state.path = tracePathFound(start, target, state.visited);
+      state.path = reconstructPath(target, state.visited);
       state.time = performance.now() - startTime;
     },
   },

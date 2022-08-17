@@ -1,24 +1,21 @@
 // Helper function to trace the path found from the start to target node if it exist
 // or return an empty array if no path is found
-export const tracePathFound = (start, target, visited) => {
-  // Start tracing from the target node
+export const reconstructPath = (target, visited) => {
+  // Start tracing from the last visited node
   const path = [];
-  let node = target;
+  let node = visited ? visited[visited.length - 1] : undefined;
 
-  // Loop through the visited order array from the back and find the previous nodes
-  visited
-    .slice()
-    .reverse()
-    .forEach(({ x, y, prev }) => {
-      // Find the item in the array when the node was visited
-      if (x === node.x && y === node.y) {
-        // Add the node to the start of the path array and update the next node to look for
-        path.unshift({ x, y });
-        node = prev;
-      }
-    });
+  // Return an empty array if no node was visited or if the target node was never reached
+  if (node === undefined || node.x !== target.x || node.y !== target.y) return [];
 
-  // Return the full path found which will be an empty array if the target node was never reached
+  // Loop through each previous node from the last node
+  while (node !== undefined) {
+    // Add the node to the start of the path array and update the node to the previous of current node
+    path.unshift(node);
+    node = node.prev;
+  }
+
+  // Return the full path found
   return path;
 };
 

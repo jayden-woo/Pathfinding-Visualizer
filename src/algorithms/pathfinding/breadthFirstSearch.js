@@ -39,7 +39,7 @@ const breadthFirstSearch = (start, target, grid, diagonal) => {
       if (visited[nextY][nextX] || grid[nextY][nextX] === NODE_STATE.WALL) continue;
 
       // Enqueue the neighbour to the queue otherwise
-      queue.push({ x: nextX, y: nextY, prev: { x, y } });
+      queue.push({ x: nextX, y: nextY, prev: { x, y, prev } });
     }
   }
 
