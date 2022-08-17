@@ -31,6 +31,14 @@ export const calculateHeuristic = (x, y, target, heuristic) => {
     case HEURISTIC.MANHATTAN:
       distance = Math.abs(target.x - x) + Math.abs(target.y - y);
       break;
+    // Calculate the Euclidean distance of target node from given node
+    case HEURISTIC.EUCLIDEAN:
+      distance = Math.sqrt((target.x - x) ** 2 + (target.y - y) ** 2);
+      break;
+    // Calculate the Chebyshev distance of target node from given node
+    case HEURISTIC.CHEBYSHEV:
+      distance = Math.max(Math.abs(target.x - x), Math.abs(target.y - y));
+      break;
     // Set a default distance of 0 to avoid overestimating the heuristic
     default:
       distance = 0;
