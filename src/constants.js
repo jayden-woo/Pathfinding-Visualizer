@@ -65,6 +65,10 @@ export const DY = Object.freeze({
   EIGHT_DIRECTIONS: Object.freeze([0, 1, 1, 1, 0, -1, -1, -1]),
 });
 
+// Assume a rounded value of sqrt(2) for unit diagonal distance to try and
+// avoid using the expensive square root operation
+export const DIAGONAL_DISTANCE = 1.414;
+
 // Cost of traversing to neighbouring nodes
 export const COST = Object.freeze({
   ADJACENT: 10,

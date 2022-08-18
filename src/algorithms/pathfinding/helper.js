@@ -1,4 +1,4 @@
-import { HEURISTIC } from "../../constants";
+import { COST, DIAGONAL_DISTANCE, HEURISTIC } from "../../constants";
 
 // Helper function to trace the path found from the start to target node if it exist
 // or return an empty array if no path is found
@@ -23,21 +23,28 @@ export const reconstructPath = (target, visited) => {
 
 // Helper heuristic function to estimate the cost of reaching the target node from the current node
 export const calculateHeuristic = (x, y, target, heuristic) => {
+  // Calculate the absolute difference in the x and y coordinates
+  const dx = Math.abs(target.x - x);
+  const dy = Math.abs(target.y - y);
   let distance;
 
   // Check which heuristic function was selected
   switch (heuristic) {
     // Calculate the Manhattan distance of target node from given node
     case HEURISTIC.MANHATTAN:
-      distance = Math.abs(target.x - x) + Math.abs(target.y - y);
+      distance = dx + dy;
       break;
     // Calculate the Euclidean distance of target node from given node
     case HEURISTIC.EUCLIDEAN:
-      distance = Math.sqrt((target.x - x) ** 2 + (target.y - y) ** 2);
+      distance = Math.sqrt(dx ** 2 + dy ** 2);
       break;
     // Calculate the Chebyshev distance of target node from given node
     case HEURISTIC.CHEBYSHEV:
-      distance = Math.max(Math.abs(target.x - x), Math.abs(target.y - y));
+      distance = Math.max(dx, dy);
+      break;
+    // Calculate the Octile distance of target node from given node
+    case HEURISTIC.OCTILE:
+      distance = Math.min(dx, dy) * DIAGONAL_DISTANCE + Math.max(dx, dy) - Math.min(dx, dy);
       break;
     // Set a default distance of 0 to avoid overestimating the heuristic
     default:
@@ -45,6 +52,6 @@ export const calculateHeuristic = (x, y, target, heuristic) => {
       break;
   }
 
-  // Multiply the distance by 10 and round it to the nearest integer for easier calculation
-  return Math.round(distance * 10);
+  // Multiply the distance by the cost of moving and round it to the nearest integer for easier comparison
+  return Math.round(distance * COST.ADJACENT);
 };

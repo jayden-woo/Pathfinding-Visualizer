@@ -27,9 +27,9 @@
   - [ ] Greedy Best-First Search
   - [x] A\* Algorithm - [Heuristics](http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html)
     - [x] Manhattan Distance
-    - [ ] Euclidean Distance
-    - [ ] Chebyshev Distance
-    - [ ] Octile Distance
+    - [x] Euclidean Distance
+    - [x] Chebyshev Distance
+    - [x] Octile Distance
   - [ ] Dijkstra\'s Algorithm
   - [ ] Jump Point Search
 
