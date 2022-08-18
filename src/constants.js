@@ -22,7 +22,6 @@ export const NODE_STATE = Object.freeze({
   TARGET: "target",
   EMPTY: "empty",
   WALL: "wall",
-  QUEUED: "queued",
   EXPLORED: "explored",
   PATH: "path",
 });

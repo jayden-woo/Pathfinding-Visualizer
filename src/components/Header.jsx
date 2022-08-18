@@ -2,37 +2,39 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { resetGrid, updateNodeState, updatePathVisualized } from "../features/Grid/gridSlice";
+import { NODE_STATE } from "../constants";
+import { handlePauseClick, resetGrid, updateNodeState } from "../features/Grid/gridSlice";
 import { toggleDrawer } from "../features/menuSlice";
 import { resetPathFinder, runPathFinder } from "../features/Pathfinding/pathfindingSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const { animationDelay } = useSelector((store) => store.menu);
-  const { grid, start, target, pathVisualized } = useSelector((store) => store.grid);
+  const { grid, start, target, paused } = useSelector((store) => store.grid);
   const { visited, path } = useSelector((store) => store.pathfinding);
   const [visualQueue, setVisualQueue] = useState([]);
   let visualID;
 
+  // Visualize the pathfinding process from searching for a path to tracing back the path found
   const visualize = () => {
     visualID =
+      // Check if there's already an animation pending
       !visualID &&
+      // Check if the queue is empty to prevent null error when destructuring object later
+      visualQueue.length &&
+      // Set a timeout for the animation process according to the delay selected
       setTimeout(() => {
-        setVisualQueue(([{ x, y }, ...rest]) => {
-          dispatch(updateNodeState({ x, y }));
-          return rest;
-        });
+        // Skip the animation if it is currently paused
+        if (!paused) {
+          // Pop the first node from the queue and update it to its next state
+          setVisualQueue(([{ x, y, next }, ...rest]) => {
+            dispatch(updateNodeState({ x, y, next }));
+            return rest;
+          });
+        }
+        // Clear any pending timeout if the queue is already empty
         if (!visualQueue.length) clearTimeout(visualID);
       }, animationDelay);
-  };
-
-  const handleVisualizeClick = () => {
-    dispatch(runPathFinder({ start, target, grid }));
-  };
-
-  const handlePauseClick = () => {
-    clearTimeout(visualID);
-    visualID = null;
   };
 
   const handleClearClick = (pathOnly) => {
@@ -40,17 +42,32 @@ const Header = () => {
     dispatch(resetPathFinder());
   };
 
+  // Resume the animation when the paused state is updated
   useEffect(() => {
-    setVisualQueue(visited);
+    if (!paused) visualize();
+  }, [paused]);
+
+  // Populate the visualization queue when the visited array is modified
+  useEffect(() => {
+    // Start with an empty array
+    const queue = [];
+    // Add each node in the visited array to the queue array
+    visited.forEach((node) => {
+      // Attach a label to each node indicating that it's from the searching process
+      queue.push({ ...node, next: NODE_STATE.EXPLORED });
+    });
+    // Add each node in the path array to the queue array next
+    path.forEach((node) => {
+      // Attach a label to each node indicating that it's part of the path found
+      queue.push({ ...node, next: NODE_STATE.PATH });
+    });
+    // Update the visual queue state with the queue array
+    setVisualQueue(queue);
   }, [visited]);
 
+  // Call the visualize function again everytime a node is popped from the visual queue
   useEffect(() => {
-    if (visualQueue.length) {
-      visualize();
-    } else if (path.length && !pathVisualized) {
-      setVisualQueue(path);
-      dispatch(updatePathVisualized(true));
-    }
+    if (visualQueue.length) visualize();
     return () => clearTimeout(visualID);
   }, [visualQueue]);
 
@@ -75,7 +92,11 @@ const Header = () => {
         >
           Pathfinding Visualizer
         </Typography>
-        <Button variant="text" disableElevation onClick={handleVisualizeClick}>
+        <Button
+          variant="text"
+          disableElevation
+          onClick={() => dispatch(runPathFinder({ start, target, grid }))}
+        >
           Visualize
         </Button>
         <Button variant="text" disableElevation onClick={() => handleClearClick(false)}>
@@ -84,12 +105,16 @@ const Header = () => {
         <Button variant="text" disableElevation onClick={() => handleClearClick(true)}>
           Clear Path
         </Button>
-        <Button variant="text" disableElevation onClick={handlePauseClick}>
-          Pause
-        </Button>
-        <Button variant="text" disableElevation onClick={visualize}>
-          Continue
-        </Button>
+        {!paused && (
+          <Button variant="text" disableElevation onClick={() => dispatch(handlePauseClick(true))}>
+            Pause
+          </Button>
+        )}
+        {paused && (
+          <Button variant="text" disableElevation onClick={() => dispatch(handlePauseClick(false))}>
+            Resume
+          </Button>
+        )}
       </Toolbar>
     </AppBar>
   );

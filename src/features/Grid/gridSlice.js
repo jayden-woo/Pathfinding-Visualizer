@@ -17,7 +17,7 @@ const initialState = {
     x: 0,
     y: 0,
   },
-  pathVisualized: false,
+  paused: false,
   mouse: {
     clicking: false,
     actionState: null,
@@ -86,6 +86,11 @@ const gridSlice = createSlice({
       };
       gridSlice.caseReducers.initGrid(state);
     },
+    handlePauseClick: (state, action) => {
+      state.paused = action.payload;
+      // TO-DELETE:
+      console.log(state.paused ? "Animation Paused!" : "Animation Resumed!");
+    },
     handleMouseClick: (state, action) => {
       const { x, y, nextState } = action.payload;
       state.mouse.clicking = true;
@@ -110,29 +115,31 @@ const gridSlice = createSlice({
       const prev = state.grid[y][x];
       // Skip accidental override of start and target node
       if (prev === NODE_STATE.START || prev === NODE_STATE.TARGET) return;
-
+      // Get the current user action state
       const next = state.mouse.actionState;
+      // Reset the old start node to empty state and update the start node to the new coordinates
       if (next === NODE_STATE.START) {
         const { x: x0, y: y0 } = state.start;
         state.grid[y0][x0] = NODE_STATE.EMPTY;
         state.start = { x, y };
-      } else if (next === NODE_STATE.TARGET) {
+      }
+      // Reset the old target node to empty state and update the target node to the new coordinates
+      else if (next === NODE_STATE.TARGET) {
         const { x: x0, y: y0 } = state.target;
         state.grid[y0][x0] = NODE_STATE.EMPTY;
         state.target = { x, y };
       }
+      // Update the node to the next given state
       state.grid[y][x] = next;
     },
     // Update node state according to visualization of algorithms
     updateNodeState: (state, action) => {
-      const { x, y } = action.payload;
+      const { x, y, next } = action.payload;
       const prev = state.grid[y][x];
       // Skip visualizing the start and target node
       if (prev === NODE_STATE.START || prev === NODE_STATE.TARGET) return;
-      state.grid[y][x] = state.pathVisualized ? NODE_STATE.PATH : NODE_STATE.EXPLORED;
-    },
-    updatePathVisualized: (state, action) => {
-      state.pathVisualized = action.payload;
+      // Update the node to the next given state
+      state.grid[y][x] = next;
     },
   },
 });
@@ -140,11 +147,11 @@ const gridSlice = createSlice({
 export const {
   resetGrid,
   updateDimension,
+  handlePauseClick,
   handleMouseClick,
   handleMouseMove,
   handleMouseLift,
   updateNodeState,
-  updatePathVisualized,
 } = gridSlice.actions;
 
 export default gridSlice.reducer;
