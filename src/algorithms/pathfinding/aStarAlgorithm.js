@@ -20,11 +20,16 @@ const aStarAlgorithm = (start, target, grid, diagonal, heuristic) => {
 
   // Initialize priority queue with custom comparator to define equality and relative order
   const open = new FastPriorityQueue((a, b) => {
-    if (a.x === b.x && a.y === b.y) return false;
+    // Compare the fCost first
     if (state[a.y][a.x].fCost !== state[b.y][b.x].fCost) {
       return state[a.y][a.x].fCost < state[b.y][b.x].fCost;
     }
-    return state[a.y][a.x].hCost < state[b.y][b.x].hCost;
+    // Break ties in fCost by comparing the hCost next
+    if (state[a.y][a.x].hCost !== state[b.y][b.x].hCost) {
+      return state[a.y][a.x].hCost < state[b.y][b.x].hCost;
+    }
+    // Compare the coordinates last to allow for equality check and subsequent removal of elements from the queue
+    return a.x < b.x || a.y < b.y;
   });
 
   // Reset the gCost of start node to 0 and add the start to the open priority queue
@@ -70,8 +75,8 @@ const aStarAlgorithm = (start, target, grid, diagonal, heuristic) => {
         state[nextY][nextX].hCost = calculateHeuristic(nextX, nextY, target, heuristic);
       }
 
-      // Remove the neighbour from the priority queue if it had a higher gCost
-      if (state[nextY][nextX].gCost > gCost) {
+      // Remove the neighbour from the priority queue if it has been visited before and has a higher gCost
+      if (state[nextY][nextX].gCost < Infinity && state[nextY][nextX].gCost > gCost) {
         open.remove({ x: nextX, y: nextY });
       }
 
