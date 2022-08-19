@@ -33,7 +33,6 @@ const gridSlice = createSlice({
   initialState,
   reducers: {
     initGrid: (state) => {
-      state.pathVisualized = false;
       state.grid = [];
       state.gridID = [];
       for (let y = 0; y < state.dimension.rows; y++) {
@@ -66,7 +65,8 @@ const gridSlice = createSlice({
           state.grid[y][x] = NODE_STATE.EMPTY;
         }
       }
-      state.pathVisualized = initialState.pathVisualized;
+      // Unpause the visualization
+      state.paused = false;
     },
     updateDimension: (state, action) => {
       const { rows, cols } = action.payload;

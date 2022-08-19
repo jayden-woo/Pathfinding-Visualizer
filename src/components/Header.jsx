@@ -20,15 +20,14 @@ const Header = () => {
     visualID =
       // Check if there's already an animation pending
       !visualID &&
-      // Check if the queue is empty to prevent null error when destructuring object later
-      visualQueue.length &&
       // Set a timeout for the animation process according to the delay selected
       setTimeout(() => {
         // Skip the animation if it is currently paused
         if (!paused) {
           // Pop the first node from the queue and update it to its next state
-          setVisualQueue(([{ x, y, next }, ...rest]) => {
-            dispatch(updateNodeState({ x, y, next }));
+          setVisualQueue(([node, ...rest]) => {
+            // Check if there's any node in the queue first to prevent error from destructuring undefined object
+            if (node) dispatch(updateNodeState(node));
             return rest;
           });
         }
