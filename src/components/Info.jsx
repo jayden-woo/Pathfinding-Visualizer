@@ -19,6 +19,14 @@ const getAlgorithmInfo = {
     that were encountered but not yet explored. Implicit trees (such as game trees or other problem-solving trees) may
     be of infinite size, however, breadth-first search is guaranteed to find a solution node if one exists.`,
   },
+  [PATH_ALGORITHMS.GREEDY_BEST_FIRST_SEARCH]: {
+    title: "Greedy Best-First Search",
+    description: `Best-first search is a class of search algorithms, which explore a graph by expanding the most
+    promising node chosen according to a specified rule. Some authors have used "best-first search" to refer
+    specifically to a search with a heuristic that attempts to predict how close the end of a path is to a solution
+    (or, goal), so that paths which are judged to be closer to a solution (or, goal) are extended first. This specific
+    type of search is called greedy best-first search or pure heuristic search.`,
+  },
   [PATH_ALGORITHMS.A_STAR_ALGORITHM]: {
     title: "A* Search Algorithm",
     description: `A* is a graph traversal and path search algorithm, which is often used in many fields of computer

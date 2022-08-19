@@ -39,6 +39,7 @@ const Menu = () => {
     switch (algo) {
       case PATH_ALGORITHMS.DEPTH_FIRST_SEARCH:
       case PATH_ALGORITHMS.BREADTH_FIRST_SEARCH:
+      case PATH_ALGORITHMS.GREEDY_BEST_FIRST_SEARCH:
       case PATH_ALGORITHMS.A_STAR_ALGORITHM:
       case PATH_ALGORITHMS.DIJKSTRA_ALGORITHM:
         // TO-DELETE:
@@ -51,6 +52,34 @@ const Menu = () => {
         break;
     }
   };
+
+  const heuristics = (
+    <FormControl sx={{ pl: 1 }}>
+      <FormLabel sx={{ py: 1, fontSize: "0.875rem" }}>Heuristics</FormLabel>
+      <RadioGroup
+        defaultValue={HEURISTIC.MANHATTAN}
+        name="heuristics-buttons-group"
+        onChange={(e) => dispatch(setHeuristic(e.target.value))}
+      >
+        <FormControlLabel
+          value={HEURISTIC.MANHATTAN}
+          control={<Radio />}
+          label={HEURISTIC.MANHATTAN}
+        />
+        <FormControlLabel
+          value={HEURISTIC.EUCLIDEAN}
+          control={<Radio />}
+          label={HEURISTIC.EUCLIDEAN}
+        />
+        <FormControlLabel
+          value={HEURISTIC.CHEBYSHEV}
+          control={<Radio />}
+          label={HEURISTIC.CHEBYSHEV}
+        />
+        <FormControlLabel value={HEURISTIC.OCTILE} control={<Radio />} label={HEURISTIC.OCTILE} />
+      </RadioGroup>
+    </FormControl>
+  );
 
   return (
     <Box sx={{ width: DRAWER_WIDTH }}>
@@ -101,6 +130,20 @@ const Menu = () => {
         </ListItemButton>
         <ListItemButton
           sx={{ diplay: "flex", flexDirection: "column", alignItems: "flex-start" }}
+          selected={selectedAlgo === PATH_ALGORITHMS.GREEDY_BEST_FIRST_SEARCH}
+          onClick={() => handleAlgoClick(PATH_ALGORITHMS.GREEDY_BEST_FIRST_SEARCH)}
+        >
+          <ListItemText primary="Greedy Best-First Search" />
+          <Collapse
+            in={selectedAlgo === PATH_ALGORITHMS.GREEDY_BEST_FIRST_SEARCH}
+            timeout="auto"
+            unmountOnExit
+          >
+            {heuristics}
+          </Collapse>
+        </ListItemButton>
+        <ListItemButton
+          sx={{ diplay: "flex", flexDirection: "column", alignItems: "flex-start" }}
           selected={selectedAlgo === PATH_ALGORITHMS.A_STAR_ALGORITHM}
           onClick={() => handleAlgoClick(PATH_ALGORITHMS.A_STAR_ALGORITHM)}
         >
@@ -110,35 +153,7 @@ const Menu = () => {
             timeout="auto"
             unmountOnExit
           >
-            <FormControl sx={{ pl: 1 }}>
-              <FormLabel sx={{ py: 1, fontSize: "0.875rem" }}>Heuristics</FormLabel>
-              <RadioGroup
-                defaultValue={HEURISTIC.MANHATTAN}
-                name="heuristics-buttons-group"
-                onChange={(e) => dispatch(setHeuristic(e.target.value))}
-              >
-                <FormControlLabel
-                  value={HEURISTIC.MANHATTAN}
-                  control={<Radio />}
-                  label={HEURISTIC.MANHATTAN}
-                />
-                <FormControlLabel
-                  value={HEURISTIC.EUCLIDEAN}
-                  control={<Radio />}
-                  label={HEURISTIC.EUCLIDEAN}
-                />
-                <FormControlLabel
-                  value={HEURISTIC.CHEBYSHEV}
-                  control={<Radio />}
-                  label={HEURISTIC.CHEBYSHEV}
-                />
-                <FormControlLabel
-                  value={HEURISTIC.OCTILE}
-                  control={<Radio />}
-                  label={HEURISTIC.OCTILE}
-                />
-              </RadioGroup>
-            </FormControl>
+            {heuristics}
           </Collapse>
         </ListItemButton>
         <ListItemButton

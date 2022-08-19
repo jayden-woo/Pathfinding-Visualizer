@@ -36,6 +36,7 @@ export const MOUSE_BUTTON = Object.freeze({
 export const PATH_ALGORITHMS = Object.freeze({
   DEPTH_FIRST_SEARCH: "DepthFirstSearch",
   BREADTH_FIRST_SEARCH: "BreadthFirstSearch",
+  GREEDY_BEST_FIRST_SEARCH: "GreedyBestFirstSearch",
   A_STAR_ALGORITHM: "AStarAlgorithm",
   DIJKSTRA_ALGORITHM: "DijkstraAlgorithm",
 });
