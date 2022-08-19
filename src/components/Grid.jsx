@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateDimension } from "../features/Grid/gridSlice";
+import { updateDimension } from "../features/gridSlice";
 import {
   MAX_COLS,
   MAX_ROWS,

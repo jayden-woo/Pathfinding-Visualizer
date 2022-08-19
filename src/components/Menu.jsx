@@ -28,11 +28,7 @@ import {
   SLIDER_WIDTH,
 } from "../constants";
 import { switchAlgo, updateAnimationDelay } from "../features/menuSlice";
-import {
-  setDiagonalTraversal,
-  setHeuristic,
-  setPathAlgorithm,
-} from "../features/Pathfinding/pathfindingSlice";
+import { setDiagonalTraversal, setHeuristic, setPathAlgorithm } from "../features/pathfindingSlice";
 
 const Menu = () => {
   const dispatch = useDispatch();

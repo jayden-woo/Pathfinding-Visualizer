@@ -3,9 +3,9 @@ import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NODE_STATE } from "../constants";
-import { handlePauseClick, resetGrid, updateNodeState } from "../features/Grid/gridSlice";
+import { handlePauseClick, resetGrid, updateNodeState } from "../features/gridSlice";
 import { toggleDrawer } from "../features/menuSlice";
-import { resetPathFinder, runPathFinder } from "../features/Pathfinding/pathfindingSlice";
+import { resetPathFinder, runPathFinder } from "../features/pathfindingSlice";
 
 const Header = () => {
   const dispatch = useDispatch();

@@ -8,6 +8,7 @@ const darkTheme = createTheme({
   palette: {
     mode: "dark",
     background: {
+      // TO-DELETE:
       // default: indigo[900],
       // default: "#03002e",
       // default: "#010048",

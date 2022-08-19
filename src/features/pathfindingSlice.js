@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { reconstructPath } from "../../algorithms/pathfinding/helper";
-import PathFinder from "../../algorithms/pathfinding/pathFinder";
-import { HEURISTIC, PATH_ALGORITHMS } from "../../constants";
+import { reconstructPath } from "../algorithms/pathfinding/helper";
+import PathFinder from "../algorithms/pathfinding/pathFinder";
+import { HEURISTIC, PATH_ALGORITHMS } from "../constants";
 
 const initialState = {
   algorithm: PATH_ALGORITHMS.DEPTH_FIRST_SEARCH,

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
-import { NODE_STATE } from "../../constants";
+import { NODE_STATE } from "../constants";
 
 const initialState = {
   dimension: {
