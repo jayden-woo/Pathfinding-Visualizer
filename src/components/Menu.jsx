@@ -87,7 +87,7 @@ const Menu = () => {
       <Toolbar />
       <List
         component="nav"
-        subheader={<ListSubheader component="div">Animation Delay</ListSubheader>}
+        subheader={<ListSubheader component="div">Animation Delay (ms)</ListSubheader>}
       >
         <Slider
           sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, width: SLIDER_WIDTH, ml: 2 }}

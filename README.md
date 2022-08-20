@@ -24,7 +24,7 @@
 
   - [x] Depth-First Search
   - [x] Breadth-First Search
-  - [ ] Greedy Best-First Search
+  - [x] Greedy Best-First Search
   - [x] A\* Algorithm - [Heuristics](http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html)
     - [x] Manhattan Distance
     - [x] Euclidean Distance
@@ -43,6 +43,7 @@
 
   - [x] Pause and resume the visualization
   - [x] Custom visualization animation delay slider
+  - [ ] Legend for node colours meaning
   - [x] Algorithm stats tracking (i.e. path length, number of nodes visited)
   - [x] Description and introduction for each algorithm
   - [ ] Responsive interface
