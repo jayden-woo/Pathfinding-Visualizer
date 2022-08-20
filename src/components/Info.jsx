@@ -47,7 +47,8 @@ const getAlgorithmInfo = {
 };
 
 const Info = () => {
-  const { visited, path, time } = useSelector((store) => store.pathfinding);
+  const time = useSelector((store) => store.pathfinding.time);
+  const counter = useSelector((store) => store.grid.counter);
   const algoInfo = getAlgorithmInfo[useSelector((store) => store.menu.selectedAlgo)];
 
   return (
@@ -61,13 +62,13 @@ const Info = () => {
       <Card sx={{ my: 2, ml: 0, mr: 3, backgroundColor: "background.paper" }}>
         <CardContent>
           <Typography variant="h6">Nodes Visited</Typography>
-          <Typography variant="h3">{visited.length}</Typography>
+          <Typography variant="h3">{counter.visited}</Typography>
         </CardContent>
       </Card>
       <Card sx={{ my: 2, ml: 0, mr: 3, backgroundColor: "background.paper" }}>
         <CardContent>
           <Typography variant="h6">Path Length</Typography>
-          <Typography variant="h3">{path.length}</Typography>
+          <Typography variant="h3">{counter.path}</Typography>
         </CardContent>
       </Card>
       <Card sx={{ my: 2, ml: 0, mr: 3, backgroundColor: "background.paper" }}>

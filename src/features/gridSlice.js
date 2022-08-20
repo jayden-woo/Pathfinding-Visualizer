@@ -26,6 +26,10 @@ const initialState = {
       y: 0,
     },
   },
+  counter: {
+    visited: 0,
+    path: 0,
+  },
 };
 
 const gridSlice = createSlice({
@@ -67,6 +71,8 @@ const gridSlice = createSlice({
       }
       // Unpause the visualization
       state.paused = false;
+      // Reset the visited nodes and path length counter
+      state.counter = initialState.counter;
     },
     updateDimension: (state, action) => {
       const { rows, cols } = action.payload;
@@ -136,8 +142,16 @@ const gridSlice = createSlice({
     updateNodeState: (state, action) => {
       const { x, y, next } = action.payload;
       const prev = state.grid[y][x];
-      // Skip visualizing the start and target node
-      if (prev === NODE_STATE.START || prev === NODE_STATE.TARGET) return;
+      // Skip visualizing repeated state or the start and target node
+      if (next === prev || prev === NODE_STATE.START || prev === NODE_STATE.TARGET) return;
+      // Increment the visited nodes counter if the node is updated to the explored state
+      if (next === NODE_STATE.EXPLORED) {
+        state.counter.visited += 1;
+      }
+      // Increment the path length counter if the node is updated to the path state
+      else if (next === NODE_STATE.PATH) {
+        state.counter.path += 1;
+      }
       // Update the node to the next given state
       state.grid[y][x] = next;
     },
