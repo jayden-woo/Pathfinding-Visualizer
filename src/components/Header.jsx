@@ -51,7 +51,7 @@ const Header = () => {
     setVisualQueue([...visited, ...path]);
   }, [visited]);
 
-  // Call the visualize function again everytime a node is popped from the visual queue
+  // Call the visualize function again every time a node is popped from the visual queue
   useEffect(() => {
     if (visualQueue.length) visualize();
     return () => clearTimeout(visualID);

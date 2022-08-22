@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { PATH_ALGORITHMS } from "../constants";
+import { DELAY, PATH_ALGORITHMS } from "../constants";
 
 const initialState = {
-  animationDelay: 180,
+  animationDelay: DELAY.DEFAULT,
   selectedAlgo: PATH_ALGORITHMS.DEPTH_FIRST_SEARCH,
   mobileDrawerOpen: false,
 };

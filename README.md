@@ -43,7 +43,7 @@
 
   - [x] Pause and resume the visualization
   - [x] Custom visualization animation delay slider
-  - [ ] Legend for node colours meaning
+  - [x] Legend for node colours meaning
   - [x] Algorithm stats tracking (i.e. path length, number of nodes visited)
   - [x] Description and introduction for each algorithm
   - [ ] Responsive interface
@@ -55,8 +55,8 @@
 - React for front end
 - ReduxJS Toolkit for managing the application state
 - NodeJS for backend functionality
-- SASS for styling the grid and node elements together with the animations
-- Material UI (Core) for styling the rest of the user interface elements
+- SASS for the node component (for more responsive user interactions) and base styling options
+- Material UI (Core) for styling the other user interface elements and components
 - ESLint for linting and detecting early bugs
 - Prettier for enforcing a consistent style in the code base
 
@@ -68,7 +68,7 @@ In the project directory, you can run:
 
 ### `npm install`
 
-Installs the dependencies for the project to run the other scrips locally.
+Installs the dependencies for the project to run the other scripts locally.
 
 ### `npm start`
 

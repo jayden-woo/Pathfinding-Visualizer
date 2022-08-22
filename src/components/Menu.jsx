@@ -129,7 +129,7 @@ const Menu = () => {
           <ListItemText primary="Breadth-First Search" />
         </ListItemButton>
         <ListItemButton
-          sx={{ diplay: "flex", flexDirection: "column", alignItems: "flex-start" }}
+          sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}
           selected={selectedAlgo === PATH_ALGORITHMS.GREEDY_BEST_FIRST_SEARCH}
           onClick={() => handleAlgoClick(PATH_ALGORITHMS.GREEDY_BEST_FIRST_SEARCH)}
         >
@@ -143,7 +143,7 @@ const Menu = () => {
           </Collapse>
         </ListItemButton>
         <ListItemButton
-          sx={{ diplay: "flex", flexDirection: "column", alignItems: "flex-start" }}
+          sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}
           selected={selectedAlgo === PATH_ALGORITHMS.A_STAR_ALGORITHM}
           onClick={() => handleAlgoClick(PATH_ALGORITHMS.A_STAR_ALGORITHM)}
         >
