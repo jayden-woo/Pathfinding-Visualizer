@@ -1,14 +1,8 @@
+import { Box, useMediaQuery } from "@mui/material";
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateDimension } from "../features/gridSlice";
-import {
-  MAX_COLS,
-  MAX_ROWS,
-  NAV_HEIGHT,
-  NODE_LARGE,
-  NODE_SMALL,
-  SCREEN_BREAKPOINT,
-} from "../constants";
+import { GRID_SIZE, NAV_HEIGHT, NODE_SIZE } from "../constants";
 import useWindowSize from "../hooks/useWindowSize";
 import Node from "./Node";
 
@@ -17,30 +11,64 @@ const Grid = () => {
   const windowSize = useWindowSize();
   const dispatch = useDispatch();
   const { grid, gridID } = useSelector((store) => store.grid);
+  const largeScreen = useMediaQuery((theme) => theme.breakpoints.up("lg"));
 
+  // Clamp a number to be between a given range
+  const clamp = (val, min, max) => Math.min(Math.max(val, min), max);
+
+  // Update the amount of rows and cols to be displayed every time the screen size changed
   useEffect(() => {
     if (ref.current) {
-      // Responsively get the node size and determine the number of rows and cols
-      const nodeSize = windowSize.width > SCREEN_BREAKPOINT ? NODE_LARGE : NODE_SMALL;
-      const rows = Math.min(
+      // Get the node size according to the size of the current screen
+      const nodeSize = largeScreen ? NODE_SIZE.LARGE : NODE_SIZE.SMALL;
+      // Clamp the number of rows to be between the preset minimum and maximum amount
+      const rows = clamp(
+        // Calculate and round down the amount of rows that could fit within the width of the free space
         Math.trunc((ref.current.clientHeight - NAV_HEIGHT) / nodeSize),
-        MAX_ROWS
+        GRID_SIZE.ROWS.MIN,
+        GRID_SIZE.ROWS.MAX
       );
-      const cols = Math.min(Math.trunc(ref.current.clientWidth / nodeSize), MAX_COLS);
+      // Clamp the number of columns to be between the preset minimum and maximum amount
+      const cols = clamp(
+        // Calculate and round down the amount of columns that could fit within the width of the free space
+        Math.trunc(ref.current.clientWidth / nodeSize),
+        GRID_SIZE.COLS.MIN,
+        GRID_SIZE.COLS.MAX
+      );
+      // Update the calculated dimension
       dispatch(updateDimension({ rows, cols }));
     }
   }, [windowSize]);
 
   return (
-    <div ref={ref} className="grid" onContextMenu={(e) => e.preventDefault()}>
+    <Box
+      ref={ref}
+      sx={{
+        minWidth: GRID_SIZE.MIN_WIDTH,
+        flexGrow: 1,
+        height: "100%",
+        my: 2,
+        mx: { xs: 1, sm: 2 },
+      }}
+      // Prevent the context menu from popping up when the user right clicks within the grid
+      onContextMenu={(e) => e.preventDefault()}
+    >
       {grid.map((row, y) => (
-        <div key={gridID[y][0]} className="row">
+        <Box
+          key={gridID[y][0]}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignContent: "center",
+          }}
+        >
           {row.map((state, x) => (
             <Node x={x} y={y} key={gridID[y][x]} state={state} />
           ))}
-        </div>
+        </Box>
       ))}
-    </div>
+    </Box>
   );
 };
 

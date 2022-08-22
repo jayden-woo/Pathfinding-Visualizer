@@ -1,1 +1,45 @@
-@use "./components";
+@use "_variables" as *;
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.node {
+  width: $node-small-size;
+  height: $node-small-size;
+  margin: $node-small-margin;
+  border-radius: $node-border-radius;
+  background-color: $node-background-colour;
+
+  @media screen and (min-width: $lg-screen-breakpoint) {
+    width: $node-large-size;
+    height: $node-large-size;
+    margin: $node-large-margin;
+  }
+
+  &.start {
+    background-color: $node-start-colour;
+  }
+
+  &.target {
+    background-color: $node-target-colour;
+  }
+
+  &.wall {
+    background-color: $node-wall-colour;
+  }
+
+  &.queued {
+    background-color: $node-queued-colour;
+  }
+
+  &.explored {
+    background-color: $node-explored-colour;
+  }
+
+  &.path {
+    background-color: $node-path-colour;
+  }
+}

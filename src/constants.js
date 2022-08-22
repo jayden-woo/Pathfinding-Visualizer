@@ -1,20 +1,28 @@
-import Styles from "./styles/abstracts/_variables.scss";
-
-// Screen breakpoint
-export const SCREEN_BREAKPOINT = Number(Styles.screenBreakpoint.replace("px", ""));
+import Styles from "./styles/_variables.scss";
 
 // Component sizes
 export const NAV_HEIGHT = 64;
 export const DRAWER_WIDTH = 240;
 export const SLIDER_WIDTH = 205;
 
-// Node size
-export const NODE_SMALL = Number(Styles.nodeSmallSize.replace("px", ""));
-export const NODE_LARGE = Number(Styles.nodeLargeSize.replace("px", ""));
+// Grid sizes
+export const GRID_SIZE = Object.freeze({
+  MIN_WIDTH: 400,
+  ROWS: Object.freeze({
+    MIN: 20,
+    MAX: 40,
+  }),
+  COLS: Object.freeze({
+    MIN: 17,
+    MAX: 40,
+  }),
+});
 
-// Maximum amount of rows and columns in the grid
-export const MAX_ROWS = 30;
-export const MAX_COLS = 40;
+// Node sizes
+export const NODE_SIZE = Object.freeze({
+  SMALL: parseFloat(Styles.nodeSmall),
+  LARGE: parseFloat(Styles.nodeLarge),
+});
 
 // Node states
 export const NODE_STATE = Object.freeze({

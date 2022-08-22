@@ -1,7 +1,7 @@
-import { Card, CardContent, Typography } from "@mui/material";
+import { Box, Card, CardContent, Grid, Typography, useMediaQuery } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
-import { PATH_ALGORITHMS } from "../constants";
+import { NODE_STATE, PATH_ALGORITHMS } from "../constants";
 
 // Return the information corresponding to each algorithm
 const getAlgorithmInfo = {
@@ -50,34 +50,66 @@ const Info = () => {
   const time = useSelector((store) => store.pathfinding.time);
   const counter = useSelector((store) => store.grid.counter);
   const algoInfo = getAlgorithmInfo[useSelector((store) => store.menu.selectedAlgo)];
+  const smallWidth = useMediaQuery((theme) => theme.breakpoints.between("md", "lg"));
 
   return (
-    <div>
-      <Card sx={{ my: 2, ml: 0, mr: 3, backgroundColor: "background.paper" }}>
+    <Box sx={{ width: { lg: "30%" } }}>
+      <Card
+        sx={{
+          mt: { lg: 2 },
+          mb: 2,
+          ml: { xs: 3, lg: 0 },
+          mr: 3,
+          backgroundColor: "background.paper",
+        }}
+      >
         <CardContent>
-          <Typography variant="h6">Execution Time (ms)</Typography>
-          <Typography variant="h3">{time.toFixed(5)}</Typography>
+          <Typography variant="h6">Legend</Typography>
+          <Grid sx={{ pt: 2 }} container spacing={1}>
+            {Object.values(NODE_STATE)
+              .filter((state) => state !== NODE_STATE.EMPTY)
+              .map((state) => (
+                <Grid container item key={state} spacing={1} xs={4}>
+                  <Grid item>
+                    <div className={`node ${state}`} />
+                  </Grid>
+                  <Grid item>
+                    <Typography variant="body2">
+                      {state.charAt(0).toUpperCase() + state.slice(1)}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              ))}
+          </Grid>
         </CardContent>
       </Card>
-      <Card sx={{ my: 2, ml: 0, mr: 3, backgroundColor: "background.paper" }}>
+      {/* TODO: Fix execution time tracking for complicated algorithms or remove it completely */}
+      {/* TODO: Fix screen moving for execution time longer than two digits */}
+      <Card sx={{ my: 2, ml: { xs: 3, lg: 0 }, mr: 3, backgroundColor: "background.paper" }}>
+        <CardContent>
+          <Typography variant="h6">Execution Time (ms)</Typography>
+          <Typography variant="h3">{smallWidth ? time.toFixed(3) : time.toFixed(5)}</Typography>
+        </CardContent>
+      </Card>
+      <Card sx={{ my: 2, ml: { xs: 3, lg: 0 }, mr: 3, backgroundColor: "background.paper" }}>
         <CardContent>
           <Typography variant="h6">Nodes Visited</Typography>
           <Typography variant="h3">{counter.visited}</Typography>
         </CardContent>
       </Card>
-      <Card sx={{ my: 2, ml: 0, mr: 3, backgroundColor: "background.paper" }}>
+      <Card sx={{ my: 2, ml: { xs: 3, lg: 0 }, mr: 3, backgroundColor: "background.paper" }}>
         <CardContent>
           <Typography variant="h6">Path Length</Typography>
           <Typography variant="h3">{counter.path}</Typography>
         </CardContent>
       </Card>
-      <Card sx={{ my: 2, ml: 0, mr: 3, backgroundColor: "background.paper" }}>
+      <Card sx={{ my: 2, ml: { xs: 3, lg: 0 }, mr: 3, backgroundColor: "background.paper" }}>
         <CardContent>
           <Typography variant="h6">{algoInfo.title}</Typography>
           <Typography variant="body2">{algoInfo.description}</Typography>
         </CardContent>
       </Card>
-    </div>
+    </Box>
   );
 };
 
