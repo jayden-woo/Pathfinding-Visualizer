@@ -2,7 +2,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NODE_STATE } from "../constants";
 import { handlePauseClick, resetGrid, updateNodeState } from "../features/gridSlice";
 import { toggleDrawer } from "../features/menuSlice";
 import { resetPathFinder, runPathFinder } from "../features/pathfindingSlice";
@@ -48,20 +47,8 @@ const Header = () => {
 
   // Populate the visualization queue when the visited array is modified
   useEffect(() => {
-    // Start with an empty array
-    const queue = [];
-    // Add each node in the visited array to the queue array
-    visited.forEach((node) => {
-      // Attach a label to each node indicating that it's from the searching process
-      queue.push({ ...node, next: NODE_STATE.EXPLORED });
-    });
-    // Add each node in the path array to the queue array next
-    path.forEach((node) => {
-      // Attach a label to each node indicating that it's part of the path found
-      queue.push({ ...node, next: NODE_STATE.PATH });
-    });
-    // Update the visual queue state with the queue array
-    setVisualQueue(queue);
+    // Update the visual queue state with the elements from the visited array first then the path array
+    setVisualQueue([...visited, ...path]);
   }, [visited]);
 
   // Call the visualize function again everytime a node is popped from the visual queue

@@ -1,30 +1,44 @@
 import { DX, DY, NODE_STATE } from "../../constants";
+import { reconstructPath } from "./helper";
 
 const breadthFirstSearch = (start, target, grid, diagonal) => {
-  // Initialize variables and 2d array with visited state of each node
+  // Initialize variables and 2d array with queued and visited state of each node
   const rows = grid.length;
   const cols = grid[0].length;
   const dx = diagonal ? DX.EIGHT_DIRECTIONS : DX.FOUR_DIRECTIONS;
   const dy = diagonal ? DY.EIGHT_DIRECTIONS : DY.FOUR_DIRECTIONS;
-  const visited = Array.from({ length: rows }, () => Array.from({ length: cols }, () => false));
+  const state = Array.from({ length: rows }, () =>
+    Array.from({ length: cols }, () => ({
+      queued: false,
+      visited: false,
+    }))
+  );
   const queue = [];
   const order = [];
+  let path = [];
 
-  // Push the start node and continue until no more node could be explored
+  // Enqueue the start node to the queue and mark it as queued
   queue.push(start);
+  state[start.y][start.x].queued = true;
+
+  // Continue looping until no more node could be explored
   while (queue.length) {
     // Dequeue the first element in the queue
     const { x, y, prev } = queue.shift();
 
     // Skip current node if it has already been visited
-    if (visited[y][x]) continue;
+    if (state[y][x].visited) continue;
 
-    // Mark and add current node to the array with the order of nodes being visited
-    visited[y][x] = true;
-    order.push({ x, y, prev });
+    // Mark the current node as visited and push it to the visualization order array with the explored tag
+    state[y][x].visited = true;
+    order.push({ x, y, tag: NODE_STATE.EXPLORED });
 
     // Check if reached the target node
-    if (x === target.x && y === target.y) break;
+    if (x === target.x && y === target.y) {
+      // Reconstruct and update the path array with the full path before exiting the loop
+      path = reconstructPath(prev);
+      break;
+    }
 
     // Loop through all the possible neighbours of current node
     for (let i = dx.length - 1; i >= 0; i--) {
@@ -36,15 +50,22 @@ const breadthFirstSearch = (start, target, grid, diagonal) => {
       if (nextX < 0 || nextX >= cols || nextY < 0 || nextY >= rows) continue;
 
       // Skip the neighbour if it has already been visited or if it is a wall
-      if (visited[nextY][nextX] || grid[nextY][nextX] === NODE_STATE.WALL) continue;
+      if (state[nextY][nextX].visited || grid[nextY][nextX] === NODE_STATE.WALL) continue;
 
-      // Enqueue the neighbour to the queue otherwise
-      queue.push({ x: nextX, y: nextY, prev: { x, y, prev } });
+      // Check if the neighbour has been queued before
+      if (!state[nextY][nextX].queued) {
+        // Mark the neighbour as being queued
+        state[nextY][nextX].queued = true;
+        // Push it to the visualization order array with the queued tag
+        order.push({ x: nextX, y: nextY, tag: NODE_STATE.QUEUED });
+        // Enqueue the neighbour to the queue with the previous node leading to it
+        queue.push({ x: nextX, y: nextY, prev: { x, y, prev } });
+      }
     }
   }
 
-  // Return the array with the order of each node being visited
-  return order;
+  // Return the visualization order array and the array with the full path (or an empty array if no path exists)
+  return { order, path };
 };
 
 export default breadthFirstSearch;

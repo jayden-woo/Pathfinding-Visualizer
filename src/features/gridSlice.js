@@ -140,20 +140,20 @@ const gridSlice = createSlice({
     },
     // Update node state according to visualization of algorithms
     updateNodeState: (state, action) => {
-      const { x, y, next } = action.payload;
+      const { x, y, tag } = action.payload;
       const prev = state.grid[y][x];
       // Skip visualizing repeated state or the start and target node
-      if (next === prev || prev === NODE_STATE.START || prev === NODE_STATE.TARGET) return;
+      if (tag === prev || prev === NODE_STATE.START || prev === NODE_STATE.TARGET) return;
       // Increment the visited nodes counter if the node is updated to the explored state
-      if (next === NODE_STATE.EXPLORED) {
+      if (tag === NODE_STATE.EXPLORED) {
         state.counter.visited += 1;
       }
       // Increment the path length counter if the node is updated to the path state
-      else if (next === NODE_STATE.PATH) {
+      else if (tag === NODE_STATE.PATH) {
         state.counter.path += 1;
       }
-      // Update the node to the next given state
-      state.grid[y][x] = next;
+      // Update the node to the next given state according to its given tag
+      state.grid[y][x] = tag;
     },
   },
 });

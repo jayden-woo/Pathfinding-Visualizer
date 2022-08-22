@@ -1,6 +1,6 @@
 import FastPriorityQueue from "fastpriorityqueue";
 import { COST, DX, DY, NODE_STATE } from "../../constants";
-import { calculateHeuristic } from "./helper";
+import { calculateHeuristic, reconstructPath } from "./helper";
 
 const aStarAlgorithm = (start, target, grid, diagonal, heuristic) => {
   // Initialize variables and 2d array with state of each node
@@ -13,10 +13,12 @@ const aStarAlgorithm = (start, target, grid, diagonal, heuristic) => {
       gCost: Infinity,
       hCost: Infinity,
       fCost: Infinity,
+      opened: false,
       closed: false,
     }))
   );
   const order = [];
+  let path = [];
 
   // Initialize priority queue with custom comparator to define equality and relative order
   const open = new FastPriorityQueue((a, b) => {
@@ -32,8 +34,9 @@ const aStarAlgorithm = (start, target, grid, diagonal, heuristic) => {
     return a.x < b.x || a.y < b.y;
   });
 
-  // Reset the gCost of start node to 0 and add the start to the open priority queue
+  // Reset the gCost of the start node to 0 and mark it as queued before adding it to the open priority queue
   state[start.y][start.x].gCost = 0;
+  state[start.y][start.x].opened = true;
   open.add(start);
 
   // Continue looping until no more node could be explored
@@ -44,12 +47,16 @@ const aStarAlgorithm = (start, target, grid, diagonal, heuristic) => {
     // Skip current node if it has already been visited and closed
     if (state[y][x].closed) continue;
 
-    // Close and add current node to the array with the order of nodes being visited
+    // Close the current node and push it to the visualization order array with the explored tag
     state[y][x].closed = true;
-    order.push({ x, y, prev });
+    order.push({ x, y, tag: NODE_STATE.EXPLORED });
 
-    // Check if the target node is reached
-    if (x === target.x && y === target.y) break;
+    // Check if reached the target node
+    if (x === target.x && y === target.y) {
+      // Reconstruct and update the path array with the full path before exiting the loop
+      path = reconstructPath(prev);
+      break;
+    }
 
     // Loop through all the possible neighbours of current node
     for (let i = 0; i < dx.length; i++) {
@@ -57,40 +64,47 @@ const aStarAlgorithm = (start, target, grid, diagonal, heuristic) => {
       const nextX = x + dx[i];
       const nextY = y + dy[i];
 
+      // Skip the neighbour if it is out of the grid boundaries
+      if (nextX < 0 || nextX >= cols || nextY < 0 || nextY >= rows) continue;
+
+      // Get the node state of the neighbour
+      const node = state[nextY][nextX];
+
+      // Skip the neighbour if it has already been closed or if it is a wall
+      if (node.closed || grid[nextY][nextX] === NODE_STATE.WALL) continue;
+
       // Calculate the cost and the total gCost to reach the neighbour from the start node
       const cost = Math.abs(dx[i]) + Math.abs(dy[i]) > 1 ? COST.DIAGONAL : COST.ADJACENT;
       const gCost = state[y][x].gCost + cost;
 
-      // Skip the neighbour if it is out of the grid boundaries
-      if (nextX < 0 || nextX >= cols || nextY < 0 || nextY >= rows) continue;
-
-      // Skip the neighbour if it has already been closed or if it is a wall
-      if (state[nextY][nextX].closed || grid[nextY][nextX] === NODE_STATE.WALL) continue;
-
-      // Skip the neighbour if it has been visited before and has the same or higher gCost
-      if (state[nextY][nextX].gCost !== Infinity && state[nextY][nextX].gCost <= gCost) continue;
-
-      // Calculate the heuristic cost for reaching the target node if the neighbour has not been visited before
-      if (state[nextY][nextX].gCost === Infinity) {
-        state[nextY][nextX].hCost = calculateHeuristic(nextX, nextY, target, heuristic);
+      // Check if the neighbour has been added to the open queue before
+      if (node.opened) {
+        // Remove the neighbour from the priority queue if has a higher gCost or skip it otherwise
+        if (node.gCost > gCost) {
+          open.remove({ x: nextX, y: nextY });
+        } else {
+          continue;
+        }
+      } else {
+        // Mark the neighbour as being added
+        node.opened = true;
+        // Push it to the visualization order array with the queued tag
+        order.push({ x: nextX, y: nextY, tag: NODE_STATE.QUEUED });
+        // Calculate the heuristic cost for reaching the target node
+        node.hCost = calculateHeuristic(nextX, nextY, target, heuristic);
       }
 
-      // Remove the neighbour from the priority queue if it has been visited before and has a higher gCost
-      if (state[nextY][nextX].gCost < Infinity && state[nextY][nextX].gCost > gCost) {
-        open.remove({ x: nextX, y: nextY });
-      }
-
-      // Update the gCost for reaching the neighbour and the total fCost as well
-      state[nextY][nextX].gCost = gCost;
-      state[nextY][nextX].fCost = gCost + state[nextY][nextX].hCost;
+      // Update the gCost thus far for reaching the neighbour from the start node and then the total fCost as well
+      node.gCost = gCost;
+      node.fCost = gCost + node.hCost;
 
       // Add the neighbour into the open priority queue
       open.add({ x: nextX, y: nextY, prev: { x, y, prev } });
     }
   }
 
-  // Return the array with the order of each node being visited
-  return order;
+  // Return the visualization order array and the array with the full path (or an empty array if no path exists)
+  return { order, path };
 };
 
 export default aStarAlgorithm;
