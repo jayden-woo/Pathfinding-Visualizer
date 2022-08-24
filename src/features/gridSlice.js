@@ -17,7 +17,6 @@ const initialState = {
     x: 0,
     y: 0,
   },
-  paused: false,
   mouse: {
     clicking: false,
     actionState: null,
@@ -57,20 +56,18 @@ const gridSlice = createSlice({
       }
     },
     resetGrid: (state, action) => {
-      const pathOnly = action.payload;
+      const all = action.payload;
       for (let y = 0; y < state.dimension.rows; y++) {
         for (let x = 0; x < state.dimension.cols; x++) {
           const node = state.grid[y][x];
           // Skip if the node is the start or target node
           if (node === NODE_STATE.START || node === NODE_STATE.TARGET) continue;
           // Skip if only resetting path nodes and if the node is a wall node
-          if (pathOnly && node === NODE_STATE.WALL) continue;
+          if (!all && node === NODE_STATE.WALL) continue;
           // Reset the node to an empty node
           state.grid[y][x] = NODE_STATE.EMPTY;
         }
       }
-      // Unpause the visualization
-      state.paused = false;
       // Reset the visited nodes and path length counter
       state.counter = initialState.counter;
     },
@@ -91,11 +88,6 @@ const gridSlice = createSlice({
         y: state.dimension.rows - 3,
       };
       gridSlice.caseReducers.initGrid(state);
-    },
-    handlePauseClick: (state, action) => {
-      state.paused = action.payload;
-      // TO-DELETE:
-      console.log(state.paused ? "Animation Paused!" : "Animation Resumed!");
     },
     handleMouseClick: (state, action) => {
       const { x, y, nextState } = action.payload;
@@ -161,7 +153,6 @@ const gridSlice = createSlice({
 export const {
   resetGrid,
   updateDimension,
-  handlePauseClick,
   handleMouseClick,
   handleMouseMove,
   handleMouseLift,

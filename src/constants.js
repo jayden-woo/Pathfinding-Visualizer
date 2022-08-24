@@ -10,11 +10,11 @@ export const GRID_SIZE = Object.freeze({
   MIN_WIDTH: 400,
   ROWS: Object.freeze({
     MIN: 20,
-    MAX: 40,
+    MAX: 60,
   }),
   COLS: Object.freeze({
     MIN: 17,
-    MAX: 40,
+    MAX: 60,
   }),
 });
 
@@ -22,6 +22,14 @@ export const GRID_SIZE = Object.freeze({
 export const NODE_SIZE = Object.freeze({
   SMALL: parseFloat(Styles.nodeSmall),
   LARGE: parseFloat(Styles.nodeLarge),
+});
+
+// App states
+export const APP_STATE = Object.freeze({
+  INTERACTIVE: "interactive",
+  VISUALIZING: "visualizing",
+  PAUSED: "paused",
+  VISUALIZED: "visualized",
 });
 
 // Node states

@@ -20,6 +20,7 @@ import {
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  APP_STATE,
   DELAY,
   DRAWER_WIDTH,
   HEURISTIC,
@@ -32,7 +33,10 @@ import { setDiagonalTraversal, setHeuristic, setPathAlgorithm } from "../feature
 
 const Menu = () => {
   const dispatch = useDispatch();
+  const { appState } = useSelector((store) => store.app);
   const { selectedAlgo } = useSelector((store) => store.menu);
+  // Check for states when changes in the algorithms and heuristics are not allowed
+  const disableChanges = appState === APP_STATE.VISUALIZING || appState === APP_STATE.PAUSED;
 
   const handleAlgoClick = (algo) => {
     dispatch(switchAlgo(algo));
@@ -106,7 +110,12 @@ const Menu = () => {
       >
         <FormGroup sx={{ pl: 2 }}>
           <FormControlLabel
-            control={<Switch onChange={(e) => dispatch(setDiagonalTraversal(e.target.checked))} />}
+            control={
+              <Switch
+                disabled={disableChanges}
+                onChange={(e) => dispatch(setDiagonalTraversal(e.target.checked))}
+              />
+            }
             label="Allow Diagonals"
           />
         </FormGroup>
@@ -118,12 +127,14 @@ const Menu = () => {
       >
         <ListItemButton
           selected={selectedAlgo === PATH_ALGORITHMS.DEPTH_FIRST_SEARCH}
+          disabled={disableChanges}
           onClick={() => handleAlgoClick(PATH_ALGORITHMS.DEPTH_FIRST_SEARCH)}
         >
           <ListItemText primary="Depth-First Search" />
         </ListItemButton>
         <ListItemButton
           selected={selectedAlgo === PATH_ALGORITHMS.BREADTH_FIRST_SEARCH}
+          disabled={disableChanges}
           onClick={() => handleAlgoClick(PATH_ALGORITHMS.BREADTH_FIRST_SEARCH)}
         >
           <ListItemText primary="Breadth-First Search" />
@@ -131,6 +142,7 @@ const Menu = () => {
         <ListItemButton
           sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}
           selected={selectedAlgo === PATH_ALGORITHMS.GREEDY_BEST_FIRST_SEARCH}
+          disabled={disableChanges}
           onClick={() => handleAlgoClick(PATH_ALGORITHMS.GREEDY_BEST_FIRST_SEARCH)}
         >
           <ListItemText primary="Greedy Best-First Search" />
@@ -145,6 +157,7 @@ const Menu = () => {
         <ListItemButton
           sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}
           selected={selectedAlgo === PATH_ALGORITHMS.A_STAR_ALGORITHM}
+          disabled={disableChanges}
           onClick={() => handleAlgoClick(PATH_ALGORITHMS.A_STAR_ALGORITHM)}
         >
           <ListItemText primary="A* Algorithm" />
@@ -158,6 +171,7 @@ const Menu = () => {
         </ListItemButton>
         <ListItemButton
           selected={selectedAlgo === PATH_ALGORITHMS.DIJKSTRA_ALGORITHM}
+          disabled={disableChanges}
           onClick={() => handleAlgoClick(PATH_ALGORITHMS.DIJKSTRA_ALGORITHM)}
         >
           <ListItemText primary="Dijkstra's Algorithm" />
@@ -170,12 +184,14 @@ const Menu = () => {
       >
         <ListItemButton
           selected={selectedAlgo === MAZE_ALGORITHMS.BASIC_RANDOM}
+          disabled={disableChanges}
           onClick={() => handleAlgoClick(MAZE_ALGORITHMS.BASIC_RANDOM)}
         >
           <ListItemText primary="Basic Random" />
         </ListItemButton>
         <ListItemButton
           selected={selectedAlgo === MAZE_ALGORITHMS.RECURSIVE_DIVISION}
+          disabled={disableChanges}
           onClick={() => handleAlgoClick(MAZE_ALGORITHMS.RECURSIVE_DIVISION)}
         >
           <ListItemText primary="Recursive Division" />
