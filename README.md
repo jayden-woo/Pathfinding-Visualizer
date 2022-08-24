@@ -1,7 +1,7 @@
 # Pathfinding Visualizer
 
-- This project is inspired by [@clementmihailescu](https://github.com/clementmihailescu) and [@DevonCrawford](https://github.com/DevonCrawford).
-- The idea of visually seeing the algorithms execute makes it easier for me to understand and learn how each one of them works in details and it's always amazing and satisfying to see them work in action.
+- This project is inspired by [@DevonCrawford](https://github.com/DevonCrawford) and [@clementmihailescu](https://github.com/clementmihailescu) after coming across their YouTube videos ([Devon Crawford's video](https://www.youtube.com/watch?v=1-YPj5Vt0oQ) and [Clément Mihailescu's video](https://www.youtube.com/watch?v=n4t_-NjY_Sg)) on pathfinding visualization.
+- The idea of visually seeing the algorithms execute makes it easier for me to understand and learn how each one of them works in detail and it's always amazing and satisfying to see them work in action.
 - This is my version and attempt at creating a pathfinding visualization tool myself to revise on the pathfinding algorithms which were introduced in my university during my bachelor course and a chance to study some new maze generation algorithms as well.
 - This project isn't perfect and is still a work-in-progress so feel free to give any feedback on how it can be improved on and I'll continue to put in more work during my free time.
 - This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
@@ -17,7 +17,9 @@
   - [x] Responsive Grid
   - [x] Traverse 4-directionally
   - [x] Traverse diagonally
-  - [x] Clear path & board after visualization or while pausing
+  - [x] Clear path only or whole board after visualization or while pausing
+  - [x] Show the search frontier separately from the visited nodes
+  - [ ] Instantly updating the paths when changing configurations after visualizing
   - [ ] Add lines to clearly indicate path taken
 
 - [x] Search Algorithms
@@ -30,7 +32,7 @@
     - [x] Euclidean Distance
     - [x] Chebyshev Distance
     - [x] Octile Distance
-  - [ ] Dijkstra\'s Algorithm
+  - [x] Dijkstra\'s Algorithm
   - [ ] Jump Point Search
 
 - [ ] Maze Generation Algorithms
@@ -41,14 +43,19 @@
 
 - [x] Other Features
 
+  - [x] Restricting user inputs during different phase to avoid unintended interactions
   - [x] Pause and resume the visualization
   - [x] Custom visualization animation delay slider
   - [x] Legend for node colours meaning
-  - [x] Algorithm stats tracking (i.e. path length, number of nodes visited)
+  - [x] Real-time algorithm stats tracking (i.e. path length, number of nodes visited)
   - [x] Description and introduction for each algorithm
   - [ ] Responsive interface
 
-- [ ] Hosting the site using GitHub Pages
+- [ ] Project Demonstration
+
+  - [ ] Hosting the site using GitHub Pages
+  - [ ] Add demo video in README.md
+  - [ ] Add help page or description at the start on navigating the user interface
 
 ## Technology Stacks
 
