@@ -26,7 +26,7 @@ const depthFirstSearch = (start, target, grid, diagonal) => {
     // Pop the top element in the stack
     const { x, y, prev } = stack.pop();
 
-    // Skip current node if it has already been visited
+    // Skip the current node if it has already been visited
     if (state[y][x].visited) continue;
 
     // Mark the current node as visited and push it to the visualization order array with the explored tag
@@ -40,7 +40,7 @@ const depthFirstSearch = (start, target, grid, diagonal) => {
       break;
     }
 
-    // Loop through all the possible neighbours of current node
+    // Loop through all the possible neighbours of the current node
     for (let i = dx.length - 1; i >= 0; i--) {
       // Calculate the coordinates of the neighbour
       const nextX = x + dx[i];

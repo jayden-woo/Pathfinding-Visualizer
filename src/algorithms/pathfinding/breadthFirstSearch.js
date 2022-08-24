@@ -26,7 +26,7 @@ const breadthFirstSearch = (start, target, grid, diagonal) => {
     // Dequeue the first element in the queue
     const { x, y, prev } = queue.shift();
 
-    // Skip current node if it has already been visited
+    // Skip the current node if it has already been visited
     if (state[y][x].visited) continue;
 
     // Mark the current node as visited and push it to the visualization order array with the explored tag
@@ -40,7 +40,7 @@ const breadthFirstSearch = (start, target, grid, diagonal) => {
       break;
     }
 
-    // Loop through all the possible neighbours of current node
+    // Loop through all the possible neighbours of the current node
     for (let i = dx.length - 1; i >= 0; i--) {
       // Calculate the coordinates of the neighbour
       const nextX = x + dx[i];

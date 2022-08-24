@@ -16,7 +16,7 @@ const greedyBestFirstSearch = (start, target, grid, diagonal, heuristic) => {
   );
   const order = [];
 
-  // Initialize priority queue with custom comparator to check relative order
+  // Initialize the priority queue with custom comparator to check relative order
   const queue = new FastPriorityQueue((a, b) => a.distance < b.distance);
 
   // Add the start node to the priority queue and mark it as queued
@@ -28,7 +28,7 @@ const greedyBestFirstSearch = (start, target, grid, diagonal, heuristic) => {
     // Remove the node with the highest priority in the priority queue
     const { x, y, prev } = queue.poll();
 
-    // Skip current node if it has already been visited
+    // Skip the current node if it has already been visited
     if (state[y][x].visited) continue;
 
     // Mark the current node as visited and push it to the visualization order array with the explored tag

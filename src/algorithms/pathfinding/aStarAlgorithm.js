@@ -20,18 +20,20 @@ const aStarAlgorithm = (start, target, grid, diagonal, heuristic) => {
   const order = [];
   let path = [];
 
-  // Initialize priority queue with custom comparator to define equality and relative order
+  // Initialize the priority queue with custom comparator to define equality and relative order
   const open = new FastPriorityQueue((a, b) => {
+    const stateA = state[a.y][a.x];
+    const stateB = state[b.y][b.x];
     // Compare the fCost first
-    if (state[a.y][a.x].fCost !== state[b.y][b.x].fCost) {
-      return state[a.y][a.x].fCost < state[b.y][b.x].fCost;
+    if (stateA.fCost !== stateB.fCost) {
+      return stateA.fCost < stateB.fCost;
     }
     // Break ties in fCost by comparing the hCost next
-    if (state[a.y][a.x].hCost !== state[b.y][b.x].hCost) {
-      return state[a.y][a.x].hCost < state[b.y][b.x].hCost;
+    if (stateA.hCost !== stateB.hCost) {
+      return stateA.hCost < stateB.hCost;
     }
     // Compare the coordinates last to allow for equality check and subsequent removal of elements from the queue
-    return a.x < b.x || a.y < b.y;
+    return a.x > b.x || a.y > b.y;
   });
 
   // Reset the gCost of the start node to 0 and mark it as queued before adding it to the open priority queue
@@ -44,7 +46,7 @@ const aStarAlgorithm = (start, target, grid, diagonal, heuristic) => {
     // Remove the node with the highest priority in the priority queue
     const { x, y, prev } = open.poll();
 
-    // Skip current node if it has already been visited and closed
+    // Skip the current node if it has already been visited and closed
     if (state[y][x].closed) continue;
 
     // Close the current node and push it to the visualization order array with the explored tag
@@ -58,7 +60,7 @@ const aStarAlgorithm = (start, target, grid, diagonal, heuristic) => {
       break;
     }
 
-    // Loop through all the possible neighbours of current node
+    // Loop through all the possible neighbours of the current node
     for (let i = 0; i < dx.length; i++) {
       // Calculate the coordinates of the neighbour
       const nextX = x + dx[i];
@@ -79,12 +81,10 @@ const aStarAlgorithm = (start, target, grid, diagonal, heuristic) => {
 
       // Check if the neighbour has been added to the open queue before
       if (node.opened) {
-        // Remove the neighbour from the priority queue if has a higher gCost or skip it otherwise
-        if (node.gCost > gCost) {
-          open.remove({ x: nextX, y: nextY });
-        } else {
-          continue;
-        }
+        // Skip the neighbour if it had a lesser or equal gCost
+        if (node.gCost <= gCost) continue;
+        // Else remove it from the priority queue
+        open.remove({ x: nextX, y: nextY });
       } else {
         // Mark the neighbour as being added
         node.opened = true;
