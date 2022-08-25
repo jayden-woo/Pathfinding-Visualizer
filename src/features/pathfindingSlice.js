@@ -8,6 +8,11 @@ const initialState = {
   diagonal: false,
   visited: [],
   path: [],
+  final: {
+    grid: [],
+    visited: 0,
+    path: 0,
+  },
   time: 0,
 };
 
@@ -33,6 +38,7 @@ const pathfindingSlice = createSlice({
     resetPathFinder: (state) => {
       state.visited = [];
       state.path = [];
+      state.final = initialState.final;
       state.time = 0;
     },
     runPathFinder: (state, action) => {
@@ -41,7 +47,7 @@ const pathfindingSlice = createSlice({
       if (!state.algorithm) return;
       const { start, target, grid } = action.payload;
       const startTime = performance.now();
-      const { order, path } = PathFinder[state.algorithm](
+      const { order, path, final } = PathFinder[state.algorithm](
         start,
         target,
         grid,
@@ -50,6 +56,7 @@ const pathfindingSlice = createSlice({
       );
       state.visited = order;
       state.path = path;
+      state.final = final;
       state.time = performance.now() - startTime;
     },
   },

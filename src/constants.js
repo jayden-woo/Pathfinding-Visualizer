@@ -26,10 +26,16 @@ export const NODE_SIZE = Object.freeze({
 
 // App states
 export const APP_STATE = Object.freeze({
+  // When the app is allowing user to change the grid and algorithm configurations
   INTERACTIVE: "interactive",
+  // When the app is running the visualization process
   VISUALIZING: "visualizing",
+  // When the visualization process is being paused
   PAUSED: "paused",
+  // When the app is done with the visualization process
   VISUALIZED: "visualized",
+  // When the app is updating to instantly render the end state of another configuration
+  UPDATING: "updating",
 });
 
 // Node states

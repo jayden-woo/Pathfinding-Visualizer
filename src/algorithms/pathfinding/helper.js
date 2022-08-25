@@ -1,7 +1,7 @@
 import { COST, DIAGONAL_DISTANCE, HEURISTIC, NODE_STATE } from "../../constants";
 
 // Helper function to backtrace the path found from the target node
-export const reconstructPath = (target) => {
+export const reconstructPath = (target, grid) => {
   // Start tracing from the target node
   const path = [];
   let node = target;
@@ -11,6 +11,10 @@ export const reconstructPath = (target) => {
     // Add the node to the start of the path array with the path tag
     const { x, y, prev } = node;
     path.unshift({ x, y, tag: NODE_STATE.PATH });
+
+    // Update the final state of the path node in the grid
+    // eslint-disable-next-line no-param-reassign
+    grid[y][x] = NODE_STATE.PATH;
 
     // Update the node variable to the previous of current node
     node = prev;

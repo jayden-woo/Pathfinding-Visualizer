@@ -19,7 +19,7 @@
   - [x] Traverse diagonally
   - [x] Clear path only or whole board after visualization or while pausing
   - [x] Show the search frontier separately from the visited nodes
-  - [ ] Instantly updating the paths when changing configurations after visualizing
+  - [x] Instant path updates when changing configurations after visualizing
   - [ ] Add lines to clearly indicate path taken
 
 - [x] Search Algorithms

@@ -17,7 +17,7 @@ import {
   Switch,
   Toolbar,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   APP_STATE,
@@ -28,6 +28,8 @@ import {
   PATH_ALGORITHMS,
   SLIDER_WIDTH,
 } from "../constants";
+import { updateAppState } from "../features/appSlice";
+import { resetGrid } from "../features/gridSlice";
 import { switchAlgo, updateAnimationDelay } from "../features/menuSlice";
 import { setDiagonalTraversal, setHeuristic, setPathAlgorithm } from "../features/pathfindingSlice";
 
@@ -35,6 +37,7 @@ const Menu = () => {
   const dispatch = useDispatch();
   const { appState } = useSelector((store) => store.app);
   const { selectedAlgo } = useSelector((store) => store.menu);
+  const { algorithm, heuristic, diagonal } = useSelector((store) => store.pathfinding);
   // Check for states when changes in the algorithms and heuristics are not allowed
   const disableChanges = appState === APP_STATE.VISUALIZING || appState === APP_STATE.PAUSED;
 
@@ -53,6 +56,16 @@ const Menu = () => {
         break;
     }
   };
+
+  useEffect(() => {
+    // Check if the app is done with the initial visualization
+    if (appState === APP_STATE.VISUALIZED) {
+      // Update the app state
+      dispatch(updateAppState(APP_STATE.UPDATING));
+      // Reset the grid to be instantly updated due to changing configurations after the initial visualization
+      dispatch(resetGrid(false));
+    }
+  }, [algorithm, heuristic, diagonal]);
 
   const heuristics = (
     <FormControl sx={{ pl: 1 }}>

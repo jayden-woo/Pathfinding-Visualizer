@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { APP_STATE } from "../constants";
 import { updateAppState } from "../features/appSlice";
-import { resetGrid, updateNodeState } from "../features/gridSlice";
+import { replaceGrid, resetGrid, updateNodeState } from "../features/gridSlice";
 import { toggleDrawer } from "../features/menuSlice";
 import { resetPathFinder, runPathFinder } from "../features/pathfindingSlice";
 
@@ -13,7 +13,7 @@ const Header = () => {
   const { appState } = useSelector((store) => store.app);
   const { animationDelay } = useSelector((store) => store.menu);
   const { grid, start, target } = useSelector((store) => store.grid);
-  const { visited, path } = useSelector((store) => store.pathfinding);
+  const { visited, path, final } = useSelector((store) => store.pathfinding);
   const [visualQueue, setVisualQueue] = useState([]);
   let visualID;
 
@@ -59,23 +59,29 @@ const Header = () => {
   }, [appState]);
 
   useEffect(() => {
+    // Run the pathfinder again when the grid is done resetting for new configurations
+    if (appState === APP_STATE.UPDATING) dispatch(runPathFinder({ start, target, grid }));
+  }, [grid]);
+
+  useEffect(() => {
     switch (appState) {
-      // Check for situations when the visited array is updated while in the visualizing mode
+      // Check for updates while in the visualizing mode
       case APP_STATE.VISUALIZING:
         // Update the visual queue state with the elements from the visited array first then the path array
         setVisualQueue([...visited, ...path]);
         break;
-      // Check for situations when the visited array is updated while the visualization is paused
+      // Check for updates while the visualization is paused
       case APP_STATE.PAUSED:
-        // User clicked on the clear buttons
-        if (!visited.length) dispatch(updateAppState(APP_STATE.INTERACTIVE));
-        break;
-      // Check for situations when the visited array is updated while the app is done with the visualization
+      // Fall through for updates while the app is done with the visualization
       case APP_STATE.VISUALIZED:
         // User clicked on the clear buttons
         if (!visited.length) dispatch(updateAppState(APP_STATE.INTERACTIVE));
-        // TODO: Add functionality for instantly updating the path when algorithm is changed by instantly
-        // replacing the grid with the final grid state after algorithm is done running
+        break;
+      // Check for updates while the app is instantly updating with new paths after the initial visualization
+      case APP_STATE.UPDATING:
+        // User changed the configurations (algorithm or diagonals) after finished with the initial visualization
+        dispatch(replaceGrid(final));
+        dispatch(updateAppState(APP_STATE.VISUALIZED));
         break;
       default:
         break;
