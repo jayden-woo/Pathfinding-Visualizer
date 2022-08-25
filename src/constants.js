@@ -10,11 +10,11 @@ export const GRID_SIZE = Object.freeze({
   MIN_WIDTH: 400,
   ROWS: Object.freeze({
     MIN: 20,
-    MAX: 60,
+    MAX: 50,
   }),
   COLS: Object.freeze({
     MIN: 17,
-    MAX: 60,
+    MAX: 50,
   }),
 });
 

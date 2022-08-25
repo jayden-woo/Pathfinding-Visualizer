@@ -22,9 +22,9 @@ const menuSlice = createSlice({
       state.selectedAlgo = action.payload;
     },
     toggleDrawer: (state, action) => {
-      console.log("Before", state.mobileDrawerOpen);
       state.mobileDrawerOpen = action.payload || !state.mobileDrawerOpen;
-      console.log("After", state.mobileDrawerOpen);
+      // TO-DELETE:
+      console.log(state.mobileDrawerOpen ? "Mobile menu opened!" : "Mobile menu closed!");
     },
   },
 });

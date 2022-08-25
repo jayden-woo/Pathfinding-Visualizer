@@ -1,5 +1,5 @@
 import MenuIcon from "@mui/icons-material/Menu";
-import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material";
+import { AppBar, Button, IconButton, Link, Toolbar, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { APP_STATE } from "../constants";
@@ -116,9 +116,12 @@ const Header = () => {
           component="div"
           sx={{ pl: 1, pr: 4, display: { xs: "none", sm: "block" } }}
         >
-          Pathfinding Visualizer
+          <Link href="/" underline="none" color="inherit">
+            Pathfinding Visualizer
+          </Link>
         </Typography>
         <Button
+          sx={{ color: "text.primary" }}
           variant="text"
           disableElevation
           disabled={appState !== APP_STATE.INTERACTIVE}
@@ -127,6 +130,7 @@ const Header = () => {
           Visualize
         </Button>
         <Button
+          sx={{ color: "text.primary" }}
           variant="text"
           disableElevation
           disabled={appState === APP_STATE.VISUALIZING}
@@ -135,6 +139,7 @@ const Header = () => {
           Clear All
         </Button>
         <Button
+          sx={{ color: "text.primary" }}
           variant="text"
           disableElevation
           disabled={appState === APP_STATE.VISUALIZING}
@@ -144,6 +149,7 @@ const Header = () => {
         </Button>
         {appState === APP_STATE.PAUSED ? (
           <Button
+            sx={{ color: "text.primary" }}
             variant="text"
             disableElevation
             onClick={() => dispatch(updateAppState(APP_STATE.VISUALIZING))}
@@ -152,6 +158,7 @@ const Header = () => {
           </Button>
         ) : (
           <Button
+            sx={{ color: "text.primary" }}
             variant="text"
             disableElevation
             disabled={appState !== APP_STATE.VISUALIZING}

@@ -83,8 +83,8 @@ const Info = () => {
           </Grid>
         </CardContent>
       </Card>
-      {/* TODO: Fix execution time tracking for complicated algorithms or remove it completely */}
-      {/* TODO: Fix screen moving for execution time longer than two digits */}
+      {/* TO-DO: Fix execution time tracking for complicated algorithms or remove it completely */}
+      {/* TO-DO: Fix screen moving for execution time longer than two digits */}
       <Card sx={{ my: 2, ml: { xs: 3, lg: 0 }, mr: 3, backgroundColor: "background.paper" }}>
         <CardContent>
           <Typography variant="h6">Execution Time (ms)</Typography>

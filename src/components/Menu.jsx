@@ -46,13 +46,10 @@ const Menu = () => {
       case PATH_ALGORITHMS.GREEDY_BEST_FIRST_SEARCH:
       case PATH_ALGORITHMS.A_STAR_ALGORITHM:
       case PATH_ALGORITHMS.DIJKSTRA_ALGORITHM:
-        // TO-DELETE:
-        console.log("Selected Path Algorithm is changed to", algo);
         dispatch(setPathAlgorithm(algo));
         break;
       default:
-        // TO-DELETE:
-        console.log("Selected Maze Algorithm is changed to", algo);
+        // TO-DO: Set maze generation algorithm
         break;
     }
   };
@@ -61,7 +58,7 @@ const Menu = () => {
     <FormControl sx={{ pl: 1 }}>
       <FormLabel sx={{ py: 1, fontSize: "0.875rem" }}>Heuristics</FormLabel>
       <RadioGroup
-        defaultValue={HEURISTIC.MANHATTAN}
+        value={heuristic}
         name="heuristics-buttons-group"
         onChange={(e) => dispatch(setHeuristic(e.target.value))}
       >
