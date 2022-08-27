@@ -50,65 +50,102 @@ const Info = () => {
   const time = useSelector((store) => store.pathfinding.time);
   const counter = useSelector((store) => store.grid.counter);
   const algoInfo = getAlgorithmInfo[useSelector((store) => store.menu.selectedAlgo)];
-  const smallWidth = useMediaQuery((theme) => theme.breakpoints.between("md", "lg"));
+  const mobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   return (
     <Box sx={{ width: { lg: "30%" } }}>
-      <Card
-        sx={{
-          mt: { lg: 2 },
-          mb: 2,
-          ml: { xs: 3, lg: 0 },
-          mr: 3,
-          backgroundColor: "background.paper",
-        }}
-      >
-        <CardContent>
-          <Typography variant="h6">Legend</Typography>
-          <Grid sx={{ pt: 2 }} container spacing={1}>
-            {Object.values(NODE_STATE)
-              .filter((state) => state !== NODE_STATE.EMPTY)
-              .map((state) => (
-                <Grid container item key={state} spacing={1} xs={4}>
-                  <Grid item>
-                    <div className={`node ${state}`} />
-                  </Grid>
-                  <Grid item>
-                    <Typography variant="body2">
-                      {state.charAt(0).toUpperCase() + state.slice(1)}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              ))}
+      <Grid container>
+        <Grid item xs={12}>
+          <Card
+            sx={{
+              mt: { lg: 2 },
+              mb: 1,
+              ml: { xs: 2, lg: 0 },
+              mr: 2,
+              backgroundColor: "background.paper",
+            }}
+          >
+            <CardContent>
+              <Typography variant="h6">Legend</Typography>
+              <Grid sx={{ pt: 2 }} container item spacing={1}>
+                {Object.values(NODE_STATE)
+                  .filter((state) => state !== NODE_STATE.EMPTY)
+                  .map((state) => (
+                    <Grid container item key={state} spacing={1} xs={4} sm={2} lg={4}>
+                      <Grid item>
+                        <div className={`node ${state}`} />
+                      </Grid>
+                      <Grid item>
+                        <Typography variant="body2">
+                          {state.charAt(0).toUpperCase() + state.slice(1)}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  ))}
+              </Grid>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid container item columns={{ xs: 10, sm: 10, md: 10, lg: 12 }} xs={12}>
+          {!mobile && (
+            <Grid item sm={4} lg={12}>
+              {/* TO-DO: Fix execution time tracking for complicated algorithms or remove it completely */}
+              {/* TO-DO: Fix screen moving for execution time longer than two digits */}
+              <Card
+                sx={{
+                  my: 1,
+                  ml: { xs: 2, lg: 0 },
+                  mr: { xs: 1, lg: 2 },
+                  backgroundColor: "background.paper",
+                }}
+              >
+                <CardContent>
+                  <Typography variant="h6">Execution Time (ms)</Typography>
+                  <Typography variant="h3">{time.toFixed(4)}</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          )}
+          <Grid item xs={5} sm={3} lg={6}>
+            <Card
+              sx={{
+                my: 1,
+                ml: { xs: 2, sm: 1, lg: 0 },
+                mr: { xs: 1, lg: 2 },
+                backgroundColor: "background.paper",
+              }}
+            >
+              <CardContent>
+                <Typography variant="h6">{mobile ? "Visited" : "Nodes Visited"}</Typography>
+                <Typography variant="h3">{counter.visited}</Typography>
+              </CardContent>
+            </Card>
           </Grid>
-        </CardContent>
-      </Card>
-      {/* TO-DO: Fix execution time tracking for complicated algorithms or remove it completely */}
-      {/* TO-DO: Fix screen moving for execution time longer than two digits */}
-      <Card sx={{ my: 2, ml: { xs: 3, lg: 0 }, mr: 3, backgroundColor: "background.paper" }}>
-        <CardContent>
-          <Typography variant="h6">Execution Time (ms)</Typography>
-          <Typography variant="h3">{smallWidth ? time.toFixed(3) : time.toFixed(5)}</Typography>
-        </CardContent>
-      </Card>
-      <Card sx={{ my: 2, ml: { xs: 3, lg: 0 }, mr: 3, backgroundColor: "background.paper" }}>
-        <CardContent>
-          <Typography variant="h6">Nodes Visited</Typography>
-          <Typography variant="h3">{counter.visited}</Typography>
-        </CardContent>
-      </Card>
-      <Card sx={{ my: 2, ml: { xs: 3, lg: 0 }, mr: 3, backgroundColor: "background.paper" }}>
-        <CardContent>
-          <Typography variant="h6">Path Length</Typography>
-          <Typography variant="h3">{counter.path}</Typography>
-        </CardContent>
-      </Card>
-      <Card sx={{ my: 2, ml: { xs: 3, lg: 0 }, mr: 3, backgroundColor: "background.paper" }}>
-        <CardContent>
-          <Typography variant="h6">{algoInfo.title}</Typography>
-          <Typography variant="body2">{algoInfo.description}</Typography>
-        </CardContent>
-      </Card>
+          <Grid item xs={5} sm={3} lg={6}>
+            <Card
+              sx={{
+                my: 1,
+                ml: { xs: 1, lg: 0 },
+                mr: 2,
+                backgroundColor: "background.paper",
+              }}
+            >
+              <CardContent>
+                <Typography variant="h6">{mobile ? "Path" : "Path Length"}</Typography>
+                <Typography variant="h3">{counter.path}</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <Card sx={{ my: 1, ml: { xs: 2, lg: 0 }, mr: 2, backgroundColor: "background.paper" }}>
+            <CardContent>
+              <Typography variant="h6">{algoInfo.title}</Typography>
+              <Typography variant="body2">{algoInfo.description}</Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
     </Box>
   );
 };
