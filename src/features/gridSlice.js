@@ -87,12 +87,12 @@ const gridSlice = createSlice({
       // TO-DELETE:
       console.log("Grid Dimension:", state.dimension);
       state.start = {
-        x: 2,
-        y: 2,
+        x: 1,
+        y: 1,
       };
       state.target = {
-        x: state.dimension.cols - 3,
-        y: state.dimension.rows - 3,
+        x: state.dimension.cols - 2,
+        y: state.dimension.rows - 2,
       };
       gridSlice.caseReducers.initGrid(state);
     },

@@ -49,7 +49,7 @@
   - [x] Legend for node colours meaning
   - [x] Real-time algorithm stats tracking (i.e. path length, number of nodes visited)
   - [x] Description and introduction for each algorithm
-  - [ ] Responsive interface
+  - [x] Responsive interface
 
 - [ ] Project Demonstration
 

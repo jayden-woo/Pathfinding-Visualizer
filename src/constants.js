@@ -7,13 +7,13 @@ export const SLIDER_WIDTH = 205;
 
 // Grid sizes
 export const GRID_SIZE = Object.freeze({
-  MIN_WIDTH: 400,
+  MIN_WIDTH: 380,
   ROWS: Object.freeze({
-    MIN: 20,
+    MIN: 15,
     MAX: 50,
   }),
   COLS: Object.freeze({
-    MIN: 17,
+    MIN: 15,
     MAX: 50,
   }),
 });
@@ -68,6 +68,8 @@ export const PATH_ALGORITHMS = Object.freeze({
 export const MAZE_ALGORITHMS = Object.freeze({
   BASIC_RANDOM: "BasicRandom",
   RECURSIVE_DIVISION: "RecursiveDivision",
+  KRUSKAL_ALGORITHM: "KruskalAlgorithm",
+  PRIM_ALGORITHM: "PrimAlgorithm",
 });
 
 // Heuristics function
