@@ -35,10 +35,11 @@
   - [x] Dijkstra\'s Algorithm
   - [ ] Jump Point Search
 
-- [ ] Maze Generation Algorithms
+- [x] Maze Generation Algorithms
 
-  - [ ] Basic Random Method
+  - [x] Basic Random Method
   - [ ] Recursive Division Method
+  - [ ] Kruskal\'s Algorithm
   - [ ] Prim\'s Algorithm
 
 - [x] Other Features
