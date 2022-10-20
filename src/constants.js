@@ -30,6 +30,8 @@ export const APP_STATE = Object.freeze({
   INTERACTIVE: "interactive",
   // When the app is running the visualization process
   VISUALIZING: "visualizing",
+  // When the app is generating the maze
+  GENERATING: "generating",
   // When the visualization process is being paused
   PAUSED: "paused",
   // When the app is done with the visualization process
@@ -53,6 +55,12 @@ export const NODE_STATE = Object.freeze({
 export const MOUSE_BUTTON = Object.freeze({
   LEFT: 1,
   RIGHT: 2,
+});
+
+// Algorithm Types
+export const ALGORITHM_TYPES = Object.freeze({
+  PATHFINDING: "Pathfinding",
+  GENERATION: "MazeGeneration",
 });
 
 // Pathfinding algorithms
@@ -98,6 +106,12 @@ export const DIAGONAL_DISTANCE = 1.414;
 export const COST = Object.freeze({
   ADJACENT: 10,
   DIAGONAL: 14,
+});
+
+// Direction of bisection for the recursive division maze generation method
+export const DIRECTION = Object.freeze({
+  VERTICAL: "vertical",
+  HORIZONTAL: "horizontal",
 });
 
 // Visualization delay specifications

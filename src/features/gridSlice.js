@@ -57,7 +57,7 @@ const gridSlice = createSlice({
     },
     replaceGrid: (state, action) => {
       // Replace the grid with the new grid state and update the visited nodes and path length counter
-      const { grid, visited, path } = action.payload;
+      const { grid, visited = 0, path = 0 } = action.payload;
       state.grid = grid;
       state.counter.visited = visited;
       state.counter.path = path;

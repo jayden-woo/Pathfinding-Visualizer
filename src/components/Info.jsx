@@ -1,7 +1,7 @@
 import { Box, Card, CardContent, Grid, Typography, useMediaQuery } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
-import { NODE_STATE, PATH_ALGORITHMS } from "../constants";
+import { MAZE_ALGORITHMS, NODE_STATE, PATH_ALGORITHMS } from "../constants";
 
 // Return the information corresponding to each algorithm
 const getAlgorithmInfo = {
@@ -43,6 +43,39 @@ const getAlgorithmInfo = {
     to all other nodes in the graph, producing a shortest-path tree. It can also be used for finding the shortest paths
     from a single node to a single destination node by stopping the algorithm once the shortest path to the destination
     node has been determined.`,
+  },
+  // TO-DO: Added description for maze generation algorithms
+  [MAZE_ALGORITHMS.BASIC_RANDOM]: {
+    title: "Basic Random Method",
+    description: `Mazes can be created with the basic random method, which loops through all the available empty spaces
+    in the maze's space and for each space, decide whether it would be converted into a wall based on a preset
+    probability. This method results in mazes with irregular wall structures where walls could be clumped up very
+    closely or spread into random areas. The resulting maze might not have a possible solution unless extra check are
+    added before deciding on whether an area should be replaced with walls.`,
+  },
+  [MAZE_ALGORITHMS.RECURSIVE_DIVISION]: {
+    title: "Recursive Division Method",
+    description: `Mazes can be created with the recursive division method, an algorithm which works as follows: Begin
+    with the maze's space with no walls. Call this a chamber. Divide the chamber with a randomly positioned wall (or
+    multiple walls) where each wall contains a randomly positioned passage opening within it. Then recursively repeat
+    the process on the sub-chambers until all chambers are minimum sized. This method results in mazes with long
+    straight walls crossing their space, making it easier to see which areas to avoid.`,
+  },
+  [MAZE_ALGORITHMS.KRUSKAL_ALGORITHM]: {
+    title: "Randomized Kruskal's Algorithm",
+    description: `This algorithm is a randomized version of Kruskal's algorithm. Kruskal's algorithm finds a minimum
+    spanning forest of an undirected edge-weighted graph. If the graph is connected, it finds a minimum spanning tree.
+    (A minimum spanning tree of a graph is a subset of the edges that forms a tree that includes every vertex, where
+    the sum of the weights of all the edges in the tree is minimized.) It is a greedy algorithm in graph theory as in
+    each step it adds the next lowest-weight edge that will not form a cycle to the minimum spanning forest.`,
+  },
+  [MAZE_ALGORITHMS.PRIM_ALGORITHM]: {
+    title: "Randomized Prim's Algorithm",
+    description: `This algorithm is a randomized version of Prim's algorithm. Prim's algorithm (also known as Jarník's
+    algorithm) is a greedy algorithm that finds a minimum spanning tree for a weighted undirected graph. The algorithm
+    operates by building this tree one vertex at a time, from an arbitrary starting vertex, at each step adding the
+    cheapest possible connection from the tree to another vertex. For graphs that are sufficiently dense, Prim's
+    algorithm can be made to run in linear time, meeting or improving the time bounds for other algorithms.`,
   },
 };
 

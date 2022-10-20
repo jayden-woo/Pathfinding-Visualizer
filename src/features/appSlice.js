@@ -3,6 +3,7 @@ import { APP_STATE } from "../constants";
 
 const initialState = {
   appState: APP_STATE.INTERACTIVE,
+  animating: false,
 };
 
 const appSlice = createSlice({
@@ -11,6 +12,8 @@ const appSlice = createSlice({
   reducers: {
     updateAppState: (state, action) => {
       state.appState = action.payload;
+      state.animating =
+        state.appState === APP_STATE.VISUALIZING || state.appState === APP_STATE.GENERATING;
       // TO-DELETE:
       console.log(`App state updated to "${state.appState}"!`);
     },

@@ -2,18 +2,20 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { AppBar, Button, IconButton, Link, Toolbar, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { APP_STATE } from "../constants";
+import { ALGORITHM_TYPES, APP_STATE } from "../constants";
 import { updateAppState } from "../features/appSlice";
 import { replaceGrid, resetGrid, updateNodeState } from "../features/gridSlice";
+import { resetMazeGenerator, runMazeGenerator } from "../features/mazeSlice";
 import { toggleDrawer } from "../features/menuSlice";
 import { resetPathFinder, runPathFinder } from "../features/pathfindingSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const { appState } = useSelector((store) => store.app);
-  const { animationDelay } = useSelector((store) => store.menu);
+  const { appState, animating } = useSelector((store) => store.app);
+  const { animationDelay, algoType } = useSelector((store) => store.menu);
   const { grid, start, target } = useSelector((store) => store.grid);
   const { visited, path, final } = useSelector((store) => store.pathfinding);
+  const { animation, order, maze } = useSelector((store) => store.maze);
   const [visualQueue, setVisualQueue] = useState([]);
   let visualID;
 
@@ -40,10 +42,19 @@ const Header = () => {
   };
 
   const handleVisualizeClick = () => {
-    // Call the pathfinder to start the pathfinding and then the visualization process
-    dispatch(runPathFinder({ start, target, grid }));
-    // Update the app state to indicate that the visualization has started
-    dispatch(updateAppState(APP_STATE.VISUALIZING));
+    if (algoType === ALGORITHM_TYPES.PATHFINDING) {
+      // Call the pathfinder to start the pathfinding and then the visualization process
+      dispatch(runPathFinder({ start, target, grid }));
+      // Update the app state to indicate that the visualization has started
+      dispatch(updateAppState(APP_STATE.VISUALIZING));
+    } else {
+      // Reset the grid to remove all the walls first
+      dispatch(resetGrid(true));
+      // Call the maze generator to start the generation and then the visualization process
+      dispatch(runMazeGenerator({ start, target, grid }));
+      // Update the app state to indicate that the maze generation has started
+      dispatch(updateAppState(APP_STATE.GENERATING));
+    }
   };
 
   const handleClearClick = (all) => {
@@ -51,11 +62,13 @@ const Header = () => {
     dispatch(resetGrid(all));
     // Next reset the pathfinder and its state
     dispatch(resetPathFinder());
+    // Next reset the maze generator and its state
+    dispatch(resetMazeGenerator());
   };
 
   useEffect(() => {
-    // Resume the animation when the app state is updated to visualizing
-    if (appState === APP_STATE.VISUALIZING) visualize();
+    // Resume the animation when the app state is updated to visualizing or generating
+    if (appState === APP_STATE.VISUALIZING || appState === APP_STATE.GENERATING) visualize();
   }, [appState]);
 
   useEffect(() => {
@@ -89,6 +102,20 @@ const Header = () => {
   }, [visited]);
 
   useEffect(() => {
+    // Skip the maze generation if the app is not in the generating mode
+    if (appState !== APP_STATE.GENERATING) return;
+    // Check if maze generation process needs to be animated
+    if (animation) {
+      // Update the visual queue state with the elements from the order array
+      setVisualQueue(order);
+    } else {
+      // Replace the grid with the generated maze and update the app state to interactive mode
+      dispatch(replaceGrid({ grid: maze }));
+      dispatch(updateAppState(APP_STATE.INTERACTIVE));
+    }
+  }, [order]);
+
+  useEffect(() => {
     // Check if any animation is still pending
     if (visualQueue.length) {
       // Call the visualize function again every time a node is popped from the visual queue
@@ -98,6 +125,11 @@ const Header = () => {
     else if (appState === APP_STATE.VISUALIZING) {
       // Update the app state to visualized when no more visualization is left
       dispatch(updateAppState(APP_STATE.VISUALIZED));
+    }
+    // Check if the app is in the generating state with an empty visual queue
+    else if (appState === APP_STATE.GENERATING) {
+      // Update the app state to interactive when no more generation is left
+      dispatch(updateAppState(APP_STATE.INTERACTIVE));
     }
     // Clear any pending timeout when the component is being unmounted
     return () => clearTimeout(visualID);
@@ -139,7 +171,7 @@ const Header = () => {
           sx={{ color: "text.primary" }}
           variant="text"
           disableElevation
-          disabled={appState === APP_STATE.VISUALIZING}
+          disabled={animating}
           onClick={() => handleClearClick(true)}
         >
           Clear All
@@ -148,7 +180,7 @@ const Header = () => {
           sx={{ color: "text.primary" }}
           variant="text"
           disableElevation
-          disabled={appState === APP_STATE.VISUALIZING}
+          disabled={animating}
           onClick={() => handleClearClick(false)}
         >
           Clear Path
@@ -158,7 +190,15 @@ const Header = () => {
             sx={{ color: "text.primary" }}
             variant="text"
             disableElevation
-            onClick={() => dispatch(updateAppState(APP_STATE.VISUALIZING))}
+            onClick={() =>
+              dispatch(
+                updateAppState(
+                  algoType === ALGORITHM_TYPES.PATHFINDING
+                    ? APP_STATE.VISUALIZING
+                    : APP_STATE.GENERATING
+                )
+              )
+            }
           >
             Resume
           </Button>
@@ -167,7 +207,7 @@ const Header = () => {
             sx={{ color: "text.primary" }}
             variant="text"
             disableElevation
-            disabled={appState !== APP_STATE.VISUALIZING}
+            disabled={!animating}
             onClick={() => dispatch(updateAppState(APP_STATE.PAUSED))}
           >
             Pause

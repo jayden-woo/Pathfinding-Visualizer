@@ -20,6 +20,7 @@ import {
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  ALGORITHM_TYPES,
   APP_STATE,
   DELAY,
   DRAWER_WIDTH,
@@ -30,29 +31,36 @@ import {
 } from "../constants";
 import { updateAppState } from "../features/appSlice";
 import { resetGrid } from "../features/gridSlice";
+import { setMazeAlgorithm, updateMazeAnimation } from "../features/mazeSlice";
 import { switchAlgo, updateAnimationDelay } from "../features/menuSlice";
 import { setDiagonalTraversal, setHeuristic, setPathAlgorithm } from "../features/pathfindingSlice";
 
 const Menu = () => {
   const dispatch = useDispatch();
-  const { appState } = useSelector((store) => store.app);
+  const { appState, animating } = useSelector((store) => store.app);
   const { selectedAlgo } = useSelector((store) => store.menu);
   const { algorithm, heuristic, diagonal } = useSelector((store) => store.pathfinding);
   // Check for states when changes in the algorithms and heuristics are not allowed
-  const disableChanges = appState === APP_STATE.VISUALIZING || appState === APP_STATE.PAUSED;
+  const disableChanges = animating || appState === APP_STATE.PAUSED;
 
   const handleAlgoClick = (algo) => {
-    dispatch(switchAlgo(algo));
     switch (algo) {
       case PATH_ALGORITHMS.DEPTH_FIRST_SEARCH:
       case PATH_ALGORITHMS.BREADTH_FIRST_SEARCH:
       case PATH_ALGORITHMS.GREEDY_BEST_FIRST_SEARCH:
       case PATH_ALGORITHMS.A_STAR_ALGORITHM:
       case PATH_ALGORITHMS.DIJKSTRA_ALGORITHM:
+        dispatch(switchAlgo({ algo, type: ALGORITHM_TYPES.PATHFINDING }));
         dispatch(setPathAlgorithm(algo));
         break;
+      case MAZE_ALGORITHMS.BASIC_RANDOM:
+      case MAZE_ALGORITHMS.RECURSIVE_DIVISION:
+      case MAZE_ALGORITHMS.KRUSKAL_ALGORITHM:
+      case MAZE_ALGORITHMS.PRIM_ALGORITHM:
+        dispatch(switchAlgo({ algo, type: ALGORITHM_TYPES.GENERATION }));
+        dispatch(setMazeAlgorithm(algo));
+        break;
       default:
-        // TO-DO: Set maze generation algorithm
         break;
     }
   };
@@ -133,6 +141,24 @@ const Menu = () => {
       <Divider />
       <List
         component="nav"
+        subheader={<ListSubheader component="div">Maze Generation</ListSubheader>}
+      >
+        <FormGroup sx={{ pl: 2 }}>
+          <FormControlLabel
+            control={
+              <Switch
+                defaultChecked
+                disabled={disableChanges}
+                onChange={(e) => dispatch(updateMazeAnimation(e.target.checked))}
+              />
+            }
+            label="Animate Maze"
+          />
+        </FormGroup>
+      </List>
+      <Divider />
+      <List
+        component="nav"
         subheader={<ListSubheader component="div">Search Algorithms</ListSubheader>}
       >
         <ListItemButton
@@ -205,6 +231,20 @@ const Menu = () => {
           onClick={() => handleAlgoClick(MAZE_ALGORITHMS.RECURSIVE_DIVISION)}
         >
           <ListItemText primary="Recursive Division" />
+        </ListItemButton>
+        <ListItemButton
+          selected={selectedAlgo === MAZE_ALGORITHMS.KRUSKAL_ALGORITHM}
+          disabled={disableChanges}
+          onClick={() => handleAlgoClick(MAZE_ALGORITHMS.KRUSKAL_ALGORITHM)}
+        >
+          <ListItemText primary="Kruskal's Algorithm" />
+        </ListItemButton>
+        <ListItemButton
+          selected={selectedAlgo === MAZE_ALGORITHMS.PRIM_ALGORITHM}
+          disabled={disableChanges}
+          onClick={() => handleAlgoClick(MAZE_ALGORITHMS.PRIM_ALGORITHM)}
+        >
+          <ListItemText primary="Prim's Algorithm" />
         </ListItemButton>
       </List>
     </Box>
