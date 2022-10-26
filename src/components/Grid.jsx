@@ -22,19 +22,22 @@ const Grid = () => {
       // Get the node size according to the size of the current screen
       const nodeSize = largeScreen ? NODE_SIZE.LARGE : NODE_SIZE.SMALL;
       // Clamp the number of rows to be between the preset minimum and maximum amount
-      const rows = clamp(
+      let rows = clamp(
         // Calculate and round down the amount of rows that could fit within the width of the free space
         Math.trunc((ref.current.clientHeight - NAV_HEIGHT) / nodeSize),
         GRID_SIZE.ROWS.MIN,
         GRID_SIZE.ROWS.MAX
       );
       // Clamp the number of columns to be between the preset minimum and maximum amount
-      const cols = clamp(
+      let cols = clamp(
         // Calculate and round down the amount of columns that could fit within the width of the free space
         Math.trunc(ref.current.clientWidth / nodeSize),
         GRID_SIZE.COLS.MIN,
         GRID_SIZE.COLS.MAX
       );
+      // Floor the number of rows and columns to the nearest odd number for a better maze generation result
+      rows -= (rows - 1) % 2;
+      cols -= (cols - 1) % 2;
       // Update the calculated dimension
       dispatch(updateDimension({ rows, cols }));
     }

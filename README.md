@@ -38,6 +38,7 @@
 - [x] Maze Generation Algorithms
 
   - [x] Basic Random Method
+  - [ ] Recursive Backtracking Method
   - [x] Recursive Division Method
   - [ ] Kruskal\'s Algorithm
   - [ ] Prim\'s Algorithm

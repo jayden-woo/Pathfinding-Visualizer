@@ -49,7 +49,7 @@ const divide = (grid, order, x0, y0, width, height, orientation) => {
     // Skip the passage cell in the wall
     if (x === px && y === py) continue;
 
-    // Push the cell to the visualization order array with the wall tag
+    // Push the node to the visualization order array with the wall tag
     order.push({ x, y, tag: NODE_STATE.WALL });
     // Update the final state of the wall node in the grid
     // eslint-disable-next-line no-param-reassign
@@ -74,7 +74,7 @@ const divide = (grid, order, x0, y0, width, height, orientation) => {
 };
 
 const recursiveDivision = (start, target, rows, cols) => {
-  // Initialize visualization order array
+  // Initialize the visualization order array
   const order = [];
 
   // Initialize an empty copy of the grid with the start and target nodes applied

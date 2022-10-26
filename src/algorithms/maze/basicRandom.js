@@ -1,7 +1,7 @@
 import { NODE_STATE } from "../../constants";
 
 const basicRandom = (start, target, rows, cols) => {
-  // Initialize visualization order array
+  // Initialize the visualization order array
   const order = [];
 
   // Initialize an empty copy of the grid with the start and target nodes applied
@@ -27,14 +27,13 @@ const basicRandom = (start, target, rows, cols) => {
 
   // Loop through all the possible rows (excluding the edges) of the grid
   for (let y = 1; y < rows - 1; y++) {
-    // Loop through all the possible columns of the grid
+    // Loop through all the possible columns (excluding the edges) of the grid
     for (let x = 1; x < cols - 1; x++) {
       // Skip the start and target node to avoid accidental overrides
       if ((x === start.x && y === start.y) || (x === target.x && y === target.y)) continue;
-
       // Check if need to update current cell to a wall
       if (Math.random() < 0.3) {
-        // Push the cell to the visualization order array with the wall tag
+        // Push the node to the visualization order array with the wall tag
         order.push({ x, y, tag: NODE_STATE.WALL });
         // Update the final state of the wall node in the grid
         grid[y][x] = NODE_STATE.WALL;
