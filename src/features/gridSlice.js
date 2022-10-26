@@ -62,6 +62,21 @@ const gridSlice = createSlice({
       state.counter.visited = visited;
       state.counter.path = path;
     },
+    fillGrid: (state, action) => {
+      const tag = action.payload;
+      // Skip if the action tag is the start or target tag to prevent an accidental fill
+      if (tag === NODE_STATE.START || tag === NODE_STATE.TARGET) return;
+      // Loop through all the nodes in the grid
+      for (let y = 0; y < state.dimension.rows; y++) {
+        for (let x = 0; x < state.dimension.cols; x++) {
+          const node = state.grid[y][x];
+          // Skip if the node is the start or target node
+          if (node === NODE_STATE.START || node === NODE_STATE.TARGET) continue;
+          // Update the node to the action tag state
+          state.grid[y][x] = tag;
+        }
+      }
+    },
     resetGrid: (state, action) => {
       const all = action.payload;
       for (let y = 0; y < state.dimension.rows; y++) {
@@ -158,6 +173,7 @@ const gridSlice = createSlice({
 });
 
 export const {
+  fillGrid,
   replaceGrid,
   resetGrid,
   updateDimension,

@@ -2,9 +2,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { AppBar, Button, IconButton, Link, Toolbar, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ALGORITHM_TYPES, APP_STATE } from "../constants";
+import { ALGORITHM_TYPES, APP_STATE, NODE_STATE } from "../constants";
 import { updateAppState } from "../features/appSlice";
-import { replaceGrid, resetGrid, updateNodeState } from "../features/gridSlice";
+import { fillGrid, replaceGrid, resetGrid, updateNodeState } from "../features/gridSlice";
 import { resetMazeGenerator, runMazeGenerator } from "../features/mazeSlice";
 import { toggleDrawer } from "../features/menuSlice";
 import { resetPathFinder, runPathFinder } from "../features/pathfindingSlice";
@@ -106,6 +106,8 @@ const Header = () => {
     if (appState !== APP_STATE.GENERATING) return;
     // Check if maze generation process needs to be animated
     if (animation) {
+      // Fill the grid with wall nodes first if the maze generation algorithm is of the passage carver type
+      if (order[0].tag === NODE_STATE.EMPTY) dispatch(fillGrid(NODE_STATE.WALL));
       // Update the visual queue state with the elements from the order array
       setVisualQueue(order);
     } else {

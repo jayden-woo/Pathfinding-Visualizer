@@ -40,7 +40,7 @@
   - [x] Basic Random Method
   - [ ] Recursive Backtracking Method
   - [x] Recursive Division Method
-  - [ ] Kruskal\'s Algorithm
+  - [x] Kruskal\'s Algorithm
   - [ ] Prim\'s Algorithm
 
 - [x] Other Features
