@@ -1,13 +1,5 @@
 import { NODE_STATE, DIRECTION } from "../../constants";
-
-// Return a random integer between the given range
-const randInt = (min, max) => Math.floor(Math.random() * (max - min) + min);
-
-// Return a random even integer between 2 and the given number
-const randEven = (num) => Math.floor(randInt(2, num) / 2) * 2;
-
-// Return a random odd integer between 1 and the given number
-const randOdd = (num) => Math.floor(randInt(1, num - 1) / 2) * 2 + 1;
+import { randEven, randOdd } from "./helper";
 
 // Pick the dividing direction based on the width and height of the space
 const pickDirection = (width, height) => {
