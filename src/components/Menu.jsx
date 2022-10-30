@@ -54,6 +54,7 @@ const Menu = () => {
         dispatch(setPathAlgorithm(algo));
         break;
       case MAZE_ALGORITHMS.BASIC_RANDOM:
+      case MAZE_ALGORITHMS.RECURSIVE_BACKTRACKING:
       case MAZE_ALGORITHMS.RECURSIVE_DIVISION:
       case MAZE_ALGORITHMS.KRUSKAL_ALGORITHM:
       case MAZE_ALGORITHMS.PRIM_ALGORITHM:
@@ -224,6 +225,13 @@ const Menu = () => {
           onClick={() => handleAlgoClick(MAZE_ALGORITHMS.BASIC_RANDOM)}
         >
           <ListItemText primary="Basic Random" />
+        </ListItemButton>
+        <ListItemButton
+          selected={selectedAlgo === MAZE_ALGORITHMS.RECURSIVE_BACKTRACKING}
+          disabled={disableChanges}
+          onClick={() => handleAlgoClick(MAZE_ALGORITHMS.RECURSIVE_BACKTRACKING)}
+        >
+          <ListItemText primary="Recursive Backtracking" />
         </ListItemButton>
         <ListItemButton
           selected={selectedAlgo === MAZE_ALGORITHMS.RECURSIVE_DIVISION}

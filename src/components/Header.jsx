@@ -107,7 +107,8 @@ const Header = () => {
     // Check if maze generation process needs to be animated
     if (animation) {
       // Fill the grid with wall nodes first if the maze generation algorithm is of the passage carver type
-      if (order[0].tag === NODE_STATE.EMPTY) dispatch(fillGrid(NODE_STATE.WALL));
+      if (order[0].tag === NODE_STATE.EMPTY || order[0].tag === NODE_STATE.EXPLORED)
+        dispatch(fillGrid(NODE_STATE.WALL));
       // Update the visual queue state with the elements from the order array
       setVisualQueue(order);
     } else {

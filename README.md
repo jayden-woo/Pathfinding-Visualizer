@@ -38,7 +38,7 @@
 - [x] [Maze Generation Algorithms](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Simple_algorithms)
 
   - [x] Basic Random Method
-  - [ ] [Recursive Backtracking Method](https://weblog.jamisbuck.org/2010/12/27/maze-generation-recursive-backtracking)
+  - [x] [Recursive Backtracking Method](https://weblog.jamisbuck.org/2010/12/27/maze-generation-recursive-backtracking)
   - [x] [Recursive Division Method](https://weblog.jamisbuck.org/2011/1/12/maze-generation-recursive-division-algorithm)
   - [x] [Kruskal\'s Algorithm](https://weblog.jamisbuck.org/2011/1/3/maze-generation-kruskal-s-algorithm)
   - [x] [Prim\'s Algorithm](https://weblog.jamisbuck.org/2011/1/10/maze-generation-prim-s-algorithm.html)

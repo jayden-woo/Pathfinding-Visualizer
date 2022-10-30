@@ -75,6 +75,7 @@ export const PATH_ALGORITHMS = Object.freeze({
 // Maze generation algorithms
 export const MAZE_ALGORITHMS = Object.freeze({
   BASIC_RANDOM: "BasicRandom",
+  RECURSIVE_BACKTRACKING: "RecursiveBacktracking",
   RECURSIVE_DIVISION: "RecursiveDivision",
   KRUSKAL_ALGORITHM: "KruskalAlgorithm",
   PRIM_ALGORITHM: "PrimAlgorithm",

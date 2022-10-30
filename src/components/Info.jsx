@@ -1,7 +1,7 @@
 import { Box, Card, CardContent, Grid, Typography, useMediaQuery } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
-import { MAZE_ALGORITHMS, NODE_STATE, PATH_ALGORITHMS } from "../constants";
+import { ALGORITHM_TYPES, MAZE_ALGORITHMS, NODE_STATE, PATH_ALGORITHMS } from "../constants";
 
 // Return the information corresponding to each algorithm
 const getAlgorithmInfo = {
@@ -44,7 +44,6 @@ const getAlgorithmInfo = {
     from a single node to a single destination node by stopping the algorithm once the shortest path to the destination
     node has been determined.`,
   },
-  // TO-DO: Added description for maze generation algorithms
   [MAZE_ALGORITHMS.BASIC_RANDOM]: {
     title: "Basic Random Method",
     description: `Mazes can be created with the basic random method, which loops through all the available empty spaces
@@ -52,6 +51,14 @@ const getAlgorithmInfo = {
     probability. This method results in mazes with irregular wall structures where walls could be clumped up very
     closely or spread into random areas. The resulting maze might not have a possible solution unless extra check are
     added before deciding on whether an area should be replaced with walls.`,
+  },
+  [MAZE_ALGORITHMS.RECURSIVE_BACKTRACKING]: {
+    title: "Recursive Backtracking Method",
+    description: `This method is one of the simplest ways to generate a maze. Starting from a random cell, select a
+    random neighbouring unvisited cell and remove the wall between them and adding it to the stack to facilitate future
+    backtracking. This process is repeated, until reaching a cell that has no unvisited neighbours. It then backtracks
+    until it reaches a cell with an unvisited neighbour before continuing the process. This process continues until
+    every cell has been visited, causing it to backtrack all the way back to the beginning.`,
   },
   [MAZE_ALGORITHMS.RECURSIVE_DIVISION]: {
     title: "Recursive Division Method",
@@ -82,6 +89,7 @@ const getAlgorithmInfo = {
 const Info = () => {
   const time = useSelector((store) => store.pathfinding.time);
   const counter = useSelector((store) => store.grid.counter);
+  const stats = useSelector((store) => store.menu.algoType) === ALGORITHM_TYPES.PATHFINDING;
   const algoInfo = getAlgorithmInfo[useSelector((store) => store.menu.selectedAlgo)];
   const mobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
@@ -150,7 +158,7 @@ const Info = () => {
             >
               <CardContent>
                 <Typography variant="h6">{mobile ? "Visited" : "Nodes Visited"}</Typography>
-                <Typography variant="h3">{counter.visited}</Typography>
+                <Typography variant="h3">{stats ? counter.visited : 0}</Typography>
               </CardContent>
             </Card>
           </Grid>
@@ -165,7 +173,7 @@ const Info = () => {
             >
               <CardContent>
                 <Typography variant="h6">{mobile ? "Path" : "Path Length"}</Typography>
-                <Typography variant="h3">{counter.path}</Typography>
+                <Typography variant="h3">{stats ? counter.path : 0}</Typography>
               </CardContent>
             </Card>
           </Grid>
