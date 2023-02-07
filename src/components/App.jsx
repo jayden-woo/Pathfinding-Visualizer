@@ -25,7 +25,7 @@ const darkTheme = createTheme({
 const App = () => (
   <ThemeProvider theme={darkTheme}>
     <Toolbar />
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ minHeight: "80vh", display: "flex" }}>
       <NavBar />
       <Box
         sx={{

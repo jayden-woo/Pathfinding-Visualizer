@@ -117,8 +117,8 @@ export const DIRECTION = Object.freeze({
 
 // Visualization delay specifications
 export const DELAY = Object.freeze({
-  DEFAULT: 120,
-  STEP: 20,
-  MIN: 20,
+  DEFAULT: 40,
+  MIN: 0,
   MAX: 300,
+  STEP: 5,
 });

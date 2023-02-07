@@ -56,15 +56,15 @@
 - [ ] Project Demonstration
 
   - [ ] Hosting the site using GitHub Pages
-  - [ ] Add demo video in README.md
   - [ ] Add help page or description at the start on navigating the user interface
+  - [ ] Add demo video in README.md
 
 ## Technology Stacks
 
 - React for front end
 - ReduxJS Toolkit for managing the application state
-- NodeJS for backend functionality
-- SASS for the node component (for more responsive user interactions) and base styling options
+- NodeJS for backend functionality and package manager
+- SASS for the node component (for more responsive user interactions with lesser delays) and base styling options
 - Material UI (Core) for styling the other user interface elements and components
 - ESLint for linting and detecting early bugs
 - Prettier for enforcing a consistent style in the code base
