@@ -4,6 +4,7 @@ import gridReducer from "./features/gridSlice";
 import mazeReducer from "./features/mazeSlice";
 import menuReducer from "./features/menuSlice";
 import pathfindingReducer from "./features/pathfindingSlice";
+import tutorialReducer from "./features/tutorialSlice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     maze: mazeReducer,
     menu: menuReducer,
     pathfinding: pathfindingReducer,
+    tutorial: tutorialReducer,
   },
 });
 

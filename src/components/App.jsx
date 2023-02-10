@@ -3,6 +3,7 @@ import React from "react";
 import NavBar from "./NavBar";
 import Grid from "./Grid";
 import Info from "./Info";
+import Tutorial from "./Tutorial";
 
 const darkTheme = createTheme({
   palette: {
@@ -10,6 +11,7 @@ const darkTheme = createTheme({
     background: {
       default: "#0a1929",
       paper: "#001e3c",
+      tutorial: "#001b36",
     },
     divider: "#132f4c",
     action: {
@@ -24,6 +26,7 @@ const darkTheme = createTheme({
 
 const App = () => (
   <ThemeProvider theme={darkTheme}>
+    <Tutorial />
     <Toolbar />
     <Box sx={{ minHeight: "80vh", display: "flex" }}>
       <NavBar />
