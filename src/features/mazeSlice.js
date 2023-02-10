@@ -3,7 +3,6 @@ import MazeGenerator from "../algorithms/maze/mazeGenerator";
 import { MAZE_ALGORITHMS } from "../constants";
 
 const initialState = {
-  animation: true,
   algorithm: MAZE_ALGORITHMS.BASIC_RANDOM,
   order: [],
   maze: [],
@@ -13,11 +12,6 @@ const mazeSlice = createSlice({
   name: "maze",
   initialState,
   reducers: {
-    updateMazeAnimation: (state, action) => {
-      state.animation = action.payload;
-      // TO-DELETE:
-      console.log(`${state.animation ? "Enabled" : "Disabled"} Maze Animation!`);
-    },
     setMazeAlgorithm: (state, action) => {
       state.algorithm = action.payload;
       // TO-DELETE:
@@ -45,7 +39,6 @@ const mazeSlice = createSlice({
   },
 });
 
-export const { updateMazeAnimation, setMazeAlgorithm, resetMazeGenerator, runMazeGenerator } =
-  mazeSlice.actions;
+export const { setMazeAlgorithm, resetMazeGenerator, runMazeGenerator } = mazeSlice.actions;
 
 export default mazeSlice.reducer;

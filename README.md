@@ -45,12 +45,13 @@
 
 - [x] Other Features
 
-  - [x] Restricting user inputs during different phase to avoid unintended interactions
+  - [x] Restrict user inputs during different phase to avoid unintended interactions
   - [x] Pause and resume the visualization
+  - [x] Skip animation entirely to only view the end results
   - [x] Custom visualization animation delay slider
   - [x] Legend for node colours meaning
-  - [x] Real-time algorithm stats tracking (i.e. path length, number of nodes visited)
-  - [x] Description and introduction for each algorithm
+  - [x] Real-time algorithm stats (i.e. execution time, number of nodes visited, path length)
+  - [x] Description for each algorithm including both search and maze generation
   - [x] Responsive interface
 
 - [ ] Project Demonstration

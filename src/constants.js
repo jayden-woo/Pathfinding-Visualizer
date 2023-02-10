@@ -28,15 +28,15 @@ export const NODE_SIZE = Object.freeze({
 export const APP_STATE = Object.freeze({
   // When the app is allowing user to change the grid and algorithm configurations
   INTERACTIVE: "interactive",
-  // When the app is running the visualization process
+  // When the app is animating the pathfinding process
   VISUALIZING: "visualizing",
-  // When the app is generating the maze
+  // When the app is animating the maze generation process
   GENERATING: "generating",
-  // When the visualization process is being paused
+  // When the animation is being paused
   PAUSED: "paused",
-  // When the app is done with the visualization process
+  // When the app is done with the animation
   VISUALIZED: "visualized",
-  // When the app is updating to instantly render the end state of another configuration
+  // When the app is updating to instantly render the end state of a configuration without the animation
   UPDATING: "updating",
 });
 

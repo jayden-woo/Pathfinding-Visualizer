@@ -30,8 +30,8 @@ import {
 } from "../constants";
 import { updateAppState } from "../features/appSlice";
 import { resetGrid } from "../features/gridSlice";
-import { setMazeAlgorithm, updateMazeAnimation } from "../features/mazeSlice";
-import { switchAlgo, updateAnimationDelay } from "../features/menuSlice";
+import { setMazeAlgorithm } from "../features/mazeSlice";
+import { switchAlgo, updateAnimationSkip, updateAnimationDelay } from "../features/menuSlice";
 import { setDiagonalTraversal, setHeuristic, setPathAlgorithm } from "../features/pathfindingSlice";
 
 const Menu = () => {
@@ -122,10 +122,10 @@ const Menu = () => {
           control={
             <Switch
               disabled={disableChanges}
-              onChange={(e) => dispatch(updateMazeAnimation(!e.target.checked))}
+              onChange={(e) => dispatch(updateAnimationSkip(e.target.checked))}
             />
           }
-          label="Instant Maze"
+          label="Skip Animation"
         />
       </FormGroup>
       <Divider />

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { ALGORITHM_TYPES, DELAY, PATH_ALGORITHMS } from "../constants";
 
 const initialState = {
+  animationSkip: false,
   animationDelay: DELAY.DEFAULT,
   selectedAlgo: PATH_ALGORITHMS.DEPTH_FIRST_SEARCH,
   algoType: ALGORITHM_TYPES.PATHFINDING,
@@ -12,6 +13,11 @@ const menuSlice = createSlice({
   name: "menu",
   initialState,
   reducers: {
+    updateAnimationSkip: (state, action) => {
+      // TO-DELETE:
+      console.log(`Animation ${state.payload ? "skipped" : "resumed"}!`);
+      state.animationSkip = action.payload;
+    },
     updateAnimationDelay: (state, action) => {
       // TO-DELETE:
       console.log("Animation Delay updated to", action.payload);
@@ -32,6 +38,7 @@ const menuSlice = createSlice({
   },
 });
 
-export const { updateAnimationDelay, switchAlgo, toggleDrawer } = menuSlice.actions;
+export const { updateAnimationSkip, updateAnimationDelay, switchAlgo, toggleDrawer } =
+  menuSlice.actions;
 
 export default menuSlice.reducer;

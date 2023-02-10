@@ -12,10 +12,10 @@ import { resetPathFinder, runPathFinder } from "../features/pathfindingSlice";
 const Header = () => {
   const dispatch = useDispatch();
   const { appState, animating } = useSelector((store) => store.app);
-  const { animationDelay, algoType } = useSelector((store) => store.menu);
+  const { animationSkip, animationDelay, algoType } = useSelector((store) => store.menu);
   const { grid, start, target } = useSelector((store) => store.grid);
   const { visited, path, final } = useSelector((store) => store.pathfinding);
-  const { animation, order, maze } = useSelector((store) => store.maze);
+  const { order, maze } = useSelector((store) => store.maze);
   const [visualQueue, setVisualQueue] = useState([]);
   let visualID;
 
@@ -46,14 +46,14 @@ const Header = () => {
       // Call the pathfinder to start the pathfinding and then the visualization process
       dispatch(runPathFinder({ start, target, grid }));
       // Update the app state to indicate that the visualization has started
-      dispatch(updateAppState(APP_STATE.VISUALIZING));
+      dispatch(updateAppState(animationSkip ? APP_STATE.UPDATING : APP_STATE.VISUALIZING));
     } else {
       // Reset the grid to remove all the walls first
       dispatch(resetGrid(true));
       // Call the maze generator to start the generation and then the visualization process
       dispatch(runMazeGenerator({ start, target, grid }));
       // Update the app state to indicate that the maze generation has started
-      dispatch(updateAppState(APP_STATE.GENERATING));
+      dispatch(updateAppState(animationSkip ? APP_STATE.UPDATING : APP_STATE.GENERATING));
     }
   };
 
@@ -90,7 +90,7 @@ const Header = () => {
         // User clicked on the clear buttons
         if (!visited.length) dispatch(updateAppState(APP_STATE.INTERACTIVE));
         break;
-      // Check for updates while the app is instantly updating with new paths after the initial visualization
+      // Check for updates while the app is instantly updating with new paths
       case APP_STATE.UPDATING:
         // User changed the configurations (algorithm or diagonals) after finished with the initial visualization
         dispatch(replaceGrid(final));
@@ -102,19 +102,24 @@ const Header = () => {
   }, [visited]);
 
   useEffect(() => {
-    // Skip the maze generation if the app is not in the generating mode
-    if (appState !== APP_STATE.GENERATING) return;
-    // Check if maze generation process needs to be animated
-    if (animation) {
-      // Fill the grid with wall nodes first if the maze generation algorithm is of the passage carver type
-      if (order[0].tag === NODE_STATE.EMPTY || order[0].tag === NODE_STATE.EXPLORED)
-        dispatch(fillGrid(NODE_STATE.WALL));
-      // Update the visual queue state with the elements from the order array
-      setVisualQueue(order);
-    } else {
-      // Replace the grid with the generated maze and update the app state to interactive mode
-      dispatch(replaceGrid({ grid: maze }));
-      dispatch(updateAppState(APP_STATE.INTERACTIVE));
+    switch (appState) {
+      // Check for updates while in the generating mode
+      case APP_STATE.GENERATING:
+        // Fill the grid with wall nodes first if the maze generation algorithm is of the passage carver type
+        if (order[0].tag === NODE_STATE.EMPTY || order[0].tag === NODE_STATE.EXPLORED)
+          dispatch(fillGrid(NODE_STATE.WALL));
+        // Update the visual queue state with the elements from the order array
+        setVisualQueue(order);
+        break;
+      // Check for updates while the app is instantly updating with new maze
+      case APP_STATE.UPDATING:
+        // Replace the grid with the generated maze and update the app state to interactive mode
+        dispatch(replaceGrid({ grid: maze }));
+        dispatch(updateAppState(APP_STATE.INTERACTIVE));
+        break;
+      // Skip the maze generation if the app is not in the generating or updating mode
+      default:
+        break;
     }
   }, [order]);
 
