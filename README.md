@@ -52,12 +52,13 @@
   - [x] Legend for node colours meaning
   - [x] Real-time algorithm stats (i.e. execution time, number of nodes visited, path length)
   - [x] Description for each algorithm including both search and maze generation
-  - [x] Responsive interface
+  - [x] Responsive interface (Breakpoints tested at width of 425px, 758px, 1024px, 1440px, 2560px)
 
-- [ ] Project Demonstration
+- [x] Project Demonstration
 
   - [ ] Hosting the site using GitHub Pages
-  - [ ] Add help page or description at the start on navigating the user interface
+  - [x] Add help page or description at the start on navigating the user interface
+    - [x] Use gif for further clarification made using [ezgif](https://ezgif.com)
   - [ ] Add demo video in README.md
 
 ## Technology Stacks

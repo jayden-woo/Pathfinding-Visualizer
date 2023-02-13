@@ -7,93 +7,199 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
+  styled,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { grid, gridUpdate, menu, menuMaze, menuSearch, navbar } from "../assets";
+import { TUTORIAL_WIDTH } from "../constants";
 import { closeTutorial, updatePageNumber } from "../features/tutorialSlice";
+
+const Bold = styled("span")(({ theme }) => ({
+  color: theme.palette.primary.main,
+  fontWeight: "900",
+}));
 
 const content = [
   {
     title: "Welcome to Pathfinding Visualizer",
-    body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra, nisi sed faucibus dapibus, augue
-    metus efficitur leo, at cursus ex velit non nibh. Etiam et iaculis arcu. Morbi nec neque eros. Mauris ultrices
-    auctor risus, non tristique tortor vestibulum et. Vestibulum imperdiet tempus luctus. Donec sed imperdiet diam.
-    Proin metus metus, venenatis vitae scelerisque nec, posuere tincidunt ante. Morbi maximus consequat purus, in
-    porttitor mi ullamcorper ut. Morbi interdum, velit vitae molestie mattis, sapien mauris sodales purus, sed
-    imperdiet ante metus vel quam. Etiam condimentum pharetra mauris ac convallis.`,
+    body: (
+      <>
+        <Typography variant="body2" sx={{ pb: 2 }}>
+          This short tutorial will walk you through some of the features and capabilities of this
+          web app.
+        </Typography>
+        <Typography variant="body2" sx={{ pb: 2 }}>
+          Feel free to skip or close the tutorial at anytime by clicking on the <Bold>ESC</Bold> key
+          or the <Bold>X</Bold> button at the top-right corner of this dialog.
+        </Typography>
+        <Typography variant="body2" sx={{ pb: 2 }}>
+          You can also navigate through to the next page of the tutorial by clicking on the{" "}
+          <Bold>Left</Bold> key or the <Bold>Next</Bold> button at the bottom right corner of the
+          dialog.
+        </Typography>
+        <Typography variant="body2">
+          On the flip side, you can go back to the previous page by clicking on the{" "}
+          <Bold>Right</Bold> key or the <Bold>Previous</Bold> button next to it.
+        </Typography>
+      </>
+    ),
   },
   {
     title: "Creating the Maze",
-    body: `Curabitur molestie urna sit amet dui consectetur lacinia. Fusce sagittis ut ligula nec aliquet. Quisque sed
-    justo aliquet, faucibus magna ut, congue felis. Proin nec leo dolor. Sed lacinia lorem nunc, at venenatis erat
-    cursus et. Nulla consequat, elit a lacinia dictum, justo dui convallis lacus, eu mollis dui urna nec lectus. Fusce
-    urna leo, consequat vitae pulvinar ac, dapibus eget nunc. Ut quis urna quis arcu fermentum suscipit. Proin
-    fringilla arcu dui, ac euismod nibh semper vitae.`,
+    body: (
+      <>
+        <Typography variant="body2" sx={{ pb: 2 }}>
+          First off, you can create the maze by clicking or holding the <Bold>Left</Bold> mouse
+          button over any empty nodes on the grid to place down walls.
+        </Typography>
+        <Typography variant="body2" sx={{ pb: 2 }}>
+          On the other hand, you can also click or hold down the <Bold>Right</Bold> mouse button to
+          remove any wall nodes from the grid.
+        </Typography>
+        <Typography variant="body2">
+          The start and target nodes can also be moved to any other spot on the grid by dragging
+          them over with the <Bold>Left</Bold> or <Bold>Right</Bold> mouse buttons.
+        </Typography>
+      </>
+    ),
+    gif: grid,
   },
   {
     title: "Picking a Maze Generation Algorithm",
-    body: `Mauris sit amet faucibus mi, non elementum orci. Cras euismod lorem erat, at posuere arcu tincidunt et.
-    Etiam fringilla massa at auctor ultrices. Mauris ac lectus sed velit vestibulum lacinia. Proin euismod, velit eu
-    euismod pharetra, ex nibh vestibulum augue, sit amet tempor tortor metus eget orci. Integer hendrerit iaculis
-    turpis, nec bibendum arcu aliquam quis. Suspendisse suscipit lectus metus, id hendrerit dolor interdum vel. Aliquam
-    at augue sed sem tincidunt sodales eu sit amet mi. Nunc eu mi nulla. Fusce dapibus fermentum faucibus. Sed
-    scelerisque laoreet lacinia. Nulla maximus blandit sapien eget scelerisque. Nam aliquam tristique libero, ut
-    viverra quam consequat laoreet. Donec hendrerit non orci eu tristique.`,
+    body: (
+      <>
+        <Typography variant="body2" sx={{ pb: 2 }}>
+          Alternatively, you can pick one of the provided maze generation algorithms to
+          automatically create a maze based on the underlying logic and methodology used by each
+          algorithm.
+        </Typography>
+        <Typography variant="body2">
+          Note that you can click on the <Bold>Maze Generation Algorithms</Bold> heading to expand
+          the algorithm options if they were previously hidden.
+        </Typography>
+      </>
+    ),
+    gif: menuMaze,
   },
   {
     title: "Picking a Search Algorithm",
-    body: `Quisque vulputate dui vitae gravida volutpat. Aliquam luctus tempus purus at ultricies. Integer ut dignissim
-    justo. In hac habitasse platea dictumst. Proin nulla nibh, malesuada at justo a, accumsan vestibulum justo. Cras
-    rhoncus ipsum eget ex auctor sagittis. Mauris vel tellus blandit, efficitur metus vitae, euismod massa. Maecenas
-    consectetur eros risus, a aliquam augue consectetur nec. Vivamus eleifend feugiat pellentesque. Aenean ac sodales
-    justo, eget cursus neque. Nam quis congue justo, eu pretium elit.`,
+    body: (
+      <>
+        <Typography variant="body2" sx={{ pb: 2 }}>
+          Similarly, you can pick one of the provided search algorithms to visualize the pathfinding
+          process according to the underlying logic and methodology used by each algorithm based on
+          the current maze configuration.
+        </Typography>
+        <Typography variant="body2" sx={{ pb: 2 }}>
+          Certain algorithms will include a <Bold>Heuristics</Bold> menu which is used by the
+          algorithm to find a path more efficiently by calculating a rough estimate of how far each
+          node is from the target.
+        </Typography>
+        <Typography variant="body2" sx={{ pb: 2 }}>
+          You can also choose to enable or disable diagonal movements in the path by clicking on the{" "}
+          <Bold>Diagonal Movement</Bold> switch at the top of the menu.
+        </Typography>
+        <Typography variant="body2">
+          Note that you can also click on the <Bold>Search Algorithms</Bold> heading to expand the
+          algorithm options if they were previously hidden.
+        </Typography>
+      </>
+    ),
+    gif: menuSearch,
   },
   {
-    title: "Visualizing the Algorithm in Action",
-    body: `In aliquet lorem est, sit amet placerat diam rutrum vitae. Etiam pharetra velit ipsum, in lacinia lectus
-    gravida id. Suspendisse potenti. Nullam ac tincidunt justo. Proin finibus hendrerit aliquam. In vitae hendrerit
-    diam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque a
-    tellus vel turpis efficitur varius eu at elit. Phasellus eget lacus non massa elementum gravida. Nulla non orci
-    porttitor, rutrum massa quis, fringilla purus. Morbi in pulvinar ipsum. Morbi ligula velit, lacinia fringilla
-    varius eget, vulputate vitae quam. Nunc mollis turpis eget leo luctus sagittis. Mauris molestie ornare volutpat.`,
+    title: "Visualizing the Algorithm and Clearing the Board",
+    body: (
+      <>
+        <Typography variant="body2" sx={{ pb: 2 }}>
+          Next, you can click on the <Bold>Visualize</Bold> button on the navbar to start the
+          animation for visualizing the current selected algorithm.
+        </Typography>
+        <Typography variant="body2" sx={{ pb: 2 }}>
+          While the animation is running, you can choose to <Bold>Pause</Bold> or{" "}
+          <Bold>Resume</Bold> it at any time by clicking on the respective buttons on the navbar.
+        </Typography>
+        <Typography variant="body2">
+          You can also click on the <Bold>Clear All</Bold> button to clear the entire board or the{" "}
+          <Bold>Clear Path</Bold> button to only clear the path before the animation starts, after
+          it ends, or while it is paused.
+        </Typography>
+      </>
+    ),
+    gif: navbar,
   },
   {
-    title: "Pausing the Animation and More",
-    body: `Phasellus ac finibus tortor. Aliquam at nulla eu odio finibus convallis quis sed risus. Fusce at
-    sollicitudin enim, eget venenatis ex. In dictum ante mauris, at faucibus ex consequat eget. Nullam eu libero eu
-    nisl cursus blandit eget non quam. Mauris commodo dignissim arcu, quis finibus purus venenatis at. Ut in massa
-    felis. Pellentesque rhoncus accumsan bibendum. Proin nec pellentesque velit. Integer eleifend at quam ut semper.
-    Vestibulum ut sodales lectus.`,
+    title: "Skipping the Animation and Changing the Speed",
+    body: (
+      <>
+        <Typography variant="body2" sx={{ pb: 2 }}>
+          Moving on, you can change the speed of the animation by adjusting the delay time in
+          between each step of the visualization process of the algorithm with the{" "}
+          <Bold>Animation Delay</Bold> slider in the menu.
+        </Typography>
+        <Typography variant="body2" sx={{ pb: 2 }}>
+          Note that the higher the delay between each step, the slower the overall animation would
+          be and vice versa.
+        </Typography>
+        <Typography variant="body2">
+          You could even skip the visualization process entirely by clicking on the{" "}
+          <Bold>Skip Animation </Bold> switch at the top of the menu.
+        </Typography>
+      </>
+    ),
+    gif: menu,
   },
   {
-    title: "Clearing the Board or Path",
-    body: `Vestibulum fringilla libero eu dignissim auctor. In vel nisl vitae sem lacinia imperdiet. Nulla nisl dolor,
-    vehicula ac mi quis, efficitur tincidunt sapien. Suspendisse magna sem, placerat quis feugiat sed, facilisis
-    efficitur risus. Suspendisse ac nisl est. Nullam sit amet scelerisque enim. Suspendisse eu malesuada velit. Ut et
-    luctus mauris. Curabitur eu ligula velit. Proin vitae mi ante. Phasellus vel condimentum ipsum. Curabitur quis
-    mattis ligula. Proin vulputate turpis sit amet sollicitudin varius. Phasellus commodo, libero ut condimentum
-    consequat, diam libero eleifend magna, eget malesuada metus quam ac leo.`,
-  },
-  {
-    title: "Instantly Change Search Algorithms",
-    body: `Aenean convallis dolor sit amet leo vestibulum, id hendrerit nisi condimentum. Integer condimentum facilisis
-    eros ut mollis. Ut id lacus eu sem suscipit tincidunt ac nec neque. Orci varius natoque penatibus et magnis dis
-    parturient montes, nascetur ridiculus mus. Duis turpis purus, lacinia dictum elementum a, blandit et velit. Nullam
-    ultricies lacinia imperdiet. Suspendisse vehicula purus eros, et euismod neque congue fermentum. Quisque quis
-    ullamcorper dui, vitae iaculis nibh. Proin commodo, nisl sed placerat hendrerit, magna neque suscipit dui, ut
-    porttitor tortor arcu ut lectus. Fusce dignissim malesuada maximus. Praesent ut mi odio.`,
+    title: "Instant Results Following Visualization",
+    body: (
+      <>
+        <Typography variant="body2" sx={{ pb: 2 }}>
+          After the initial visualization of the search algorithm on the current grid, you can click
+          on the other <Bold>Search Algorithms</Bold> or <Bold>Heuristics</Bold> to instantly see
+          the results of the other search configurations on the grid.
+        </Typography>
+        <Typography variant="body2">
+          If you wish to see the animation of the visualization process of the new search
+          configuration on the current grid instead, you could do so by clicking on the{" "}
+          <Bold>Visualize</Bold> button again, which will clear the current path off the grid and
+          visualize the search algorithm.
+        </Typography>
+      </>
+    ),
+    gif: gridUpdate,
   },
   {
     title: "Extra Information and Statistics",
-    body: `Fusce quis est sit amet nunc blandit faucibus vel id justo. Curabitur accumsan euismod elit ut porta.
-    Vestibulum ex leo, fringilla sed rutrum eget, rhoncus at dolor. Etiam ornare, ligula a fermentum tincidunt, turpis
-    ante porttitor massa, sed suscipit nibh enim ac nunc. Nunc facilisis malesuada nulla, at pulvinar magna faucibus
-    eu. Cras ultricies elit purus, eu vulputate nisl tincidunt sed. Sed dapibus mollis posuere. Curabitur nec sem odio.
-    Maecenas in tortor vestibulum, dictum lacus id, tempus ante. Nulla elementum vitae ligula non lobortis. Nulla
-    ornare sagittis orci, vitae euismod lectus semper a. Curabitur non diam placerat orci iaculis interdum ac ut
-    mauris. Maecenas venenatis congue pellentesque. Cras efficitur pulvinar mattis. Cras non magna dictum, hendrerit
-    leo quis, fringilla libero. In ut augue magna.`,
+    body: (
+      <>
+        <Typography variant="body2" sx={{ pb: 2 }}>
+          Lastly, you can find an info section at the right or bottom part of the screen with
+          several extra pieces of information and statistics about the selected algorithm and also
+          the grid.
+        </Typography>
+        <Typography variant="body2" sx={{ pb: 2 }}>
+          At the top of the info section is a <Bold>Legend</Bold> with the meaning of each node
+          colour.
+        </Typography>
+        <Typography variant="body2" sx={{ pb: 2 }}>
+          Following that is a section tracking the statistics of the pathfinding process, including
+          the <Bold>Execution Time</Bold> of the algorithm, the number of <Bold>Nodes Visited</Bold>{" "}
+          by the algorithm, and also the final <Bold>Path Length</Bold> if one exists in the current
+          configuration.
+        </Typography>
+        <Typography variant="body2" sx={{ pb: 2 }}>
+          At the bottom is the <Bold>Algorithm Description</Bold> section, which contains the title
+          of the selected algorithm as well as a brief description of it.
+        </Typography>
+        <Typography variant="body2">
+          This concludes the short tutorial for using this web app and I hope you enjoy playing
+          around with it.
+        </Typography>
+      </>
+    ),
   },
 ];
 
@@ -102,17 +208,39 @@ const Tutorial = () => {
   const { tutorialOpen, pageNumber } = useSelector((store) => store.tutorial);
   const { title, body, gif } = content[pageNumber];
 
+  const handleKeyDown = (e) => {
+    switch (e.key) {
+      case "Escape":
+        dispatch(closeTutorial());
+        break;
+      case "ArrowLeft":
+        if (pageNumber > 0) dispatch(updatePageNumber(pageNumber - 1));
+        break;
+      case "ArrowRight":
+        if (pageNumber < content.length - 1) dispatch(updatePageNumber(pageNumber + 1));
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
-    <Dialog open={tutorialOpen}>
+    <Dialog
+      PaperProps={{ sx: { maxWidth: TUTORIAL_WIDTH } }}
+      open={tutorialOpen}
+      onKeyDown={handleKeyDown}
+    >
       <DialogTitle
         sx={{ backgroundColor: "background.paper", display: "flex", alignItems: "center" }}
       >
         <Typography variant="h6" sx={{ flex: 1 }}>
           {title}
         </Typography>
-        <IconButton onClick={() => dispatch(closeTutorial())}>
-          <Close />
-        </IconButton>
+        <Tooltip title="Close (ESC)">
+          <IconButton onClick={() => dispatch(closeTutorial())}>
+            <Close />
+          </IconButton>
+        </Tooltip>
       </DialogTitle>
       <DialogContent
         sx={{
@@ -124,41 +252,52 @@ const Tutorial = () => {
         {gif && (
           <Box
             component="img"
-            sx={{ ml: 2, border: "1px solid grey", float: "right" }}
+            sx={{
+              display: { xs: "none", sm: "block" },
+              ml: 2,
+              border: "1px solid grey",
+              float: "right",
+            }}
             alt=""
             src={gif}
           />
         )}
-        <Typography variant="body2">{body}</Typography>
+        {body}
       </DialogContent>
       <DialogActions sx={{ backgroundColor: "background.paper" }}>
         <Typography sx={{ pl: 2, flex: 1 }} variant="body2">
           Page {pageNumber + 1} of {content.length}
         </Typography>
-        <Button
-          sx={{ color: "text.primary" }}
-          variant="text"
-          disabled={pageNumber <= 0}
-          onClick={() => dispatch(updatePageNumber(pageNumber - 1))}
-        >
-          Previous
-        </Button>
+        <Tooltip title="Previous (◀︎)">
+          <Button
+            sx={{ color: "text.primary" }}
+            variant="text"
+            disabled={pageNumber <= 0}
+            onClick={() => dispatch(updatePageNumber(pageNumber - 1))}
+          >
+            Previous
+          </Button>
+        </Tooltip>
         {pageNumber < content.length - 1 ? (
-          <Button
-            sx={{ color: "text.primary" }}
-            variant="text"
-            onClick={() => dispatch(updatePageNumber(pageNumber + 1))}
-          >
-            Next
-          </Button>
+          <Tooltip title="Next (▶︎)">
+            <Button
+              sx={{ color: "text.primary" }}
+              variant="text"
+              onClick={() => dispatch(updatePageNumber(pageNumber + 1))}
+            >
+              Next
+            </Button>
+          </Tooltip>
         ) : (
-          <Button
-            sx={{ color: "text.primary" }}
-            variant="text"
-            onClick={() => dispatch(closeTutorial())}
-          >
-            Finish
-          </Button>
+          <Tooltip title="Finish (ESC)">
+            <Button
+              sx={{ color: "text.primary" }}
+              variant="text"
+              onClick={() => dispatch(closeTutorial())}
+            >
+              Finish
+            </Button>
+          </Tooltip>
         )}
       </DialogActions>
     </Dialog>

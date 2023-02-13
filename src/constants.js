@@ -1,6 +1,7 @@
 import Styles from "./styles/_variables.scss";
 
 // Component sizes
+export const TUTORIAL_WIDTH = 700;
 export const NAV_HEIGHT = 64;
 export const DRAWER_WIDTH = 240;
 export const SLIDER_WIDTH = 205;
