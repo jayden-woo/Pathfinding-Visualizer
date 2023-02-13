@@ -108,19 +108,24 @@ const Info = () => {
           >
             <CardContent>
               <Typography variant="h6">Legend</Typography>
-              <Grid sx={{ pt: 2 }} container item spacing={1}>
+              <Grid sx={{ pt: 1 }} container item spacing={1}>
                 {Object.values(NODE_STATE)
                   .filter((state) => state !== NODE_STATE.EMPTY)
                   .map((state) => (
-                    <Grid container item key={state} spacing={1} xs={4} sm={2} lg={4}>
-                      <Grid item>
-                        <div className={`node ${state}`} />
-                      </Grid>
-                      <Grid item>
-                        <Typography variant="body2">
-                          {state.charAt(0).toUpperCase() + state.slice(1)}
-                        </Typography>
-                      </Grid>
+                    <Grid
+                      container
+                      item
+                      key={state}
+                      spacing={0}
+                      xs={4}
+                      sm={2}
+                      lg={4}
+                      alignItems="center"
+                    >
+                      <div className={`node ${state}`} />
+                      <Typography sx={{ pl: 1 }} variant="body2">
+                        {state.charAt(0).toUpperCase() + state.slice(1)}
+                      </Typography>
                     </Grid>
                   ))}
               </Grid>
