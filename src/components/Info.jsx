@@ -182,7 +182,9 @@ const Info = () => {
           <Card sx={{ my: 1, ml: { xs: 2, lg: 0 }, mr: 2, backgroundColor: "background.paper" }}>
             <CardContent>
               <Typography variant="h6">{algoInfo.title}</Typography>
-              <Typography variant="body2">{algoInfo.description}</Typography>
+              <Typography variant="body2" sx={{ textAlign: "justify" }}>
+                {algoInfo.description}
+              </Typography>
             </CardContent>
           </Card>
         </Grid>

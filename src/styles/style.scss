@@ -33,13 +33,16 @@ body {
 
   &.queued {
     background-color: $node-queued-colour;
+    transition: background-color 100ms ease-in-out;
   }
 
   &.explored {
     background-color: $node-explored-colour;
+    transition: background-color 200ms ease-in-out;
   }
 
   &.path {
     background-color: $node-path-colour;
+    transition: background-color 220ms ease-in-out;
   }
 }

@@ -11,7 +11,7 @@ const darkTheme = createTheme({
     background: {
       default: "#0a1929",
       paper: "#001e3c",
-      tutorial: "#001b36",
+      tutorial: "#001830",
     },
     divider: "#132f4c",
     action: {
