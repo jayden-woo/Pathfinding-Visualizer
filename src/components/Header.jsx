@@ -11,7 +11,7 @@ import { resetPathFinder, runPathFinder } from "../features/pathfindingSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const { appState, animating } = useSelector((store) => store.app);
+  const { appState, isAnimating, isModifiable } = useSelector((store) => store.app);
   const { animationSkip, animationDelay, algoType } = useSelector((store) => store.menu);
   const { grid, start, target } = useSelector((store) => store.grid);
   const { visited, path, final } = useSelector((store) => store.pathfinding);
@@ -43,6 +43,8 @@ const Header = () => {
 
   const handleVisualizeClick = () => {
     if (algoType === ALGORITHM_TYPES.PATHFINDING) {
+      // Reset the grid to remove all the paths first
+      dispatch(resetGrid(false));
       // Call the pathfinder to start the pathfinding and then the visualization process
       dispatch(runPathFinder({ start, target, grid }));
       // Update the app state to indicate that the visualization has started
@@ -67,8 +69,8 @@ const Header = () => {
   };
 
   useEffect(() => {
-    // Resume the animation when the app state is updated to visualizing or generating
-    if (appState === APP_STATE.VISUALIZING || appState === APP_STATE.GENERATING) visualize();
+    // Resume the animation when the app state is updated to an animating state
+    if (isAnimating) visualize();
   }, [appState]);
 
   useEffect(() => {
@@ -170,7 +172,7 @@ const Header = () => {
           sx={{ color: "text.primary" }}
           variant="text"
           disableElevation
-          disabled={appState !== APP_STATE.INTERACTIVE}
+          disabled={!isModifiable}
           onClick={() => handleVisualizeClick()}
         >
           Visualize
@@ -179,7 +181,7 @@ const Header = () => {
           sx={{ color: "text.primary" }}
           variant="text"
           disableElevation
-          disabled={animating}
+          disabled={isAnimating}
           onClick={() => handleClearClick(true)}
         >
           Clear All
@@ -188,7 +190,7 @@ const Header = () => {
           sx={{ color: "text.primary" }}
           variant="text"
           disableElevation
-          disabled={animating}
+          disabled={isAnimating}
           onClick={() => handleClearClick(false)}
         >
           Clear Path
@@ -215,7 +217,7 @@ const Header = () => {
             sx={{ color: "text.primary" }}
             variant="text"
             disableElevation
-            disabled={!animating}
+            disabled={!isAnimating}
             onClick={() => dispatch(updateAppState(APP_STATE.PAUSED))}
           >
             Pause

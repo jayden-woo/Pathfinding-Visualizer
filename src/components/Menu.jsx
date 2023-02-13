@@ -36,11 +36,9 @@ import { setDiagonalTraversal, setHeuristic, setPathAlgorithm } from "../feature
 
 const Menu = () => {
   const dispatch = useDispatch();
-  const { appState, animating } = useSelector((store) => store.app);
+  const { appState, isModifiable } = useSelector((store) => store.app);
   const { selectedAlgo, algoType } = useSelector((store) => store.menu);
   const { algorithm, heuristic, diagonal } = useSelector((store) => store.pathfinding);
-  // Check for states when changes in the algorithms and heuristics are not allowed
-  const disableChanges = animating || appState === APP_STATE.PAUSED;
 
   const handleAlgoClick = (algo) => {
     switch (algo) {
@@ -110,7 +108,7 @@ const Menu = () => {
         <FormControlLabel
           control={
             <Switch
-              disabled={disableChanges}
+              disabled={!isModifiable}
               onChange={(e) => dispatch(setDiagonalTraversal(e.target.checked))}
             />
           }
@@ -121,7 +119,7 @@ const Menu = () => {
         <FormControlLabel
           control={
             <Switch
-              disabled={disableChanges}
+              disabled={!isModifiable}
               onChange={(e) => dispatch(updateAnimationSkip(e.target.checked))}
             />
           }
@@ -157,7 +155,7 @@ const Menu = () => {
               border: "none",
               textAlign: "start",
             }}
-            disabled={disableChanges}
+            disabled={!isModifiable}
             onClick={() =>
               algoType !== ALGORITHM_TYPES.PATHFINDING &&
               handleAlgoClick(PATH_ALGORITHMS.DEPTH_FIRST_SEARCH)
@@ -170,14 +168,14 @@ const Menu = () => {
         <Collapse in={algoType === ALGORITHM_TYPES.PATHFINDING} timeout="auto" unmountOnExit>
           <ListItemButton
             selected={selectedAlgo === PATH_ALGORITHMS.DEPTH_FIRST_SEARCH}
-            disabled={disableChanges}
+            disabled={!isModifiable}
             onClick={() => handleAlgoClick(PATH_ALGORITHMS.DEPTH_FIRST_SEARCH)}
           >
             <ListItemText primary="Depth-First Search" />
           </ListItemButton>
           <ListItemButton
             selected={selectedAlgo === PATH_ALGORITHMS.BREADTH_FIRST_SEARCH}
-            disabled={disableChanges}
+            disabled={!isModifiable}
             onClick={() => handleAlgoClick(PATH_ALGORITHMS.BREADTH_FIRST_SEARCH)}
           >
             <ListItemText primary="Breadth-First Search" />
@@ -185,7 +183,7 @@ const Menu = () => {
           <ListItemButton
             sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}
             selected={selectedAlgo === PATH_ALGORITHMS.GREEDY_BEST_FIRST_SEARCH}
-            disabled={disableChanges}
+            disabled={!isModifiable}
             onClick={() => handleAlgoClick(PATH_ALGORITHMS.GREEDY_BEST_FIRST_SEARCH)}
           >
             <ListItemText primary="Greedy Best-First Search" />
@@ -200,7 +198,7 @@ const Menu = () => {
           <ListItemButton
             sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}
             selected={selectedAlgo === PATH_ALGORITHMS.A_STAR_ALGORITHM}
-            disabled={disableChanges}
+            disabled={!isModifiable}
             onClick={() => handleAlgoClick(PATH_ALGORITHMS.A_STAR_ALGORITHM)}
           >
             <ListItemText primary="A* Algorithm" />
@@ -214,7 +212,7 @@ const Menu = () => {
           </ListItemButton>
           <ListItemButton
             selected={selectedAlgo === PATH_ALGORITHMS.DIJKSTRA_ALGORITHM}
-            disabled={disableChanges}
+            disabled={!isModifiable}
             onClick={() => handleAlgoClick(PATH_ALGORITHMS.DIJKSTRA_ALGORITHM)}
           >
             <ListItemText primary="Dijkstra's Algorithm" />
@@ -234,7 +232,7 @@ const Menu = () => {
               border: "none",
               textAlign: "start",
             }}
-            disabled={disableChanges}
+            disabled={!isModifiable}
             onClick={() =>
               algoType !== ALGORITHM_TYPES.GENERATION &&
               handleAlgoClick(MAZE_ALGORITHMS.BASIC_RANDOM)
@@ -247,35 +245,35 @@ const Menu = () => {
         <Collapse in={algoType === ALGORITHM_TYPES.GENERATION} timeout="auto" unmountOnExit>
           <ListItemButton
             selected={selectedAlgo === MAZE_ALGORITHMS.BASIC_RANDOM}
-            disabled={disableChanges}
+            disabled={!isModifiable}
             onClick={() => handleAlgoClick(MAZE_ALGORITHMS.BASIC_RANDOM)}
           >
             <ListItemText primary="Basic Random" />
           </ListItemButton>
           <ListItemButton
             selected={selectedAlgo === MAZE_ALGORITHMS.RECURSIVE_BACKTRACKING}
-            disabled={disableChanges}
+            disabled={!isModifiable}
             onClick={() => handleAlgoClick(MAZE_ALGORITHMS.RECURSIVE_BACKTRACKING)}
           >
             <ListItemText primary="Recursive Backtracking" />
           </ListItemButton>
           <ListItemButton
             selected={selectedAlgo === MAZE_ALGORITHMS.RECURSIVE_DIVISION}
-            disabled={disableChanges}
+            disabled={!isModifiable}
             onClick={() => handleAlgoClick(MAZE_ALGORITHMS.RECURSIVE_DIVISION)}
           >
             <ListItemText primary="Recursive Division" />
           </ListItemButton>
           <ListItemButton
             selected={selectedAlgo === MAZE_ALGORITHMS.KRUSKAL_ALGORITHM}
-            disabled={disableChanges}
+            disabled={!isModifiable}
             onClick={() => handleAlgoClick(MAZE_ALGORITHMS.KRUSKAL_ALGORITHM)}
           >
             <ListItemText primary="Kruskal's Algorithm" />
           </ListItemButton>
           <ListItemButton
             selected={selectedAlgo === MAZE_ALGORITHMS.PRIM_ALGORITHM}
-            disabled={disableChanges}
+            disabled={!isModifiable}
             onClick={() => handleAlgoClick(MAZE_ALGORITHMS.PRIM_ALGORITHM)}
           >
             <ListItemText primary="Prim's Algorithm" />
