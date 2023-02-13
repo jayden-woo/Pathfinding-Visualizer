@@ -42,6 +42,13 @@
   - [x] [Recursive Division Method](https://weblog.jamisbuck.org/2011/1/12/maze-generation-recursive-division-algorithm)
   - [x] [Kruskal\'s Algorithm](https://weblog.jamisbuck.org/2011/1/3/maze-generation-kruskal-s-algorithm)
   - [x] [Prim\'s Algorithm](https://weblog.jamisbuck.org/2011/1/10/maze-generation-prim-s-algorithm.html)
+  - [ ] Aldous-Border Algorithm
+  - [ ] Growing Tree Algorithm
+  - [ ] Hunt-and-Kill Algorithm
+  - [ ] Wilson's Algorithm
+  - [ ] Eller's Algorithm
+  - [ ] Sidewinder Algorithm
+  - [ ] Binary Tree Algorithm
 
 - [x] Other Features
 
