@@ -10,7 +10,7 @@
 
 [Check out the Algorithm Visualizer live in action here.](https://jayden-woo.github.io/Pathfinding-Visualizer/)
 
-<video src="demo.mov" controls />
+<video src="https://user-images.githubusercontent.com/80225713/218802005-2437a1cd-9815-4298-95c7-f72f53cfd93c.mov"></video>
 
 ## Features
 
