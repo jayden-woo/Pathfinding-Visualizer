@@ -14,16 +14,12 @@ const mazeSlice = createSlice({
   reducers: {
     setMazeAlgorithm: (state, action) => {
       state.algorithm = action.payload;
-      // TO-DELETE:
-      console.log(`Chosen "${state.algorithm}" for the Maze Generation Algorithm!`);
     },
     resetMazeGenerator: (state) => {
       state.order = [];
       state.maze = [];
     },
     runMazeGenerator: (state, action) => {
-      // TO-DELETE:
-      console.log(`Running "${state.algorithm}" Maze Generation Algorithm...`);
       const { start, target, grid } = action.payload;
       const { order, final } = MazeGenerator[state.algorithm](
         start,
@@ -31,8 +27,6 @@ const mazeSlice = createSlice({
         grid.length,
         grid[0].length
       );
-      // TO-DELETE:
-      console.log(order, final);
       state.order = order;
       state.maze = final;
     },

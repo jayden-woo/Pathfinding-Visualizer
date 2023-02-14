@@ -134,8 +134,6 @@ const Info = () => {
         <Grid container item columns={{ xs: 10, sm: 10, md: 10, lg: 12 }} xs={12}>
           {!mobile && (
             <Grid item sm={4} lg={12}>
-              {/* TO-DO: Fix execution time tracking for complicated algorithms or remove it completely */}
-              {/* TO-DO: Fix screen moving for execution time longer than two digits */}
               <Card
                 sx={{
                   my: 1,

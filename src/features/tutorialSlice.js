@@ -11,13 +11,9 @@ const tutorialSlice = createSlice({
   reducers: {
     closeTutorial: (state) => {
       state.tutorialOpen = false;
-      // TO-DELETE:
-      console.log(state.tutorialOpen ? "Tutorial opened!" : "Tutorial closed!");
     },
     updatePageNumber: (state, action) => {
       state.pageNumber = action.payload;
-      // TO-DELETE:
-      console.log("Page number changed to", state.pageNumber);
     },
   },
 });

@@ -99,8 +99,6 @@ const gridSlice = createSlice({
         rows,
         cols,
       };
-      // TO-DELETE:
-      console.log("Grid Dimension:", state.dimension);
       state.start = {
         x: 1,
         y: 1,

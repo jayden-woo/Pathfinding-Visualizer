@@ -22,18 +22,12 @@ const pathfindingSlice = createSlice({
   reducers: {
     setPathAlgorithm: (state, action) => {
       state.algorithm = action.payload;
-      // TO-DELETE:
-      console.log(`Chosen "${state.algorithm}" for the Pathfinding Algorithm!`);
     },
     setHeuristic: (state, action) => {
       state.heuristic = action.payload;
-      // TO-DELETE:
-      console.log(`Chosen "${state.heuristic}" for the Pathfinding Heuristic!`);
     },
     setDiagonalTraversal: (state, action) => {
       state.diagonal = action.payload;
-      // TO-DELETE:
-      console.log(`${state.diagonal ? "Allowed" : "Disabled"} diagonal path traversal!`);
     },
     resetPathFinder: (state) => {
       state.visited = [];
@@ -42,8 +36,6 @@ const pathfindingSlice = createSlice({
       state.time = 0;
     },
     runPathFinder: (state, action) => {
-      // TO-DELETE:
-      console.log(`Running "${state.algorithm}" Pathfinding Algorithm...`);
       if (!state.algorithm) return;
       const { start, target, grid } = action.payload;
       const startTime = performance.now();

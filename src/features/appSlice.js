@@ -32,8 +32,6 @@ const appSlice = createSlice({
         default:
           break;
       }
-      // TO-DELETE:
-      console.log(`App state updated to "${state.appState}"!`);
     },
   },
 });

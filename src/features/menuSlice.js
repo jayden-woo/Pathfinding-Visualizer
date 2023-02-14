@@ -14,26 +14,18 @@ const menuSlice = createSlice({
   initialState,
   reducers: {
     updateAnimationSkip: (state, action) => {
-      // TO-DELETE:
-      console.log(`Animation ${state.payload ? "skipped" : "resumed"}!`);
       state.animationSkip = action.payload;
     },
     updateAnimationDelay: (state, action) => {
-      // TO-DELETE:
-      console.log("Animation Delay updated to", action.payload);
       state.animationDelay = action.payload;
     },
     switchAlgo: (state, action) => {
       const { algo, type } = action.payload;
-      // TO-DELETE:
-      console.log("Menu Selected Algo State changed to", algo);
       state.selectedAlgo = algo;
       state.algoType = type;
     },
     toggleDrawer: (state, action) => {
       state.mobileDrawerOpen = action.payload || !state.mobileDrawerOpen;
-      // TO-DELETE:
-      console.log(state.mobileDrawerOpen ? "Mobile menu opened!" : "Mobile menu closed!");
     },
   },
 });
