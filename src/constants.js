@@ -6,6 +6,9 @@ export const NAV_HEIGHT = 64;
 export const DRAWER_WIDTH = 240;
 export const SLIDER_WIDTH = 205;
 
+// Icon size
+export const GITHUB_SIZE = 30;
+
 // Grid sizes
 export const GRID_SIZE = Object.freeze({
   MIN_WIDTH: 380,

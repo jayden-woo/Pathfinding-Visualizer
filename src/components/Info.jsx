@@ -37,12 +37,11 @@ const getAlgorithmInfo = {
   },
   [PATH_ALGORITHMS.DIJKSTRA_ALGORITHM]: {
     title: "Dijkstra's Algorithm",
-    description: `Dijkstra's algorithm is an algorithm for finding the shortest paths between nodes in a graph, which
-    may represent, for example, road networks. Dijkstra's original algorithm found the shortest path between two given
-    nodes, but a more common variant fixes a single node as the "source" node and finds shortest paths from the source
-    to all other nodes in the graph, producing a shortest-path tree. It can also be used for finding the shortest paths
-    from a single node to a single destination node by stopping the algorithm once the shortest path to the destination
-    node has been determined.`,
+    description: `Dijkstra's algorithm is an algorithm for finding the shortest paths between nodes in a graph.
+    Dijkstra's original algorithm found the shortest path between two given nodes, but a more common variant fixes a
+    single node as the "source" node and finds shortest paths from the source to all other nodes in the graph,
+    producing a shortest-path tree. It can also be used for finding the shortest paths from a single node to a single
+    destination node by stopping the algorithm once the shortest path to the destination node has been determined.`,
   },
   [MAZE_ALGORITHMS.BASIC_RANDOM]: {
     title: "Basic Random Method",

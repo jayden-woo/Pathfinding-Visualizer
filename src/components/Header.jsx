@@ -1,8 +1,9 @@
+import { GitHub } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { AppBar, Button, IconButton, Link, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Button, IconButton, Link, Toolbar, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ALGORITHM_TYPES, APP_STATE, NODE_STATE } from "../constants";
+import { ALGORITHM_TYPES, APP_STATE, GITHUB_SIZE, NODE_STATE } from "../constants";
 import { updateAppState } from "../features/appSlice";
 import { fillGrid, replaceGrid, resetGrid, updateNodeState } from "../features/gridSlice";
 import { resetMazeGenerator, runMazeGenerator } from "../features/mazeSlice";
@@ -223,6 +224,15 @@ const Header = () => {
             Pause
           </Button>
         )}
+        <Box sx={{ flex: 1 }} />
+        <IconButton
+          sx={{ display: { xs: "none", sm: "flex" }, mr: -1 }}
+          onClick={() =>
+            window.open("https://github.com/jayden-woo/Pathfinding-Visualizer", "_blank")
+          }
+        >
+          <GitHub sx={{ fontSize: GITHUB_SIZE }} />
+        </IconButton>
       </Toolbar>
     </AppBar>
   );

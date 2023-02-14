@@ -66,7 +66,10 @@
   - [ ] Hosting the site using GitHub Pages
   - [x] Add help page or description at the start on navigating the user interface
     - [x] Use gif for further clarification made using [ezgif](https://ezgif.com)
+  - [x] Add github logo and link to repository in web app.
   - [ ] Add demo video in README.md
+  - [ ] Add link to web app in README.md
+  - [ ] Add LICENSE.md
 
 ## Technology Stacks
 
