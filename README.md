@@ -15,6 +15,7 @@
 ## Features
 
 - [x] 2D Square Grid
+
   - [x] Draw own wall nodes with mouse
   - [x] Drag the source and target nodes around
   - [x] Responsive Grid
@@ -26,6 +27,7 @@
   - [ ] Add lines to clearly indicate path taken
 
 - [x] [Search Algorithms](https://en.wikipedia.org/wiki/Pathfinding)
+
   - [x] Depth-First Search
   - [x] Breadth-First Search
   - [x] Greedy Best-First Search
@@ -38,6 +40,7 @@
   - [ ] Jump Point Search
 
 - [x] [Maze Generation Algorithms](https://en.wikipedia.org/wiki/Maze_generation_algorithm)
+
   - [x] Basic Random Method
   - [x] [Recursive Backtracking Method](https://weblog.jamisbuck.org/2010/12/27/maze-generation-recursive-backtracking)
   - [x] [Recursive Division Method](https://weblog.jamisbuck.org/2011/1/12/maze-generation-recursive-division-algorithm)
@@ -52,6 +55,7 @@
   - [ ] Binary Tree Algorithm
 
 - [x] Other Features
+
   - [x] Restrict user inputs during different phase to avoid unintended interactions
   - [x] Pause and resume the visualization
   - [x] Skip animation entirely to only view the end results
@@ -61,14 +65,14 @@
   - [x] Description for each algorithm including both search and maze generation
   - [x] Responsive interface (Breakpoints tested at width of 425px, 758px, 1024px, 1440px, 2560px)
 
-- [x] Project Demonstration
+- [x] Project Demonstration and Setup
   - [x] Hosting the site using GitHub Pages
   - [x] Add help page or description at the start on navigating the user interface
     - [x] Use gif for further clarification made using [ezgif](https://ezgif.com)
   - [x] Add github logo and link to repository in web app.
   - [x] Add demo video in README.md
   - [x] Add link to web app in README.md
-  - [ ] Add LICENSE.md
+  - [x] Add LICENSE.md
 
 ## Technology Stacks
 
@@ -128,3 +132,7 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## License
+
+See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
