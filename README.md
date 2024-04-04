@@ -1,14 +1,47 @@
-# Pathfinding Visualizer
+<h1 align="center">
+  <br>
+  <a href="https://jayden-woo.github.io/pathfinding-visualizer/"><img src="https://raw.githubusercontent.com/jayden-woo/pathfinding-visualizer/master/public/logo512.png" alt="logo" title="Pathfinding Visualizer" width="200"></a>
+  <br>
+  Pathfinding Visualizer
+  <br>
+</h1>
+
+<h4 align="center">A pathfinding and maze generation algorithms visualizer built using <a href="https://react.dev/" target="_blank">React</a>.</h4>
+
+<p align="center">
+  <a href="https://nodejs.org/en" target="_blank"><img alt="NodeJS" src="https://img.shields.io/badge/NodeJS-13-gray?style=flat&logo=node.js&logoColor=white&labelColor=6DA55F"></a>
+  <a href="https://react.dev/" target="_blank"><img alt="React" src="https://img.shields.io/badge/React-%2320232a.svg?style=flat&logo=react&logoColor=%2361DAFB"></a>
+  <a href="https://redux.js.org/" target="_blank"><img alt="Redux" src="https://img.shields.io/badge/Redux-%23593d88.svg?style=flat&logo=redux&logoColor=white"></a>
+  <a href="https://mui.com/" target="_blank"><img alt="MUI" src="https://img.shields.io/badge/MUI-%230081CB.svg?style=flat&logo=mui&logoColor=white"></a>
+  <a href="https://pages.github.com/" target="_blank"><img alt="Github Pages" src="https://img.shields.io/badge/Github%20Pages-121013?style=flat&logo=github&logoColor=white"></a>
+</p>
+
+<p align="center">
+  <a href="#introduction">Introduction</a> •
+  <a href="#demo">Demo</a> •
+  <a href="#features">Features</a> •
+  <a href="#technology-stacks">Tech Stacks</a> •
+  <a href="#installation">Installation</a> •
+  <a href="#building-for-production">Production</a> •
+  <a href="#license">License</a>
+</p>
+
+<div align="center">
+  <img alt="Screenshot" src="https://raw.githubusercontent.com/jayden-woo/pathfinding-visualizer/master/screenshot.png">
+  :construction: <sub>Work in Progress (WIP)</sub>
+</div>
+
+## Introduction
 
 - This project is inspired by [@DevonCrawford](https://github.com/DevonCrawford) and [@clementmihailescu](https://github.com/clementmihailescu) after coming across their YouTube videos ([Devon Crawford's video](https://www.youtube.com/watch?v=1-YPj5Vt0oQ) and [Clément Mihailescu's video](https://www.youtube.com/watch?v=n4t_-NjY_Sg)) on pathfinding visualization.
 - The idea of visually seeing the algorithms execute makes it easier for me to understand and learn how each one of them works in detail and it's always amazing and satisfying to see them work in action.
 - This is my version and attempt at creating a pathfinding visualization tool myself to revise on the pathfinding algorithms which were introduced in my university during my bachelor course and a chance to study some new maze generation algorithms as well.
-- This project isn't perfect and is still a work-in-progress so feel free to give any feedback on how it can be improved on and I'll continue to put in more work during my free time.
+- This project isn't perfect by any means and is still a work-in-progress so feel free to give any feedback on how it can be improved on and I'll continue to put in more work during my free time.
 - This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
 ## Demo
 
-[Check out the Algorithm Visualizer live in action here.](https://jayden-woo.github.io/Pathfinding-Visualizer/)
+[Check out the Algorithm Visualizer live in action here.](https://jayden-woo.github.io/pathfinding-visualizer/)
 
 <video src="https://user-images.githubusercontent.com/80225713/218802005-2437a1cd-9815-4298-95c7-f72f53cfd93c.mov"></video>
 
@@ -84,48 +117,57 @@
 - ESLint for linting and detecting early bugs
 - Prettier for enforcing a consistent style in the code base
 
-## Installation & Available Scripts
+## Installation
 
-Download or clone the repository to your local machine.
+To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer.
 
-In the project directory, you can run:
+From your command line:
 
-### `npm install`
+1. Install and use the correct version of Node (^13.14.0) using [NVM](https://github.com/nvm-sh/nvm)
 
-Installs the dependencies for the project to run the other scripts locally.
+   ```sh
+   nvm install 13
+   ```
 
-### `npm start`
+2. Clone this repository
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+   ```sh
+   git clone https://github.com/jayden-woo/pathfinding-visualizer
+   ```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+3. Navigate into the project directory
 
-### `npm test`
+   ```sh
+   cd pathfinding-visualizer
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. Install dependencies
 
-### `npm run build`
+   ```sh
+   npm install
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+5. Start the development server
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   ```sh
+   npm start
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+6. Open [http://localhost:3000](http://localhost:3000) to view it in your browser
 
-### `npm run eject`
+## Building for Production
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Generate a full static production build
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```sh
+   npm run build
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. Preview the site as it will appear once deployed using [serve](https://github.com/vercel/serve)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   ```sh
+   npx serve -s build
+   ```
 
 ## Learn More
 
