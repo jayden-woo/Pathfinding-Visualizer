@@ -228,7 +228,7 @@ const Header = () => {
         <IconButton
           sx={{ display: { xs: "none", sm: "flex" }, mr: -1 }}
           onClick={() =>
-            window.open("https://github.com/jayden-woo/Pathfinding-Visualizer", "_blank")
+            window.open("https://github.com/jayden-woo/pathfinding-visualizer", "_blank")
           }
         >
           <GitHub sx={{ fontSize: GITHUB_SIZE }} />

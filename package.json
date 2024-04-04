@@ -3,6 +3,10 @@
   "name": "pathfinding-visualizer",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "^13.14.0"
+  },
+  "license": "MIT",
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
